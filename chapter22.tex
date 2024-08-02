@@ -1,18 +1,18 @@
-\chapter{Combinatorics}
+\chapter{Combinatória}
 
-\index{combinatorics}
+\index{combinatória}
 
-\key{Combinatorics} studies methods for counting
-combinations of objects.
-Usually, the goal is to find a way to
-count the combinations efficiently
-without generating each combination separately.
+A \key{combinatória} estuda métodos para contar
+combinações de objetos.
+Normalmente, o objetivo é encontrar uma maneira de
+contar as combinações de forma eficiente,
+sem gerar cada combinação separadamente.
 
-As an example, consider the problem
-of counting the number of ways to
-represent an integer $n$ as a sum of positive integers.
-For example, there are 8 representations
-for $4$:
+Como exemplo, considere o problema
+de contar o número de maneiras de
+representar um inteiro $n$ como uma soma de inteiros positivos.
+Por exemplo, existem 8 representações
+para $4$:
 \begin{multicols}{2}
 \begin{itemize}
 \item $1+1+1+1$
@@ -26,30 +26,30 @@ for $4$:
 \end{itemize}
 \end{multicols}
 
-A combinatorial problem can often be solved
-using a recursive function.
-In this problem, we can define a function $f(n)$
-that gives the number of representations for $n$.
-For example, $f(4)=8$ according to the above example.
-The values of the function
-can be recursively calculated as follows:
+Um problema combinatório pode frequentemente ser resolvido
+usando uma função recursiva.
+Nesse problema, podemos definir uma função $f(n)$
+que fornece o número de representações para $n$.
+Por exemplo, $f(4)=8$, de acordo com o exemplo acima.
+Os valores da função
+podem ser calculados recursivamente da seguinte forma:
 \begin{equation*}
     f(n) = \begin{cases}
                1               & n = 0\\
                f(0)+f(1)+\cdots+f(n-1) & n > 0\\
            \end{cases}
 \end{equation*}
-The base case is $f(0)=1$,
-because the empty sum represents the number 0.
-Then, if $n>0$, we consider all ways to
-choose the first number of the sum.
-If the first number is $k$,
-there are $f(n-k)$ representations
-for the remaining part of the sum.
-Thus, we calculate the sum of all values
-of the form $f(n-k)$ where $k<n$.
+O caso base é $f(0)=1$,
+porque a soma vazia representa o número 0.
+Então, se $n>0$, consideramos todas as maneiras de
+escolher o primeiro número da soma.
+Se o primeiro número for $k$,
+existem $f(n-k)$ representações
+para a parte restante da soma.
+Assim, calculamos a soma de todos os valores
+da forma $f(n-k)$, onde $k<n$.
 
-The first values for the function are:
+Os primeiros valores para a função são:
 \[
 \begin{array}{lcl}
 f(0) & = & 1 \\
@@ -60,86 +60,86 @@ f(4) & = & 8 \\
 \end{array}
 \]
 
-Sometimes, a recursive formula can be replaced
-with a closed-form formula.
-In this problem,
+Às vezes, uma fórmula recursiva pode ser substituída
+por uma fórmula fechada.
+Nesse problema,
 \[
 f(n)=2^{n-1},
 \]
-which is based on the fact that there are $n-1$
-possible positions for +-signs in the sum
-and we can choose any subset of them.
+que se baseia no fato de que existem $n-1$
+possíveis posições para os sinais de +- na soma,
+e podemos escolher qualquer subconjunto deles.
 
-\section{Binomial coefficients}
+\section{Coeficientes Binomiais}
 
-\index{binomial coefficient}
+\index{coeficiente binomial}
 
-The \key{binomial coefficient} ${n \choose k}$
-equals the number of ways we can choose a subset
-of $k$ elements from a set of $n$ elements.
-For example, ${5 \choose 3}=10$,
-because the set $\{1,2,3,4,5\}$
-has 10 subsets of 3 elements:
+O \key{coeficiente binomial} ${n \choose k}$
+é igual ao número de maneiras pelas quais podemos escolher um subconjunto 
+de $k$ elementos de um conjunto de $n$ elementos.
+Por exemplo, ${5 \choose 3}=10$,
+porque o conjunto $\{1,2,3,4,5\}$
+possui 10 subconjuntos de 3 elementos: 
 \[ \{1,2,3\}, \{1,2,4\}, \{1,2,5\}, \{1,3,4\}, \{1,3,5\}, 
 \{1,4,5\}, \{2,3,4\}, \{2,3,5\}, \{2,4,5\}, \{3,4,5\} \]
 
-\subsubsection{Formula 1}
+\subsubsection{Fórmula 1}
 
-Binomial coefficients can be
-recursively calculated as follows:
+Os coeficientes binomiais podem ser
+calculados recursivamente da seguinte forma:
 
 \[
 {n \choose k}  =  {n-1 \choose k-1} + {n-1 \choose k}
 \]
 
-The idea is to fix an element $x$ in the set.
-If $x$ is included in the subset,
-we have to choose $k-1$
-elements from $n-1$ elements,
-and if $x$ is not included in the subset,
-we have to choose $k$ elements from $n-1$ elements.
+A ideia é fixar um elemento $x$ no conjunto.
+Se $x$ está incluído no subconjunto,
+temos que escolher $k-1$
+elementos de $n-1$ elementos,
+e, se $x$ não estiver incluído no subconjunto,
+temos que escolher $k$ elementos de $n-1$ elementos.
 
-The base cases for the recursion are
+Os casos base para a recursão são
 \[
 {n \choose 0}  =  {n \choose n} = 1,
 \]
-because there is always exactly
-one way to construct an empty subset
-and a subset that contains all the elements.
+porque há sempre exatamente
+uma maneira de construir um subconjunto vazio
+e um subconjunto que contém todos os elementos.
 
-\subsubsection{Formula 2}
+\subsubsection{Fórmula 2}
 
-Another way to calculate binomial coefficients is as follows:
+Outra maneira de calcular os coeficientes binomiais é a seguinte:
 \[
 {n \choose k}  =  \frac{n!}{k!(n-k)!}.
 \]
 
-There are $n!$ permutations of $n$ elements.
-We go through all permutations and always
-include the first $k$ elements of the permutation
-in the subset.
-Since the order of the elements in the subset
-and outside the subset does not matter,
-the result is divided by $k!$ and $(n-k)!$
+Existem $n!$ permutações de $n$ elementos.
+Percorremos todas as permutações e sempre
+incluímos os primeiros $k$ elementos da permutação
+no subconjunto.
+Como a ordem dos elementos dentro e fora do subconjunto
+não importa,
+o resultado é dividido por $k!$ e $(n-k)!$
 
-\subsubsection{Properties}
+\subsubsection{Propriedades}
 
-For binomial coefficients,
+Para coeficientes binomiais,
 \[
 {n \choose k}  =  {n \choose n-k},
 \]
-because we actually divide a set of $n$ elements into
-two subsets: the first contains $k$ elements
-and the second contains $n-k$ elements.
+porque, na verdade, dividimos um conjunto de $n$ elementos em
+dois subconjuntos: o primeiro contém $k$ elementos,
+e o segundo contém $n-k$ elementos.
 
-The sum of binomial coefficients is
+A soma dos coeficientes binomiais é:
 \[
 {n \choose 0}+{n \choose 1}+{n \choose 2}+\ldots+{n \choose n}=2^n.
 \]
 
-The reason for the name ''binomial coefficient''
-can be seen when the binomial $(a+b)$ is raised to
-the $n$th power:
+A razão para o nome "coeficiente binomial"
+pode ser vista quando o binômio $(a+b)$ é elevado à
+$n$-ésima potência:
 
 \[ (a+b)^n =
 {n \choose 0} a^n b^0 + 
@@ -148,12 +148,12 @@ the $n$th power:
 {n \choose n-1} a^1 b^{n-1} +
 {n \choose n} a^0 b^n. \]
 
-\index{Pascal's triangle}
+\index{Triângulo de Pascal}
 
-Binomial coefficients also appear in
-\key{Pascal's triangle}
-where each value equals the sum of two
-above values:
+Os coeficientes binomiais também aparecem no
+\key{Triângulo de Pascal},
+onde cada valor é igual à soma dos dois
+valores acima:
 \begin{center}
 \begin{tikzpicture}{0.9}
 \node at (0,0) {1};
@@ -179,17 +179,17 @@ above values:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Boxes and balls}
+\subsubsection{Caixas e Bolas}
 
-''Boxes and balls'' is a useful model,
-where we count the ways to
-place $k$ balls in $n$ boxes.
-Let us consider three scenarios:
+"Caixas e bolas" é um modelo útil,
+no qual contamos as maneiras de
+colocar $k$ bolas em $n$ caixas.
+Vamos considerar três cenários:
 
-\textit{Scenario 1}: Each box can contain
-at most one ball.
-For example, when $n=5$ and $k=2$,
-there are 10 solutions:
+\textit{Cenário 1}: Cada caixa pode conter
+no máximo uma bola.
+Por exemplo, quando $n=5$ e $k=2$,
+existem 10 soluções:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
@@ -222,12 +222,12 @@ there are 10 solutions:
 \end{tikzpicture}
 \end{center}
 
-In this scenario, the answer is directly the
-binomial coefficient ${n \choose k}$.
+Neste cenário, a resposta é diretamente o
+coeficiente binomial ${n \choose k}$.
 
-\textit{Scenario 2}: A box can contain multiple balls.
-For example, when $n=5$ and $k=2$,
-there are 15 solutions:
+\textit{Cenário 2}: Uma caixa pode conter várias bolas.
+Por exemplo, quando $n=5$ e $k=2$,
+existem 15 soluções:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
@@ -265,29 +265,29 @@ there are 15 solutions:
 \end{tikzpicture}
 \end{center}
 
-The process of placing the balls in the boxes
-can be represented as a string
-that consists of symbols
-''o'' and ''$\rightarrow$''.
-Initially, assume that we are standing at the leftmost box.
-The symbol ''o'' means that we place a ball
-in the current box, and the symbol
-''$\rightarrow$'' means that we move to
-the next box to the right.
+O processo de colocação das bolas nas caixas
+pode ser representado como uma string
+que consiste nos símbolos
+"o" e "$\rightarrow$".
+Inicialmente, suponha que estamos na caixa mais à esquerda.
+O símbolo "o" significa que colocamos uma bola
+na caixa atual, e o símbolo
+"$\rightarrow$" significa que nos movemos para
+a próxima caixa à direita.
 
-Using this notation, each solution is a string
-that contains $k$ times the symbol ''o'' and
-$n-1$ times the symbol ''$\rightarrow$''.
-For example, the upper-right solution
-in the above picture corresponds to the string
-''$\rightarrow$ $\rightarrow$ o $\rightarrow$ o $\rightarrow$''.
-Thus, the number of solutions is
+Usando essa notação, cada solução é uma string
+que contém $k$ vezes o símbolo "o" e
+$n-1$ vezes o símbolo "$\rightarrow$".
+Por exemplo, a solução superior direita
+na figura acima corresponde à string
+"$\rightarrow$ $\rightarrow$ o $\rightarrow$ o $\rightarrow$".
+Assim, o número de soluções é
 ${k+n-1 \choose k}$.
 
-\textit{Scenario 3}: Each box may contain at most one ball,
-and in addition, no two adjacent boxes may both contain a ball.
-For example, when $n=5$ and $k=2$,
-there are 6 solutions:
+\textit{Cenário 3}: Cada caixa pode conter, no máximo, uma bola,
+e, além disso, duas caixas adjacentes não podem conter uma bola ao mesmo tempo.
+Por exemplo, quando $n=5$ e $k=2$,
+existem 6 soluções:
 
 
 \begin{center}
@@ -316,48 +316,46 @@ there are 6 solutions:
 \end{tikzpicture}
 \end{center}
 
-In this scenario, we can assume that
-$k$ balls are initially placed in boxes
-and there is an empty box between each
-two adjacent boxes.
-The remaining task is to choose the
-positions for the remaining empty boxes.
-There are $n-2k+1$ such boxes and
-$k+1$ positions for them.
-Thus, using the formula of scenario 2,
-the number of solutions is
+Neste cenário, podemos supor que
+$k$ bolas são inicialmente colocadas em caixas,
+e há uma caixa vazia entre cada
+duas caixas adjacentes.
+A tarefa restante é escolher as
+posições para as caixas vazias restantes.
+Existem $n-2k+1$ caixas desse tipo e
+$k+1$ posições para elas.
+Assim, usando a fórmula do cenário 2,
+o número de soluções é
 ${n-k+1 \choose n-2k+1}$.
 
-\subsubsection{Multinomial coefficients}
+\subsubsection{Coeficientes multinomiais}
 
-\index{multinomial coefficient}
+\index{coeficiente multinomial}
 
-The \key{multinomial coefficient}
+O \key{coeficiente multinomial}
 \[ {n \choose k_1,k_2,\ldots,k_m} = \frac{n!}{k_1! k_2! \cdots k_m!}, \]
-equals the number of ways
-we can divide $n$ elements into subsets
-of sizes $k_1,k_2,\ldots,k_m$,
-where $k_1+k_2+\cdots+k_m=n$.
-Multinomial coefficients can be seen as a
-generalization of binomial cofficients;
-if $m=2$, the above formula
-corresponds to the binomial coefficient formula.
+é igual ao número de maneiras
+pelas quais podemos dividir $n$ elementos em subconjuntos
+de tamanhos $k_1,k_2,\ldots,k_m$,
+onde $k_1+k_2+\cdots+k_m=n$.
+Os coeficientes multinomiais podem ser vistos como uma
+generalização dos coeficientes binomiais;
+se $m=2$, a fórmula acima
+corresponde à fórmula do coeficiente binomial.
 
-\section{Catalan numbers}
+\section{Números de Catalan}
 
-\index{Catalan number}
+\index{número de Catalan}
 
-The \key{Catalan number}
-%\footnote{E. C. Catalan (1814--1894) was a Belgian mathematician.}
-$C_n$ equals the
-number of valid
-parenthesis expressions that consist of
-$n$ left parentheses and $n$ right parentheses.
+O \key{número de Catalan}
+%\footnote{E. C. Catalan (1814--1894) foi um matemático belga.}
+$C_n$ é igual ao
+número de expressões válidas com parênteses que consistem em
+$n$ parênteses esquerdos e $n$ parênteses direitos.
 
-For example, $C_3=5$, because
-we can construct the following parenthesis
-expressions using three
-left and right parentheses:
+Por exemplo, $C_3=5$, pois
+podemos construir as seguintes expressões com parênteses usando três
+parênteses esquerdos e direitos:
 
 \begin{itemize}[noitemsep]
 \item \texttt{()()()}
@@ -367,102 +365,102 @@ left and right parentheses:
 \item \texttt{(()())}
 \end{itemize}
 
-\subsubsection{Parenthesis expressions}
+\subsubsection{Expressões com parênteses}
 
-\index{parenthesis expression}
+\index{expressão com parênteses}
 
-What is exactly a \emph{valid parenthesis expression}?
-The following rules precisely define all
-valid parenthesis expressions:
+O que é exatamente uma \emph{expressão válida com parênteses}?
+As seguintes regras definem precisamente todas
+as expressões válidas com parênteses:
 
 \begin{itemize}
-\item An empty parenthesis expression is valid.
-\item If an expression $A$ is valid,
-then also the expression
-\texttt{(}$A$\texttt{)} is valid.
-\item If expressions $A$ and $B$ are valid,
-then also the expression $AB$ is valid.
+\item Uma expressão com parênteses vazia é válida.
+\item Se uma expressão $A$ é válida,
+então a expressão
+\texttt{(}$A$\texttt{)} também é válida.
+\item Se as expressões $A$ e $B$ são válidas,
+então a expressão $AB$ também é válida.
 \end{itemize}
 
-Another way to characterize valid 
-parenthesis expressions is that if
-we choose any prefix of such an expression,
-it has to contain at least as many left
-parentheses as right parentheses.
-In addition, the complete expression has to
-contain an equal number of left and right
-parentheses.
 
-\subsubsection{Formula 1}
+Outra forma de caracterizar as expressões válidas
+com parênteses é que, se
+escolhermos qualquer prefixo de tal expressão,
+ele deve conter pelo menos tantos parênteses esquerdos
+quanto parênteses direitos.
+Além disso, a expressão completa deve
+conter um número igual de parênteses esquerdos e direitos.
 
-Catalan numbers can be calculated using the formula
+\subsubsection{Fórmula 1}
+
+Os números de Catalan podem ser calculados usando a fórmula
 \[ C_n = \sum_{i=0}^{n-1} C_{i} C_{n-i-1}.\]
 
-The sum goes through the ways to divide the
-expression into two parts
-such that both parts are valid
-expressions and the first part is as short as possible
-but not empty.
-For any $i$, the first part contains $i+1$ pairs
-of parentheses and the number of expressions
-is the product of the following values:
+A soma percorre as maneiras de dividir a
+expressão em duas partes,
+de modo que ambas as partes sejam expressões válidas,
+e a primeira parte seja a mais curta possível,
+mas não vazia.
+Para qualquer $i$, a primeira parte contém $i+1$ pares
+de parênteses, e o número de expressões
+é o produto dos seguintes valores:
 
 \begin{itemize}
-\item $C_{i}$: the number of ways to construct an expression
-using the parentheses of the first part,
-not counting the outermost parentheses
-\item $C_{n-i-1}$: the number of ways to construct an
-expression using the parentheses of the second part
+\item $C_{i}$: o número de maneiras de construir uma expressão
+usando os parênteses da primeira parte,
+sem contar os parênteses mais externos
+\item $C_{n-i-1}$: o número de maneiras de construir uma
+expressão usando os parênteses da segunda parte
 \end{itemize}
 
-The base case is $C_0=1$,
-because we can construct an empty parenthesis
-expression using zero pairs of parentheses.
+O caso base é $C_0=1$,
+porque podemos construir uma expressão com parênteses vazia
+usando zero pares de parênteses.
 
-\subsubsection{Formula 2}
+\subsubsection{Fórmula 2}
 
-Catalan numbers can also be calculated
-using binomial coefficients:
+Os números de Catalan também podem ser calculados
+usando coeficientes binomiais:
 \[ C_n = \frac{1}{n+1} {2n \choose n}\]
-The formula can be explained as follows:
+A fórmula pode ser explicada da seguinte forma:
 
-There are a total of ${2n \choose n}$ ways
-to construct a (not necessarily valid)
-parenthesis expression that contains $n$ left
-parentheses and $n$ right parentheses.
-Let us calculate the number of such
-expressions that are \emph{not} valid.
+Há um total de ${2n \choose n}$ maneiras
+de construir uma expressão com parênteses (não necessariamente válida)
+que contém $n$ parênteses esquerdos
+e $n$ parênteses direitos.
+Vamos calcular o número de tais
+expressões que \emph{não} são válidas.
 
-If a parenthesis expression is not valid,
-it has to contain a prefix where the
-number of right parentheses exceeds the
-number of left parentheses.
-The idea is to reverse each parenthesis
-that belongs to such a prefix.
-For example, the expression
-\texttt{())()(} contains a prefix \texttt{())},
-and after reversing the prefix,
-the expression becomes \texttt{)((()(}.
+Se uma expressão com parênteses não é válida,
+ela deve conter um prefixo no qual o
+número de parênteses direitos excede o
+número de parênteses esquerdos.
+A ideia é inverter cada parêntese
+que pertence a tal prefixo.
+Por exemplo, a expressão
+\texttt{())()(} contém um prefixo \texttt{())},
+e, depois de inverter o prefixo,
+a expressão se torna \texttt{)((()(}.
 
-The resulting expression consists of $n+1$
-left parentheses and $n-1$ right parentheses.
-The number of such expressions is ${2n \choose n+1}$,
-which equals the number of non-valid
-parenthesis expressions.
-Thus, the number of valid parenthesis
-expressions can be calculated using the formula
+A expressão resultante consiste em $n+1$
+parênteses esquerdos e $n-1$ parênteses direitos.
+O número de tais expressões é ${2n \choose n+1}$,
+que é igual ao número de expressões
+com parênteses não válidas.
+Assim, o número de expressões
+com parênteses válidas pode ser calculado usando a fórmula
 \[{2n \choose n}-{2n \choose n+1} = {2n \choose n} - \frac{n}{n+1} {2n \choose n} = \frac{1}{n+1} {2n \choose n}.\]
 
-\subsubsection{Counting trees}
+\subsubsection{Contando árvores}
 
-Catalan numbers are also related to trees:
+Os números de Catalan também estão relacionados a árvores:
 
 \begin{itemize}
-\item there are $C_n$ binary trees of $n$ nodes
-\item there are $C_{n-1}$ rooted trees of $n$ nodes
+\item Existem $C_n$ árvores binárias de $n$ vértices.
+\item Existem $C_{n-1}$ árvores enraizadas de $n$ vértices.
 \end{itemize}
 \noindent
-For example, for $C_3=5$, the binary trees are
+Por exemplo, para $C_3=5$, as árvores binárias são
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -493,7 +491,7 @@ For example, for $C_3=5$, the binary trees are
 \draw[fill=white] (11.5+1.5,-2) circle (0.3);
 \end{tikzpicture}
 \end{center}
-and the rooted trees are
+e as árvores enraizadas são:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \path[draw,thick,-] (0,0) -- (-1,-1);
@@ -534,19 +532,19 @@ and the rooted trees are
 \end{tikzpicture}
 \end{center}
 
-\section{Inclusion-exclusion}
+\section{Inclusão-Exclusão}
 
-\index{inclusion-exclusion}
+\index{inclução-exclusão}
 
-\key{Inclusion-exclusion} is a technique
-that can be used for counting the size
-of a union of sets when the sizes of
-the intersections are known, and vice versa.
-A simple example of the technique is the formula
+A \key{inclusão-exclusão} é uma técnica
+que pode ser usada para contar o tamanho
+de uma união de conjuntos quando os tamanhos das
+interseções são conhecidos e vice-versa.
+Um exemplo simples da técnica é a fórmula
 \[ |A \cup B| = |A| + |B| - |A \cap B|,\]
-where $A$ and $B$ are sets and $|X|$
-denotes the size of $X$.
-The formula can be illustrated as follows:
+onde $A$ e $B$ são conjuntos e $|X|$
+denota o tamanho de $X$.
+A fórmula pode ser ilustrada da seguinte forma:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
@@ -561,20 +559,20 @@ The formula can be illustrated as follows:
 \end{tikzpicture}
 \end{center}
 
-Our goal is to calculate
-the size of the union $A \cup B$
-that corresponds to the area of the region
-that belongs to at least one circle.
-The picture shows that we can calculate
-the area of $A \cup B$ by first summing the
-areas of $A$ and $B$ and then subtracting
-the area of $A \cap B$.
+Nosso objetivo é calcular
+o tamanho da união $A \cup B$,
+que corresponde à área da região
+que pertence a pelo menos um círculo.
+A imagem mostra que podemos calcular
+a área de $A \cup B$ primeiro somando as
+áreas de $A$ e $B$ e, em seguida, subtraindo
+a área de $A \cap B$.
 
-The same idea can be applied when the number
-of sets is larger.
-When there are three sets, the inclusion-exclusion formula is
+A mesma ideia pode ser aplicada quando o número
+de conjuntos é maior.
+Quando há três conjuntos, a fórmula de inclusão-exclusão é
 \[ |A \cup B \cup C| = |A| + |B| + |C| - |A \cap B|  - |A \cap C|  - |B \cap C| + |A \cap B \cap C| \]
-and the corresponding picture is
+e a imagem correspondente é
 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
@@ -594,37 +592,37 @@ and the corresponding picture is
 \end{tikzpicture}
 \end{center}
 
-In the general case, the size of the 
-union $X_1 \cup X_2 \cup \cdots \cup X_n$
-can be calculated by going through all possible
-intersections that contain some of the sets $X_1,X_2,\ldots,X_n$.
-If the intersection contains an odd number of sets,
-its size is added to the answer,
-and otherwise its size is subtracted from the answer.
+No caso geral, o tamanho da
+união $X_1 \cup X_2 \cup \cdots \cup X_n$
+pode ser calculado percorrendo todas as
+interseções possíveis que contenham alguns dos conjuntos $X_1,X_2,\ldots,X_n$.
+Se a interseção contiver um número ímpar de conjuntos,
+seu tamanho é adicionado à resposta
+e, caso contrário, seu tamanho é subtraído da resposta.
 
-Note that there are similar formulas
-for calculating
-the size of an intersection from the sizes of
-unions. For example,
+Observe que existem fórmulas semelhantes
+para calcular
+o tamanho de uma interseção a partir dos tamanhos das
+uniões. Por exemplo,
 \[ |A \cap B| = |A| + |B| - |A \cup B|\]
-and
+e
 \[ |A \cap B \cap C| = |A| + |B| + |C| - |A \cup B|  - |A \cup C|  - |B \cup C| + |A \cup B \cup C| .\]
 
-\subsubsection{Derangements}
+\subsubsection{Desarranjos}
 
-\index{derangement}
+\index{desarranjo}
 
-As an example, let us count the number of \key{derangements}
-of elements $\{1,2,\ldots,n\}$, i.e., permutations
-where no element remains in its original place.
-For example, when $n=3$, there are
-two derangements: $(2,3,1)$ and $(3,1,2)$.
+Como exemplo, vamos contar o número de \key{desarranjos}
+dos elementos ${1,2,\ldots,n}$, isto é, permutações
+nas quais nenhum elemento permanece em seu lugar original.
+Por exemplo, quando $n=3$, existem
+dois desarranjos: $(2,3,1)$ e $(3,1,2)$.
 
-One approach for solving the problem is to use
-inclusion-exclusion.
-Let $X_k$ be the set of permutations
-that contain the element $k$ at position $k$.
-For example, when $n=3$, the sets are as follows:
+Uma abordagem para resolver o problema é usar
+a inclusão-exclusão.
+Seja $X_k$ o conjunto de permutações
+que contêm o elemento $k$ na posição $k$.
+Por exemplo, quando $n=3$, os conjuntos são os seguintes:
 \[
 \begin{array}{lcl}
 X_1 & = & \{(1,2,3),(1,3,2)\} \\
@@ -632,14 +630,14 @@ X_2 & = & \{(1,2,3),(3,2,1)\} \\
 X_3 & = & \{(1,2,3),(2,1,3)\} \\
 \end{array}
 \]
-Using these sets, the number of derangements equals
+Usando esses conjuntos, o número de desarranjos é igual a
 \[ n! - |X_1 \cup X_2 \cup \cdots \cup X_n|, \]
-so it suffices to calculate the size of the union.
-Using inclusion-exclusion, this reduces to
-calculating sizes of intersections which can be
-done efficiently.
-For example, when $n=3$, the size of
-$|X_1 \cup X_2 \cup X_3|$ is
+então, basta calcular o tamanho da união.
+Usando inclusão-exclusão, isso se reduz a
+calcular tamanhos de interseções, o que pode ser
+feito de forma eficiente.
+Por exemplo, quando $n=3$, o tamanho de
+$|X_1 \cup X_2 \cup X_3|$ é
 \[
 \begin{array}{lcl}
  & & |X_1| + |X_2| + |X_3| - |X_1 \cap X_2|  - |X_1 \cap X_3|  - |X_2 \cap X_3| + |X_1 \cap X_2 \cap X_3| \\
@@ -647,13 +645,13 @@ $|X_1 \cup X_2 \cup X_3|$ is
  & = & 4, \\
 \end{array}
 \]
-so the number of solutions is $3!-4=2$.
+então, o número de soluções é $3!-4=2$.
 
-It turns out that the problem can also be solved
-without using inclusion-exclusion.
-Let $f(n)$ denote the number of derangements
-for $\{1,2,\ldots,n\}$. We can use the following
-recursive formula:
+Verifica-se que o problema também pode ser resolvido
+sem usar inclusão-exclusão.
+Seja $f(n)$ o número de desarranjos
+para $\{1,2,\ldots,n\}$. Podemos usar a seguinte
+fórmula recursiva:
 
 \begin{equation*}
     f(n) = \begin{cases}
@@ -663,49 +661,49 @@ recursive formula:
            \end{cases}
 \end{equation*}
 
-The formula can be derived by considering
-the possibilities how the element 1 changes
-in the derangement.
-There are $n-1$ ways to choose an element $x$
-that replaces the element 1.
-In each such choice, there are two options:
+A fórmula pode ser derivada considerando
+as possibilidades de como o elemento 1 muda
+no desarranjo.
+Existem $n-1$ maneiras de escolher um elemento $x$
+que substitui o elemento 1.
+Em cada escolha, existem duas opções:
 
-\textit{Option 1:} We also replace the element $x$
-with the element 1.
-After this, the remaining task is to construct
-a derangement of $n-2$ elements.
+\textit{Opção 1:} Também substituímos o elemento $x$
+pelo elemento 1.
+Depois disso, a tarefa restante é construir
+um desarranjo de $n-2$ elementos.
 
-\textit{Option 2:} We replace the element $x$
-with some other element than 1.
-Now we have to construct a derangement
-of $n-1$ element, because we cannot replace
-the element $x$ with the element $1$, and all other
-elements must be changed.
+\textit{Opção 2:} Substituímos o elemento $x$
+por algum outro elemento diferente de 1.
+Agora temos que construir um desarranjo
+de $n-1$ elementos, porque não podemos substituir
+o elemento $x$ pelo elemento $1$, e todos os outros
+elementos devem ser alterados.
 
-\section{Burnside's lemma}
+\section{Lema de Burnside}
 
-\index{Burnside's lemma}
+\index{lema de Burnside}
 
-\key{Burnside's lemma}
-%\footnote{Actually, Burnside did not discover this lemma; he only mentioned it in his book \cite{bur97}.}
-can be used to count
-the number of combinations so that
-only one representative is counted
-for each group of symmetric combinations.
-Burnside's lemma states that the number of
-combinations is
+O \key{Lema de Burnside}
+%\footnoteNa verdade, Burnside não descobriu este lema; ele apenas o mencionou em seu livro \cite{bur97}.}
+pode ser usado para contar
+o número de combinações, de modo que
+apenas um representante seja contado
+para cada grupo de combinações simétricas.
+O Lema de Burnside afirma que o número de
+combinações é
 \[\sum_{k=1}^n \frac{c(k)}{n},\]
-where there are $n$ ways to change the
-position of a combination,
-and there are $c(k)$ combinations that
-remain unchanged when the $k$th way is applied.
+onde existem $n$ maneiras de mudar a
+posição de uma combinação,
+e existem $c(k)$ combinações que
+permanecem inalteradas quando a $k$-ésima maneira é aplicada.
 
-As an example, let us calculate the number of
-necklaces of $n$ pearls,
-where each pearl has $m$ possible colors.
-Two necklaces are symmetric if they are
-similar after rotating them.
-For example, the necklace
+Como exemplo, vamos calcular o número de
+colares de $n$ pérolas,
+onde cada pérola tem $m$ cores possíveis.
+Dois colares são simétricos se forem
+semelhantes após girá-los.
+Por exemplo, o colar
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw[fill=white] (0,0) circle (1);
@@ -715,7 +713,7 @@ For example, the necklace
 \draw[fill=green] (-1,0) circle (0.3);
 \end{tikzpicture}
 \end{center}
-has the following symmetric necklaces:
+tem os seguintes colares simétricos:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw[fill=white] (0,0) circle (1);
@@ -743,50 +741,50 @@ has the following symmetric necklaces:
 \draw[fill=red] (12+-1,0) circle (0.3);
 \end{tikzpicture}
 \end{center}
-There are $n$ ways to change the position
-of a necklace,
-because we can rotate it
-$0,1,\ldots,n-1$ steps clockwise.
-If the number of steps is 0,
-all $m^n$ necklaces remain the same,
-and if the number of steps is 1,
-only the $m$ necklaces where each
-pearl has the same color remain the same.
+Existem $n$ maneiras de mudar a posição
+de um colar,
+pois podemos girá-lo
+$0,1,\ldots,n-1$ passos no sentido horário.
+Se o número de passos for 0,
+todos os $m^n$ colares permanecem iguais,
+e, se o número de passos for 1,
+apenas os $m$ colares em que cada
+pérola tem a mesma cor permanecem iguais.
 
-More generally, when the number of steps is $k$,
-a total of
+De forma mais geral, quando o número de passos é $k$,
+um total de
 \[m^{\textrm{gcd}(k,n)}\]
-necklaces remain the same,
-where $\textrm{gcd}(k,n)$ is the greatest common
-divisor of $k$ and $n$.
-The reason for this is that blocks
-of pearls of size $\textrm{gcd}(k,n)$
-will replace each other.
-Thus, according to Burnside's lemma,
-the number of necklaces is
+colares permanecem iguais,
+onde $\textrm{gcd}(k,n)$ é o maior divisor comum
+de $k$ e $n$.
+A razão para isso é que blocos
+de pérolas de tamanho $\textrm{gcd}(k,n)$
+serão trocados entre si.
+Assim, de acordo com o Lema de Burnside,
+o número de colares é
 \[\sum_{i=0}^{n-1} \frac{m^{\textrm{gcd}(i,n)}}{n}. \]
-For example, the number of necklaces of length 4
-with 3 colors is
+Por exemplo, o número de colares de comprimento 4
+com 3 cores é
 \[\frac{3^4+3+3^2+3}{4} = 24. \]
 
-\section{Cayley's formula}
+\section{Fórmula de Cayley}
 
-\index{Cayley's formula}
+\index{fórmula de Cayley}
 
-\key{Cayley's formula}
-% \footnote{While the formula is named after A. Cayley,
-% who studied it in 1889, it was discovered earlier by C. W. Borchardt in 1860.}
-states that
-there are $n^{n-2}$ labeled trees
-that contain $n$ nodes.
-The nodes are labeled $1,2,\ldots,n$,
-and two trees are different
-if either their structure or
-labeling is different.
+A \key{Fórmula de Cayley}
+% \footnote{Embora a fórmula tenha o nome de A. Cayley,
+% que a estudou em 1889, ela foi descoberta anteriormente por C. W. Borchardt em 1860.}
+afirma que 
+existem $n^{n-2}$ árvores rotuladas 
+que contêm $n$ vértices. 
+Os vértices são rotulados como $1,2,\ldots,n$,
+e duas árvores são diferentes
+se sua estrutura ou
+rotulagem for diferente. 
 
 \begin{samepage}
-For example, when $n=4$, the number of labeled
-trees is $4^{4-2}=16$:
+Por exemplo, quando $n=4$, o número de árvores
+rotuladas é $4^{4-2}=16$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
@@ -832,24 +830,24 @@ trees is $4^{4-2}=16$:
 \end{center}
 \end{samepage}
 
-Next we will see how Cayley's formula can
-be derived using Prüfer codes.
+A seguir, veremos como a Fórmula de Cayley pode
+ser derivada usando os códigos de Prüfer.
 
-\subsubsection{Prüfer code}
+\subsubsection{Código de Prüfer}
 
-\index{Prüfer code}
+\index{Código de Prüfer}
 
-A \key{Prüfer code}
-%\footnote{In 1918, H. Prüfer proved Cayley's theorem using Prüfer codes \cite{pru18}.}
-is a sequence of
-$n-2$ numbers that describes a labeled tree.
-The code is constructed by following a process
-that removes $n-2$ leaves from the tree.
-At each step, the leaf with the smallest label is removed,
-and the label of its only neighbor is added to the code.
+Um \key{Código de Prüfer}
+%\footnote{Em 1918, H. Prüfer provou o teorema de Cayley usando códigos de Prüfer \cite{pru18}.}
+é uma sequência de
+$n-2$ números que descreve uma árvore rotulada.
+O código é construído seguindo um processo
+que remove $n-2$ folhas da árvore.
+A cada passo, a folha com o menor rótulo é removida,
+e o rótulo de seu único vizinho é adicionado ao código.
 
-For example, let us calculate the Prüfer code
-of the following graph:
+Por exemplo, vamos calcular o Código de Prüfer
+do seguinte grafo:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (2,3) {$1$};
@@ -865,7 +863,7 @@ of the following graph:
 \end{tikzpicture}
 \end{center}
 
-First we remove node 1 and add node 4 to the code:
+Primeiro, removemos o vértice 1 e adicionamos o vértice 4 ao código:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 %\node[draw, circle] (1) at (2,3) {$1$};
@@ -881,7 +879,7 @@ First we remove node 1 and add node 4 to the code:
 \end{tikzpicture}
 \end{center}
 
-Then we remove node 3 and add node 4 to the code:
+Em seguida, removemos o vértice 3 e adicionamos o vértice 4 ao código:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 %\node[draw, circle] (1) at (2,3) {$1$};
@@ -897,7 +895,7 @@ Then we remove node 3 and add node 4 to the code:
 \end{tikzpicture}
 \end{center}
 
-Finally we remove node 4 and add node 2 to the code:
+Finalmente, removemos o vértice 4 e adicionamos o vértice 2 ao código:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 %\node[draw, circle] (1) at (2,3) {$1$};
@@ -913,13 +911,12 @@ Finally we remove node 4 and add node 2 to the code:
 \end{tikzpicture}
 \end{center}
 
-Thus, the Prüfer code of the graph is $[4,4,2]$.
+Assim, o Código de Prüfer do grafo é $[4,4,2]$.
 
-We can construct a Prüfer code for any tree,
-and more importantly,
-the original tree can be reconstructed
-from a Prüfer code.
-Hence, the number of labeled trees
-of $n$ nodes equals
-$n^{n-2}$, the number of Prüfer codes
-of size $n$.
+Podemos construir um Código de Prüfer para qualquer árvore e, mais importante,
+a árvore original pode ser reconstruída
+a partir de um Código de Prüfer.
+Portanto, o número de árvores rotuladas
+de $n$ vértices é igual a
+$n^{n-2}$, o número de Códigos de Prüfer
+de tamanho $n$.
