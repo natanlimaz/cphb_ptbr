@@ -1,99 +1,57 @@
-\chapter{Game theory}
+\chapter{Teoria dos Jogos}
 
-In this chapter, we will focus on two-player
-games that do not contain random elements.
-Our goal is to find a strategy that we can
-follow to win the game
-no matter what the opponent does,
-if such a strategy exists.
+Neste capítulo, vamos nos concentrar em jogos de dois jogadores que não contêm elementos aleatórios. Nosso objetivo é encontrar uma estratégia que possamos seguir para vencer o jogo, independentemente do que o oponente fizer, se tal estratégia existir.
 
-It turns out that there is a general strategy
-for such games,
-and we can analyze the games using the \key{nim theory}.
-First, we will analyze simple games where
-players remove sticks from heaps,
-and after this, we will generalize the strategy
-used in those games to other games.
+Veremos que existe uma estratégia geral para tais jogos, e podemos analisá-los usando a \key{teoria nim}. Primeiro, analisaremos jogos simples onde os jogadores removem palitos de pilhas e, depois disso, generalizaremos a estratégia usada nesses jogos para outros jogos.
 
-\section{Game states}
+\section{Estados do Jogo}
 
-Let us consider a game where there is initially
-a heap of $n$ sticks.
-Players $A$ and $B$ move alternately,
-and player $A$ begins.
-On each move, the player has to remove
-1, 2 or 3 sticks from the heap,
-and the player who removes the last stick wins the game.
+Vamos considerar um jogo em que existe inicialmente uma pilha de $n$ palitos. Os jogadores $A$ e $B$ jogam alternadamente, e o jogador $A$ começa. Em cada jogada, o jogador deve remover 1, 2 ou 3 palitos da pilha, e o jogador que remover o último palito vence o jogo.
 
-For example, if $n=10$, the game may proceed as follows:
+Por exemplo, se $n=10$, o jogo pode prosseguir da seguinte forma:
 \begin{itemize}[noitemsep]
-\item Player $A$ removes 2 sticks (8 sticks left).
-\item Player $B$ removes 3 sticks (5 sticks left).
-\item Player $A$ removes 1 stick (4 sticks left).
-\item Player $B$ removes 2 sticks (2 sticks left).
-\item Player $A$ removes 2 sticks and wins.
+\item Jogador $A$ remove 2 palitos (restam 8 palitos).
+\item Jogador $B$ remove 3 palitos (restam 5 palitos).
+\item Jogador $A$ remove 1 palito (restam 4 palitos).
+\item Jogador $B$ remove 2 palitos (restam 2 palitos).
+\item Jogador $A$ remove 2 palitos e vence.
 \end{itemize}
 
-This game consists of states $0,1,2,\ldots,n$,
-where the number of the state corresponds to
-the number of sticks left.
+Este jogo consiste nos estados $0,1,2,\ldots,n$, onde o número do estado corresponde ao número de palitos restantes.
 
-\subsubsection{Winning and losing states}
+\subsubsection{Estados de vitória e derrota}
 
-\index{winning state}
-\index{losing state}
+\index{estado de vitória}
+\index{estado de derrota}
 
-A \key{winning state} is a state where
-the player will win the game if they
-play optimally,
-and a \key{losing state} is a state
-where the player will lose the game if the
-opponent plays optimally.
-It turns out that we can classify all states
-of a game so that each state is either
-a winning state or a losing state.
+Um \key{estado de vitória} é um estado em que o jogador vencerá o jogo se jogar de forma otimizada, e um \key{estado de derrota} é um estado em que o jogador perderá o jogo se o oponente jogar de forma otimizada. Podemos classificar todos os estados de um jogo de forma que cada estado seja um estado de vitória ou um estado de derrota.
 
-In the above game, state 0 is clearly a
-losing state, because the player cannot make
-any moves.
-States 1, 2 and 3 are winning states,
-because we can remove 1, 2 or 3 sticks
-and win the game.
-State 4, in turn, is a losing state,
-because any move leads to a state that
-is a winning state for the opponent.
+No jogo acima, o estado 0 é claramente um estado de derrota, porque o jogador não pode fazer nenhuma jogada. Os estados 1, 2 e 3 são estados de vitória, porque podemos remover 1, 2 ou 3 palitos e vencer o jogo. O estado 4, por sua vez, é um estado de derrota, porque qualquer jogada leva a um estado que é um estado de vitória para o oponente.
 
-More generally, if there is a move that leads
-from the current state to a losing state,
-the current state is a winning state,
-and otherwise the current state is a losing state.
-Using this observation, we can classify all states
-of a game starting with losing states where
-there are no possible moves.
+De forma mais geral, se houver uma jogada que leva do estado atual para um estado de derrota, o estado atual é um estado de vitória; caso contrário, o estado atual é um estado de derrota. Usando essa observação, podemos classificar todos os estados de um jogo, começando com os estados de derrota onde não há jogadas possíveis.
 
-The states $0 \ldots 15$ of the above game
-can be classified as follows
-($W$ denotes a winning state and $L$ denotes a losing state):
+Os estados $0 \ldots 15$ do jogo acima podem ser classificados da seguinte forma ($V$ denota um estado de vitória e $D$ denota um estado de derrota):
+
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (16,1);
 
-\node at (0.5,0.5) {$L$};
-\node at (1.5,0.5) {$W$};
-\node at (2.5,0.5) {$W$};
-\node at (3.5,0.5) {$W$};
-\node at (4.5,0.5) {$L$};
-\node at (5.5,0.5) {$W$};
-\node at (6.5,0.5) {$W$};
-\node at (7.5,0.5) {$W$};
-\node at (8.5,0.5) {$L$};
-\node at (9.5,0.5) {$W$};
-\node at (10.5,0.5) {$W$};
-\node at (11.5,0.5) {$W$};
-\node at (12.5,0.5) {$L$};
-\node at (13.5,0.5) {$W$};
-\node at (14.5,0.5) {$W$};
-\node at (15.5,0.5) {$W$};
+\node at (0.5,0.5) {$D$};
+\node at (1.5,0.5) {$V$};
+\node at (2.5,0.5) {$V$};
+\node at (3.5,0.5) {$V$};
+\node at (4.5,0.5) {$D$};
+\node at (5.5,0.5) {$V$};
+\node at (6.5,0.5) {$V$};
+\node at (7.5,0.5) {$V$};
+\node at (8.5,0.5) {$D$};
+\node at (9.5,0.5) {$V$};
+\node at (10.5,0.5) {$V$};
+\node at (11.5,0.5) {$V$};
+\node at (12.5,0.5) {$D$};
+\node at (13.5,0.5) {$V$};
+\node at (14.5,0.5) {$V$};
+\node at (15.5,0.5) {$V$};
 
 \footnotesize
 \node at (0.5,1.4) {$0$};
@@ -115,37 +73,15 @@ can be classified as follows
 \end{tikzpicture}
 \end{center}
 
-It is easy to analyze this game:
-a state $k$ is a losing state if $k$ is
-divisible by 4, and otherwise it
-is a winning state.
-An optimal way to play the game is
-to always choose a move after which
-the number of sticks in the heap
-is divisible by 4.
-Finally, there are no sticks left and
-the opponent has lost.
+É fácil analisar este jogo: um estado $k$ é um estado de derrota se $k$ for divisível por 4 e, caso contrário, é um estado de vitória. Uma maneira ideal de jogar é sempre escolher uma jogada após a qual o número de palitos na pilha seja divisível por 4. Finalmente, não haverá mais palitos e o oponente terá perdido.
 
-Of course, this strategy requires that
-the number of sticks is \emph{not} divisible by 4
-when it is our move.
-If it is, there is nothing we can do,
-and the opponent will win the game if
-they play optimally.
+Claro, esta estratégia exige que o número de palitos \emph{não} seja divisível por 4 quando for a nossa vez. Se for, não há nada que possamos fazer, e o oponente vencerá o jogo se jogar de forma otimizada.
 
-\subsubsection{State graph}
+\subsubsection{Grafo de estados}
 
-Let us now consider another stick game,
-where in each state $k$, it is allowed to remove
-any number $x$ of sticks such that $x$
-is smaller than $k$ and divides $k$.
-For example, in state 8 we may remove
-1, 2 or 4 sticks, but in state 7 the only
-allowed move is to remove 1 stick.
+Vamos agora considerar outro jogo de palitos, onde em cada estado $k$, é permitido remover qualquer número $x$ de palitos tal que $x$ seja menor que $k$ e divida $k$. Por exemplo, no estado 8 podemos remover 1, 2 ou 4 palitos, mas no estado 7 a única jogada permitida é remover 1 palito.
 
-The following picture shows the states
-$1 \ldots 9$ of the game as a \key{state graph},
-whose nodes are the states and edges are the moves between them:
+A figura a seguir mostra os estados $1 \ldots 9$ do jogo como um \key{grafo de estados}, cujos nós são os estados e as arestas são as jogadas entre eles:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -176,25 +112,21 @@ whose nodes are the states and edges are the moves between them:
 \end{tikzpicture}
 \end{center}
 
-The final state in this game is always state 1,
-which is a losing state, because there are no
-valid moves.
-The classification of states $1 \ldots 9$
-is as follows:
+O estado final neste jogo é sempre o estado 1, que é um estado de derrota, porque não há jogadas válidas. A classificação dos estados $1 \ldots 9$ é a seguinte:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (1,0) grid (10,1);
 
-\node at (1.5,0.5) {$L$};
-\node at (2.5,0.5) {$W$};
-\node at (3.5,0.5) {$L$};
-\node at (4.5,0.5) {$W$};
-\node at (5.5,0.5) {$L$};
-\node at (6.5,0.5) {$W$};
-\node at (7.5,0.5) {$L$};
-\node at (8.5,0.5) {$W$};
-\node at (9.5,0.5) {$L$};
+\node at (1.5,0.5) {$D$};
+\node at (2.5,0.5) {$V$};
+\node at (3.5,0.5) {$D$};
+\node at (4.5,0.5) {$V$};
+\node at (5.5,0.5) {$D$};
+\node at (6.5,0.5) {$V$};
+\node at (7.5,0.5) {$D$};
+\node at (8.5,0.5) {$V$};
+\node at (9.5,0.5) {$D$};
 
 \footnotesize
 \node at (1.5,1.4) {$1$};
@@ -209,83 +141,32 @@ is as follows:
 \end{tikzpicture}
 \end{center}
 
-Surprisingly, in this game,
-all even-numbered states are winning states,
-and all odd-numbered states are losing states.
+Surpreendentemente, neste jogo, todos os estados pares são estados de vitória e todos os estados ímpares são estados de derrota.
 
-\section{Nim game}
+\section{Jogo Nim}
 
-\index{nim game}
+\index{jogo nim}
 
-The \key{nim game} is a simple game that
-has an important role in game theory,
-because many other games can be played using
-the same strategy.
-First, we focus on nim,
-and then we generalize the strategy
-to other games.
+O \key{jogo nim} é um jogo simples que tem um papel importante na teoria dos jogos, porque muitos outros jogos podem ser jogados usando a mesma estratégia. Primeiro, vamos nos concentrar no nim e, em seguida, generalizaremos a estratégia para outros jogos.
 
-There are $n$ heaps in nim,
-and each heap contains some number of sticks.
-The players move alternately,
-and on each turn, the player chooses
-a heap that still contains sticks
-and removes any number of sticks from it.
-The winner is the player who removes the last stick.
+Existem $n$ pilhas no nim, e cada pilha contém um certo número de palitos. Os jogadores jogam alternadamente e, em cada turno, o jogador escolhe uma pilha que ainda contém palitos e remove qualquer número de palitos dela. O vencedor é o jogador que remover o último palito.
 
-The states in nim are of the form
-$[x_1,x_2,\ldots,x_n]$,
-where $x_k$ denotes the number of sticks in heap $k$.
-For example, $[10,12,5]$ is a game where
-there are three heaps with 10, 12 and 5 sticks.
-The state $[0,0,\ldots,0]$ is a losing state,
-because it is not possible to remove any sticks,
-and this is always the final state.
+Os estados no nim são da forma $[x_1,x_2,\ldots,x_n]$, onde $x_k$ denota o número de palitos na pilha $k$. Por exemplo, $[10,12,5]$ é um jogo onde existem três pilhas com 10, 12 e 5 palitos. O estado $[0,0,\ldots,0]$ é um estado de derrota, porque não é possível remover nenhum palito, e este é sempre o estado final.
 
-\subsubsection{Analysis}
-\index{nim sum}
+\subsubsection{Análise}
+\index{soma nim}
 
-It turns out that we can easily classify
-any nim state by calculating
-the \key{nim sum} $s = x_1 \oplus x_2 \oplus \cdots \oplus x_n$,
-where $\oplus$ is the xor operation\footnote{The optimal strategy
-for nim was published in 1901 by C. L. Bouton \cite{bou01}.}.
-The states whose nim sum is 0 are losing states,
-and all other states are winning states.
-For example, the nim sum of
-$[10,12,5]$ is $10 \oplus 12 \oplus 5 = 3$,
-so the state is a winning state.
+Acontece que podemos classificar facilmente qualquer estado nim calculando a \key{soma nim} $s = x_1 \oplus x_2 \oplus \cdots \oplus x_n$, onde $\oplus$ é a operação xor\footnote{A estratégia ideal para nim foi publicada em 1901 por C. L. Bouton \cite{bou01}.}. Os estados cuja soma nim é 0 são estados de derrota e todos os outros estados são estados de vitória. Por exemplo, a soma nim de $[10,12,5]$ é $10 \oplus 12 \oplus 5 = 3$, então o estado é um estado de vitória.
 
-But how is the nim sum related to the nim game?
-We can explain this by looking at how the nim
-sum changes when the nim state changes.
+Mas como a soma nim está relacionada ao jogo nim? Podemos explicar isso observando como a soma nim muda quando o estado nim muda.
 
-\textit{Losing states:}
-The final state $[0,0,\ldots,0]$ is a losing state,
-and its nim sum is 0, as expected.
-In other losing states, any move leads to
-a winning state, because when a single value $x_k$ changes,
-the nim sum also changes, so the nim sum
-is different from 0 after the move.
+\textit{Estados de derrota:} O estado final $[0,0,\ldots,0]$ é um estado de derrota e sua soma nim é 0, como esperado. Em outros estados de derrota, qualquer jogada leva a um estado de vitória, porque quando um único valor $x_k$ muda, a soma nim também muda, então a soma nim é diferente de 0 após a jogada.
 
-\textit{Winning states:}
-We can move to a losing state if
-there is any heap $k$ for which $x_k \oplus s < x_k$.
-In this case, we can remove sticks from
-heap $k$ so that it will contain $x_k \oplus s$ sticks,
-which will lead to a losing state.
-There is always such a heap, where $x_k$
-has a one bit at the position of the leftmost
-one bit of $s$.
+\textit{Estados de vitória:} Podemos ir para um estado de derrota se houver alguma pilha $k$ para a qual $x_k \oplus s < x_k$. Nesse caso, podemos remover palitos da pilha $k$ para que ela contenha $x_k \oplus s$ palitos, o que levará a um estado de derrota. Sempre existe tal pilha, onde $x_k$ tem um bit 1 na posição do bit 1 mais à esquerda de $s$.
 
-As an example, consider the state $[10,12,5]$.
-This state is a winning state,
-because its nim sum is 3.
-Thus, there has to be a move which
-leads to a losing state.
-Next we will find out such a move.
+Como exemplo, considere o estado $[10,12,5]$. Este estado é um estado de vitória, porque sua soma nim é 3. Portanto, deve haver uma jogada que leva a um estado de derrota. A seguir, descobriremos tal jogada.
 
-The nim sum of the state is as follows:
+A soma nim do estado é a seguinte:
 
 \begin{center}
 \begin{tabular}{r|r}
@@ -297,10 +178,7 @@ The nim sum of the state is as follows:
 \end{tabular}
 \end{center}
 
-In this case, the heap with 10 sticks
-is the only heap that has a one bit
-at the position of the leftmost
-one bit of the nim sum:
+Neste caso, a pilha com 10 palitos é a única pilha que possui um bit 1 na posição do bit 1 mais à esquerda da soma nim:
 
 \begin{center}
 \begin{tabular}{r|r}
@@ -312,11 +190,7 @@ one bit of the nim sum:
 \end{tabular}
 \end{center}
 
-The new size of the heap has to be
-$10 \oplus 3 = 9$,
-so we will remove just one stick.
-After this, the state will be $[9,12,5]$,
-which is a losing state:
+O novo tamanho da pilha deve ser $10 \oplus 3 = 9$, então removeremos apenas um palito. Depois disso, o estado será $[9,12,5]$, que é um estado de derrota:
 
 \begin{center}
 \begin{tabular}{r|r}
@@ -328,76 +202,44 @@ which is a losing state:
 \end{tabular}
 \end{center}
 
-\subsubsection{Misère game}
+\subsubsection{Jogo Misère}
 
-\index{misère game}
+\index{jogo misère}
 
-In a \key{misère game}, the goal of the game
-is opposite,
-so the player who removes the last stick
-loses the game.
-It turns out that the misère nim game can be
-optimally played almost like the standard nim game.
+Em um \key{jogo misère}, o objetivo do jogo é oposto, então o jogador que remove o último palito perde o jogo. Acontece que o jogo nim misère pode ser jogado de forma ideal quase como o jogo nim padrão.
 
-The idea is to first play the misère game
-like the standard game, but change the strategy
-at the end of the game.
-The new strategy will be introduced in a situation
-where each heap would contain at most one stick
-after the next move.
+A ideia é primeiro jogar o jogo misère como o jogo padrão, mas mudar a estratégia no final do jogo. A nova estratégia será introduzida em uma situação em que cada pilha conteria no máximo um palito após a próxima jogada.
 
-In the standard game, we should choose a move
-after which there is an even number of heaps with one stick.
-However, in the misère game, we choose a move so that
-there is an odd number of heaps with one stick.
+No jogo padrão, devemos escolher uma jogada após a qual haja um número par de pilhas com um palito. No entanto, no jogo misère, escolhemos uma jogada de forma que haja um número ímpar de pilhas com um palito.
 
-This strategy works because a state where the
-strategy changes always appears in the game,
-and this state is a winning state, because
-it contains exactly one heap that has more than one stick
-so the nim sum is not 0.
+Essa estratégia funciona porque um estado onde a estratégia muda sempre aparece no jogo, e esse estado é um estado de vitória, porque contém exatamente uma pilha que possui mais de um palito, então a soma nim não é 0.
 
-\section{Sprague–Grundy theorem}
+\section{Teorema de Sprague–Grundy}
 
-\index{Sprague–Grundy theorem}
+\index{Teorema de Sprague–Grundy}
 
-The \key{Sprague–Grundy theorem}\footnote{The theorem was
-independently discovered by R. Sprague \cite{spr35} and P. M. Grundy \cite{gru39}.} generalizes the
-strategy used in nim to all games that fulfil
-the following requirements:
+O \key{Teorema de Sprague–Grundy}\footnote{O teorema foi descoberto independentemente por R. Sprague \cite{spr35} e P. M. Grundy \cite{gru39}.} generaliza a estratégia usada no nim para todos os jogos que atendem aos seguintes requisitos:
 
 \begin{itemize}[noitemsep]
-\item There are two players who move alternately.
-\item The game consists of states, and the possible moves
-in a state do not depend on whose turn it is.
-\item The game ends when a player cannot make a move.
-\item The game surely ends sooner or later.
-\item The players have complete information about
-the states and allowed moves, and there is no randomness in the game.
+\item Existem dois jogadores que jogam alternadamente.
+\item O jogo consiste em estados, e as jogadas possíveis em um estado não dependem de quem é a vez.
+\item O jogo termina quando um jogador não pode mais fazer uma jogada.
+\item O jogo certamente termina mais cedo ou mais tarde.
+\item Os jogadores têm informações completas sobre os estados e as jogadas permitidas, e não há aleatoriedade no jogo.
 \end{itemize}
-The idea is to calculate for each game state
-a Grundy number that corresponds to the number of
-sticks in a nim heap.
-When we know the Grundy numbers of all states,
-we can play the game like the nim game.
 
-\subsubsection{Grundy numbers}
+A ideia é calcular, para cada estado do jogo, um número de Grundy que corresponde ao número de palitos em uma pilha nim. Quando sabemos os números de Grundy de todos os estados, podemos jogar como o jogo nim.
 
-\index{Grundy number}
-\index{mex function}
+\subsubsection{Números de Grundy}
 
-The \key{Grundy number} of a game state is
+\index{Número de Grundy}
+\index{função mex}
+
+O \key{Número de Grundy} de um estado do jogo é
 \[\textrm{mex}(\{g_1,g_2,\ldots,g_n\}),\]
-where $g_1,g_2,\ldots,g_n$ are the Grundy numbers of the
-states to which we can move,
-and the mex function gives the smallest
-nonnegative number that is not in the set.
-For example, $\textrm{mex}(\{0,1,3\})=2$.
-If there are no possible moves in a state,
-its Grundy number is 0, because
-$\textrm{mex}(\emptyset)=0$.
+onde $g_1,g_2,\ldots,g_n$ são os números de Grundy dos estados para os quais podemos mover, e a função mex retorna o menor número inteiro não negativo que não está no conjunto. Por exemplo, $\textrm{mex}(\{0,1,3\})=2$. Se não houver jogadas possíveis em um estado, seu número de Grundy é 0, porque $\textrm{mex}(\emptyset)=0$.
 
-For example, in the state graph
+Por exemplo, no grafo de estados:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {\phantom{0}};
@@ -417,7 +259,8 @@ For example, in the state graph
 \path[draw,thick,->,>=latex] (6) -- (2);
 \end{tikzpicture}
 \end{center}
-the Grundy numbers are as follows:
+
+os números de Grundy são os seguintes:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {0};
@@ -437,30 +280,14 @@ the Grundy numbers are as follows:
 \path[draw,thick,->,>=latex] (6) -- (2);
 \end{tikzpicture}
 \end{center}
-The Grundy number of a losing state is 0,
-and the Grundy number of a winning state is
-a positive number.
 
-The Grundy number of a state corresponds to
-the number of sticks in a nim heap.
-If the Grundy number is 0, we can only move to
-states whose Grundy numbers are positive,
-and if the Grundy number is $x>0$, we can move
-to states whose Grundy numbers include all numbers
-$0,1,\ldots,x-1$.
+O número de Grundy de um estado de derrota é 0, e o número de Grundy de um estado de vitória é um número positivo.
 
-As an example, consider a game where
-the players move a figure in a maze.
-Each square in the maze is either floor or wall.
-On each turn, the player has to move
-the figure some number
-of steps left or up.
-The winner of the game is the player who
-makes the last move.
+O número de Grundy de um estado corresponde ao número de palitos em uma pilha nim. Se o número de Grundy for 0, podemos mover apenas para estados cujos números de Grundy são positivos, e se o número de Grundy for $x>0$, podemos mover para estados cujos números de Grundy incluem todos os números $0,1,\ldots,x-1$.
 
-The following picture shows a possible initial state
-of the game, where @ denotes the figure and *
-denotes a square where it can move.
+Como exemplo, considere um jogo onde os jogadores movem uma peça em um labirinto. Cada quadrado no labirinto é um chão ou uma parede. A cada turno, o jogador deve mover a peça um certo número de passos para a esquerda ou para cima. O vencedor do jogo é o jogador que fizer o último movimento.
+
+A figura a seguir mostra um possível estado inicial do jogo, onde @ denota a peça e * denota um quadrado para onde ela pode se mover.
 
 \begin{center}
 \begin{tikzpicture}[scale=.65]
@@ -485,10 +312,7 @@ denotes a square where it can move.
 \end{tikzpicture}
 \end{center}
 
-The states of the game are all floor squares
-of the maze.
-In the above maze, the Grundy numbers
-are as follows:
+Os estados do jogo são todos os quadrados do chão do labirinto. No labirinto acima, os números de Grundy são os seguintes:
 
 \begin{center}
 \begin{tikzpicture}[scale=.65]
@@ -534,42 +358,17 @@ are as follows:
 \end{tikzpicture}
 \end{center}
 
-Thus, each state of the maze game
-corresponds to a heap in the nim game.
-For example, the Grundy number for
-the lower-right square is 2,
-so it is a winning state.
-We can reach a losing state and
-win the game by moving
-either four steps left or
-two steps up.
+Assim, cada estado do jogo do labirinto corresponde a uma pilha no jogo nim. Por exemplo, o número de Grundy para o quadrado inferior direito é 2, então é um estado de vitória. Podemos chegar a um estado de derrota e vencer o jogo movendo quatro passos para a esquerda ou dois passos para cima.
 
-Note that unlike in the original nim game,
-it may be possible to move to a state whose
-Grundy number is larger than the Grundy number
-of the current state.
-However, the opponent can always choose a move
-that cancels such a move, so it is not possible
-to escape from a losing state.
+Observe que, ao contrário do jogo nim original, pode ser possível mover para um estado cujo número de Grundy seja maior do que o número de Grundy do estado atual. No entanto, o oponente sempre pode escolher uma jogada que cancele tal movimento, então não é possível escapar de um estado de derrota.
 
-\subsubsection{Subgames}
+\subsubsection{Subjogos}
 
-Next we will assume that our game consists
-of subgames, and on each turn, the player
-first chooses a subgame and then a move in the subgame.
-The game ends when it is not possible to make any move
-in any subgame.
+A seguir, assumiremos que nosso jogo consiste em subjogos e, em cada turno, o jogador primeiro escolhe um subjogo e, em seguida, uma jogada no subjogo. O jogo termina quando não é possível fazer nenhuma jogada em nenhum subjogo.
 
-In this case, the Grundy number of a game
-is the nim sum of the Grundy numbers of the subgames.
-The game can be played like a nim game by calculating
-all Grundy numbers for subgames and then their nim sum.
+Neste caso, o número de Grundy de um jogo é a soma nim dos números de Grundy dos subjogos. O jogo pode ser jogado como um jogo nim calculando todos os números de Grundy para subjogos e, em seguida, sua soma nim.
 
-As an example, consider a game that consists
-of three mazes.
-In this game, on each turn, the player chooses one
-of the mazes and then moves the figure in the maze.
-Assume that the initial state of the game is as follows:
+Como exemplo, considere um jogo que consiste em três labirintos. Neste jogo, em cada turno, o jogador escolhe um dos labirintos e então move a peça no labirinto. Suponha que o estado inicial do jogo seja o seguinte:
 
 \begin{center}
 \begin{tabular}{ccc}
@@ -613,7 +412,7 @@ Assume that the initial state of the game is as follows:
 \end{tabular}
 \end{center}
 
-The Grundy numbers for the mazes are as follows:
+Os números de Grundy para os labirintos são os seguintes:
 
 \begin{center}
 \begin{tabular}{ccc}
@@ -739,49 +538,25 @@ The Grundy numbers for the mazes are as follows:
 \end{tabular}
 \end{center}
 
-In the initial state, the nim sum of the Grundy numbers
-is $2 \oplus 3 \oplus 3 = 2$, so
-the first player can win the game.
-One optimal move is to move two steps up
-in the first maze, which produces the nim sum
-$0 \oplus 3 \oplus 3 = 0$.
+No estado inicial, a soma nim dos números de Grundy é $2 \oplus 3 \oplus 3 = 2$, então o primeiro jogador pode vencer o jogo. Uma jogada ideal é mover dois passos para cima no primeiro labirinto, o que produz a soma nim $0 \oplus 3 \oplus 3 = 0$.
 
-\subsubsection{Grundy's game}
+\subsubsection{Jogo de Grundy}
 
-Sometimes a move in a game divides the game
-into subgames that are independent of each other.
-In this case, the Grundy number of the game is
-
+Às vezes, uma jogada em um jogo divide o jogo em subjogos independentes um do outro. Neste caso, o número de Grundy do jogo é
 \[\textrm{mex}(\{g_1, g_2, \ldots, g_n \}),\]
-where $n$ is the number of possible moves and
+onde $n$ é o número de jogadas possíveis e
 \[g_k = a_{k,1} \oplus a_{k,2} \oplus \ldots \oplus a_{k,m},\]
-where move $k$ generates subgames with
-Grundy numbers $a_{k,1},a_{k,2},\ldots,a_{k,m}$.
+onde a jogada $k$ gera subjogos com números de Grundy $a_{k,1},a_{k,2},\ldots,a_{k,m}$.
 
-\index{Grundy's game}
+\index{Jogo de Grundy}
 
-An example of such a game is \key{Grundy's game}.
-Initially, there is a single heap that contains $n$ sticks.
-On each turn, the player chooses a heap and divides
-it into two nonempty heaps such that the heaps
-are of different size.
-The player who makes the last move wins the game.
+Um exemplo de tal jogo é o \key{Jogo de Grundy}. Inicialmente, existe uma única pilha que contém $n$ palitos. Em cada turno, o jogador escolhe uma pilha e a divide em duas pilhas não vazias, de modo que as pilhas tenham tamanhos diferentes. O jogador que fizer o último movimento vence o jogo.
 
-Let $f(n)$ be the Grundy number of a heap
-that contains $n$ sticks.
-The Grundy number can be calculated by going
-through all ways to divide the heap into
-two heaps.
-For example, when $n=8$, the possibilities
-are $1+7$, $2+6$ and $3+5$, so
+Seja $f(n)$ o número de Grundy de uma pilha que contém $n$ palitos. O número de Grundy pode ser calculado percorrendo todas as maneiras de dividir a pilha em duas pilhas. Por exemplo, quando $n=8$, as possibilidades são $1+7$, $2+6$ e $3+5$, então
 \[f(8)=\textrm{mex}(\{f(1) \oplus f(7), f(2) \oplus f(6), f(3) \oplus f(5)\}).\]
 
-In this game, the value of $f(n)$ is based on the values
-of $f(1),\ldots,f(n-1)$.
-The base cases are $f(1)=f(2)=0$,
-because it is not possible to divide the heaps
-of 1 and 2 sticks.
-The first Grundy numbers are:
+Neste jogo, o valor de $f(n)$ é baseado nos valores de $f(1),\ldots,f(n-1)$. Os casos base são $f(1)=f(2)=0$, porque não é possível dividir as pilhas de 1 e 2 palitos. Os primeiros números de Grundy são:
+
 \[
 \begin{array}{lcl}
 f(1) & = & 0 \\
@@ -794,8 +569,5 @@ f(7) & = & 0 \\
 f(8) & = & 2 \\
 \end{array}
 \]
-The Grundy number for $n=8$ is 2,
-so it is possible to win the game.
-The winning move is to create heaps
-$1+7$, because $f(1) \oplus f(7) = 0$.
 
+O número de Grundy para $n=8$ é 2, então é possível vencer o jogo. A jogada vencedora é criar pilhas $1+7$, porque $f(1) \oplus f(7) = 0$.
