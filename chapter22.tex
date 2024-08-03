@@ -753,16 +753,16 @@ pérola tem a mesma cor permanecem iguais.
 
 De forma mais geral, quando o número de passos é $k$,
 um total de
-\[m^{\textrm{gcd}(k,n)}\]
+\[m^{\textrm{mdc}(k,n)}\]
 colares permanecem iguais,
-onde $\textrm{gcd}(k,n)$ é o maior divisor comum
+onde $\textrm{mdc}(k,n)$ é o maior divisor comum
 de $k$ e $n$.
 A razão para isso é que blocos
-de pérolas de tamanho $\textrm{gcd}(k,n)$
+de pérolas de tamanho $\textrm{mdc}(k,n)$
 serão trocados entre si.
 Assim, de acordo com o Lema de Burnside,
 o número de colares é
-\[\sum_{i=0}^{n-1} \frac{m^{\textrm{gcd}(i,n)}}{n}. \]
+\[\sum_{i=0}^{n-1} \frac{m^{\textrm{mdc}(i,n)}}{n}. \]
 Por exemplo, o número de colares de comprimento 4
 com 3 cores é
 \[\frac{3^4+3+3^2+3}{4} = 24. \]
