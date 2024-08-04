@@ -1,259 +1,260 @@
-\chapter{Probability}
+\chapter{Probabilidade}
 
-\index{probability}
+\chapter{Probabilidade}
 
-A \key{probability} is a real number between $0$ and $1$
-that indicates how probable an event is.
-If an event is certain to happen,
-its probability is 1,
-and if an event is impossible,
-its probability is 0.
-The probability of an event is denoted $P(\cdots)$
-where the three dots describe the event.
+Uma \key{probabilidade} é um número real entre $0$ e $1$
+que indica quão provável um evento é.
+Se um evento certamente acontecerá,
+sua probabilidade é 1,
+e se um evento for impossível,
+sua probabilidade é 0.
+A probabilidade de um evento é denotada por $P(\cdots)$
+onde as três reticências descrevem o evento.
 
-For example, when throwing a dice,
-the outcome is an integer between $1$ and $6$,
-and the probability of each outcome is $1/6$.
-For example, we can calculate the following probabilities:
+Por exemplo, ao lançar um dado,
+o resultado é um inteiro entre $1$ e $6$,
+e a probabilidade de cada resultado é $1/6$.
+Por exemplo, podemos calcular as seguintes probabilidades:
 
 \begin{itemize}[noitemsep]
-\item $P(\textrm{''the outcome is 4''})=1/6$
-\item $P(\textrm{''the outcome is not 6''})=5/6$
-\item $P(\textrm{''the outcome is even''})=1/2$
+\item $P(\textrm{''o resultado é 4''})=1/6$
+\item $P(\textrm{''o resultado não é 6''})=5/6$
+\item $P(\textrm{''o resultado é par''})=1/2$
 \end{itemize}
 
-\section{Calculation}
+\section{Cálculo}
 
-To calculate the probability of an event,
-we can either use combinatorics
-or simulate the process that generates the event.
-As an example, let us calculate the probability
-of drawing three cards with the same value
-from a shuffled deck of cards
-(for example, $\spadesuit 8$, $\clubsuit 8$ and $\diamondsuit 8$).
+Para calcular a probabilidade de um evento,
+podemos usar a combinatória
+ou simular o processo que gera o evento.
+Como exemplo, vamos calcular a probabilidade
+de tirar três cartas com o mesmo valor
+de um baralho de cartas embaralhado
+(por exemplo, $\spadesuit 8$, $\clubsuit 8$ e $\diamondsuit 8$).
 
-\subsubsection*{Method 1}
+\subsubsection*{Método 1}
 
-We can calculate the probability using the formula
+Podemos calcular a probabilidade usando a fórmula
 
-\[\frac{\textrm{number of desired outcomes}}{\textrm{total number of outcomes}}.\]
+\[\frac{\textrm{número de resultados desejados}}{\textrm{número total de resultados}}.\]
 
-In this problem, the desired outcomes are those
-in which the value of each card is the same.
-There are $13 {4 \choose 3}$ such outcomes,
-because there are $13$ possibilities for the
-value of the cards and ${4 \choose 3}$ ways to
-choose $3$ suits from $4$ possible suits.
+Neste problema, os resultados desejados são aqueles
+em que o valor de cada carta é o mesmo.
+Existem $13 {4 \choose 3}$ resultados desse tipo,
+pois existem $13$ possibilidades para o
+valor das cartas e ${4 \choose 3}$ maneiras de
+escolher $3$ naipes de $4$ naipes possíveis.
 
-There are a total of ${52 \choose 3}$ outcomes,
-because we choose 3 cards from 52 cards.
-Thus, the probability of the event is
+Existem um total de ${52 \choose 3}$ resultados,
+pois escolhemos 3 cartas de 52 cartas.
+Assim, a probabilidade do evento é
 
 \[\frac{13 {4 \choose 3}}{{52 \choose 3}} = \frac{1}{425}.\]
 
-\subsubsection*{Method 2}
+\subsubsection*{Método 2}
 
-Another way to calculate the probability is
-to simulate the process that generates the event.
-In this example, we draw three cards, so the process
-consists of three steps.
-We require that each step of the process is successful.
+Outra maneira de calcular a probabilidade é
+simular o processo que gera o evento.
+Neste exemplo, tiramos três cartas, então o processo
+consiste em três etapas.
+Exigimos que cada etapa do processo seja bem-sucedida.
 
-Drawing the first card certainly succeeds,
-because there are no restrictions.
-The second step succeeds with probability $3/51$,
-because there are 51 cards left and 3 of them
-have the same value as the first card.
-In a similar way, the third step succeeds with probability $2/50$.
+Tirar a primeira carta certamente será um sucesso,
+pois não há restrições.
+A segunda etapa é bem-sucedida com probabilidade $3/51$,
+pois restam 51 cartas e 3 delas
+têm o mesmo valor que a primeira carta.
+De forma similar, a terceira etapa é bem-sucedida com probabilidade $2/50$.
 
-The probability that the entire process succeeds is
+A probabilidade de todo o processo ser bem-sucedido é
 
 \[1 \cdot \frac{3}{51} \cdot \frac{2}{50} = \frac{1}{425}.\]
 
-\section{Events}
+\section{Eventos}
 
-An event in probability theory can be represented as a set
+Um evento na teoria da probabilidade pode ser representado como um conjunto
 \[A \subset X,\]
-where $X$ contains all possible outcomes
-and $A$ is a subset of outcomes.
-For example, when drawing a dice, the outcomes are
+onde $X$ contém todos os resultados possíveis
+e $A$ é um subconjunto de resultados.
+Por exemplo, ao lançar um dado, os resultados são
 \[X = \{1,2,3,4,5,6\}.\]
-Now, for example, the event ''the outcome is even''
-corresponds to the set
+Agora, por exemplo, o evento ''o resultado é par''
+corresponde ao conjunto
 \[A = \{2,4,6\}.\]
 
-Each outcome $x$ is assigned a probability $p(x)$.
-Then, the probability $P(A)$ of an event
-$A$ can be calculated as a sum
-of probabilities of outcomes using the formula
+Cada resultado $x$ recebe uma probabilidade $p(x)$.
+Então, a probabilidade $P(A)$ de um evento
+$A$ pode ser calculada como uma soma
+das probabilidades dos resultados usando a fórmula
 \[P(A) = \sum_{x \in A} p(x).\]
-For example, when throwing a dice,
-$p(x)=1/6$ for each outcome $x$,
-so the probability of the event
-''the outcome is even'' is
+Por exemplo, ao lançar um dado,
+$p(x)=1/6$ para cada resultado $x$,
+então a probabilidade do evento
+''o resultado é par'' é
 \[p(2)+p(4)+p(6)=1/2.\]
 
-The total probability of the outcomes in $X$ must
-be 1, i.e., $P(X)=1$.
+A probabilidade total dos resultados em $X$ deve
+ser 1, ou seja, $P(X)=1$.
 
-Since the events in probability theory are sets,
-we can manipulate them using standard set operations:
+Como os eventos na teoria da probabilidade são conjuntos,
+podemos manipulá-los usando operações de conjunto padrão:
 
 \begin{itemize}
-\item The \key{complement} $\bar A$ means
-''$A$ does not happen''.
-For example, when throwing a dice, 
-the complement of $A=\{2,4,6\}$ is
+\item O \key{complementar} $\bar A$ significa
+''$A$ não acontece''.
+Por exemplo, ao lançar um dado,
+o complementar de $A=\{2,4,6\}$ é
 $\bar A = \{1,3,5\}$.
-\item The \key{union} $A \cup B$ means
-''$A$ or $B$ happen''.
-For example, the union of
+\item A \key{união} $A \cup B$ significa
+''$A$ ou $B$ acontecem''.
+Por exemplo, a união de
 $A=\{2,5\}$
-and $B=\{4,5,6\}$ is
+e $B=\{4,5,6\}$ é
 $A \cup B = \{2,4,5,6\}$.
-\item The \key{intersection} $A \cap B$ means
-''$A$ and $B$ happen''.
-For example, the intersection of
-$A=\{2,5\}$ and $B=\{4,5,6\}$ is
+\item A \key{interseção} $A \cap B$ significa
+''$A$ e $B$ acontecem''.
+Por exemplo, a interseção de
+$A=\{2,5\}$ e $B=\{4,5,6\}$ é
 $A \cap B = \{5\}$.
 \end{itemize}
 
-\subsubsection{Complement}
+\subsubsection{Complementar}
 
-The probability of the complement
-$\bar A$ is calculated using the formula
+A probabilidade do complementar
+$\bar A$ é calculada usando a fórmula
 \[P(\bar A)=1-P(A).\]
 
-Sometimes, we can solve a problem easily
-using complements by solving the opposite problem.
-For example, the probability of getting
-at least one six when throwing a dice ten times is
+Às vezes, podemos resolver um problema facilmente
+usando complementares, resolvendo o problema oposto.
+Por exemplo, a probabilidade de obter
+pelo menos um seis ao lançar um dado dez vezes é
 \[1-(5/6)^{10}.\]
 
-Here $5/6$ is the probability that the outcome
-of a single throw is not six, and
-$(5/6)^{10}$ is the probability that none of
-the ten throws is a six.
-The complement of this is the answer to the problem.
+Aqui, $5/6$ é a probabilidade de que o resultado
+de um único lançamento não seja seis, e
+$(5/6)^{10}$ é a probabilidade de que nenhum dos
+dez lançamentos seja um seis.
+O complementar disso é a resposta para o problema.
 
-\subsubsection{Union}
+\subsubsection{União}
 
-The probability of the union $A \cup B$
-is calculated using the formula
+A probabilidade da união $A \cup B$
+é calculada usando a fórmula
 \[P(A \cup B)=P(A)+P(B)-P(A \cap B).\]
-For example, when throwing a dice,
-the union of the events
-\[A=\textrm{''the outcome is even''}\]
-and
-\[B=\textrm{''the outcome is less than 4''}\]
-is
-\[A \cup B=\textrm{''the outcome is even or less than 4''},\]
-and its probability is
+Por exemplo, ao lançar um dado,
+a união dos eventos
+\[A=\textrm{'''o resultado é par''}\]
+e
+\[B=\textrm{''o resultado é menor que 4''}\]
+é
+\[A \cup B=\textrm{''o resultado é par ou menor que 4''},\]
+e sua probabilidade é
 \[P(A \cup B) = P(A)+P(B)-P(A \cap B)=1/2+1/2-1/6=5/6.\]
 
-If the events $A$ and $B$ are \key{disjoint}, i.e.,
-$A \cap B$ is empty,
-the probability of the event $A \cup B$ is simply
+
+Se os eventos $A$ e $B$ são \key{disjuntos}, ou seja,
+$A \cap B$ é vazio,
+a probabilidade do evento $A \cup B$ é simplesmente
 
 \[P(A \cup B)=P(A)+P(B).\]
 
-\subsubsection{Conditional probability}
+\subsubsection{Probabilidade condicional}
 
-\index{conditional probability}
+\index{probabilidade condicional}
 
-The \key{conditional probability}
+A \key{probabilidade condicional}
 \[P(A | B) = \frac{P(A \cap B)}{P(B)}\]
-is the probability of $A$
-assuming that $B$ happens.
-Hence, when calculating the
-probability of $A$, we only consider the outcomes
-that also belong to $B$.
+é a probabilidade de $A$
+assumindo que $B$ acontece.
+Portanto, ao calcular a
+probabilidade de $A$, consideramos apenas os resultados
+que também pertencem a $B$.
 
-Using the previous sets,
+Usando os conjuntos anteriores,
 \[P(A | B)= 1/3,\]
-because the outcomes of $B$ are
-$\{1,2,3\}$, and one of them is even.
-This is the probability of an even outcome
-if we know that the outcome is between $1 \ldots 3$.
+pois os resultados de $B$ são
+$\{1,2,3\}$, e um deles é par.
+Esta é a probabilidade de um resultado par
+se sabemos que o resultado está entre $1 \ldots 3$.
 
-\subsubsection{Intersection}
+\subsubsection{Interseção}
 
-\index{independence}
+\index{independência}
 
-Using conditional probability,
-the probability of the intersection
-$A \cap B$ can be calculated using the formula
+Usando a probabilidade condicional,
+a probabilidade da interseção
+$A \cap B$ pode ser calculada usando a fórmula
 \[P(A \cap B)=P(A)P(B|A).\]
-Events $A$ and $B$ are \key{independent} if
+Os eventos $A$ e $B$ são \key{independentes} se
 \[P(A|B)=P(A) \hspace{10px}\textrm{and}\hspace{10px} P(B|A)=P(B),\]
-which means that the fact that $B$ happens does not
-change the probability of $A$, and vice versa.
-In this case, the probability of the intersection is
+o que significa que o fato de $B$ acontecer não
+altera a probabilidade de $A$, e vice-versa.
+Neste caso, a probabilidade da interseção é
 \[P(A \cap B)=P(A)P(B).\]
-For example, when drawing a card from a deck, the events
-\[A = \textrm{''the suit is clubs''}\]
-and
-\[B = \textrm{''the value is four''}\]
-are independent. Hence the event
-\[A \cap B = \textrm{''the card is the four of clubs''}\]
-happens with probability
+Por exemplo, ao tirar uma carta de um baralho, os eventos
+\[A = \textrm{''o naipe é paus''}\]
+e
+\[B = \textrm{''o valor é quatro''}\]
+são independentes. Portanto, o evento
+\[A \cap B = \textrm{''a carta é o quatro de paus''}\]
+acontece com probabilidade
 \[P(A \cap B)=P(A)P(B)=1/4 \cdot 1/13 = 1/52.\]
 
-\section{Random variables}
+\section{Variáveis aleatórias}
 
-\index{random variable}
+\index{variável aleatória}
 
-A \key{random variable} is a value that is generated
-by a random process.
-For example, when throwing two dice,
-a possible random variable is
-\[X=\textrm{''the sum of the outcomes''}.\]
-For example, if the outcomes are $[4,6]$
-(meaning that we first throw a four and then a six),
-then the value of $X$ is 10.
+Uma \key{variável aleatória} é um valor que é gerado
+por um processo aleatório.
+Por exemplo, ao lançar dois dados,
+uma possível variável aleatória é
+\[X=\textrm{''a soma dos resultados''}.\]
+Por exemplo, se os resultados forem $[4,6]$
+(o que significa que primeiro lançamos um quatro e depois um seis),
+então o valor de $X$ é 10.
 
-We denote $P(X=x)$ the probability that
-the value of a random variable $X$ is $x$.
-For example, when throwing two dice,
+Denotamos por $P(X=x)$ a probabilidade de que
+o valor de uma variável aleatória $X$ seja $x$.
+Por exemplo, ao lançar dois dados,
 $P(X=10)=3/36$,
-because the total number of outcomes is 36
-and there are three possible ways to obtain
-the sum 10: $[4,6]$, $[5,5]$ and $[6,4]$.
+pois o número total de resultados é 36
+e existem três maneiras possíveis de obter
+a soma 10: $[4,6]$, $[5,5]$ e $[6,4]$.
 
-\subsubsection{Expected value}
+\subsubsection{Valor esperado}
 
-\index{expected value}
+\index{valor esperado}
 
-The \key{expected value} $E[X]$ indicates the
-average value of a random variable $X$.
-The expected value can be calculated as the sum
+O \key{valor esperado} $E[X]$ indica o
+valor médio de uma variável aleatória $X$.
+O valor esperado pode ser calculado como a soma
 \[\sum_x P(X=x)x,\]
-where $x$ goes through all possible values of $X$.
+onde $x$ percorre todos os valores possíveis de $X$.
 
-For example, when throwing a dice,
-the expected outcome is
+Por exemplo, ao lançar um dado,
+o resultado esperado é
 \[1/6 \cdot 1 + 1/6 \cdot 2 + 1/6 \cdot 3 + 1/6 \cdot 4 + 1/6 \cdot 5 + 1/6 \cdot 6 = 7/2.\]
 
-A useful property of expected values is \key{linearity}.
-It means that the sum
+Uma propriedade útil dos valores esperados é a \key{linearidade}.
+Isso significa que a soma
 $E[X_1+X_2+\cdots+X_n]$
-always equals the sum
+sempre é igual à soma
 $E[X_1]+E[X_2]+\cdots+E[X_n]$.
-This formula holds even if random variables
-depend on each other.
+Esta fórmula é válida mesmo se as variáveis aleatórias
+dependerem umas das outras.
 
-For example, when throwing two dice,
-the expected sum is
+Por exemplo, ao lançar dois dados,
+a soma esperada é
 \[E[X_1+X_2]=E[X_1]+E[X_2]=7/2+7/2=7.\]
 
-Let us now consider a problem where
-$n$ balls are randomly placed in $n$ boxes,
-and our task is to calculate the expected
-number of empty boxes.
-Each ball has an equal probability to
-be placed in any of the boxes.
-For example, if $n=2$, the possibilities
-are as follows:
+Vamos agora considerar um problema onde
+$n$ bolas são aleatoriamente colocadas em $n$ caixas,
+e nossa tarefa é calcular o número esperado
+de caixas vazias.
+Cada bola tem a mesma probabilidade de
+ser colocada em qualquer uma das caixas.
+Por exemplo, se $n=2$, as possibilidades
+são as seguintes:
 \begin{center}
 \begin{tikzpicture}
 \draw (0,0) rectangle (1,1);
@@ -275,27 +276,27 @@ are as follows:
 \draw[fill=red] (10.95,0.2) circle (0.1);
 \end{tikzpicture}
 \end{center}
-In this case, the expected number of
-empty boxes is
+Neste caso, o número esperado de
+caixas vazias é
 \[\frac{0+0+1+1}{4} = \frac{1}{2}.\]
-In the general case, the probability that a
-single box is empty is
+No caso geral, a probabilidade de uma
+única caixa estar vazia é
 \[\Big(\frac{n-1}{n}\Big)^n,\]
-because no ball should be placed in it.
-Hence, using linearity, the expected number of
-empty boxes is
+porque nenhuma bola deve ser colocada nela.
+Portanto, usando a linearidade, o número esperado de
+caixas vazias é
 \[n \cdot \Big(\frac{n-1}{n}\Big)^n.\]
 
-\subsubsection{Distributions}
+\subsubsection{Distribuições}
 
-\index{distribution}
+\index{distribuição}
 
-The \key{distribution} of a random variable $X$
-shows the probability of each value that
-$X$ may have.
-The distribution consists of values $P(X=x)$.
-For example, when throwing two dice,
-the distribution for their sum is:
+A \key{distribuição} de uma variável aleatória $X$
+mostra a probabilidade de cada valor que
+$X$ pode ter.
+A distribuição consiste nos valores de $P(X=x)$.
+Por exemplo, ao lançar dois dados,
+a distribuição da sua soma é:
 \begin{center}
 \small {
 \begin{tabular}{r|rrrrrrrrrrrrr}
@@ -305,81 +306,81 @@ $P(X=x)$ & $1/36$ & $2/36$ & $3/36$ & $4/36$ & $5/36$ & $6/36$ & $5/36$ & $4/36$
 }
 \end{center}
 
-\index{uniform distribution}
-In a \key{uniform distribution},
-the random variable $X$ has $n$ possible
-values $a,a+1,\ldots,b$ and the probability of each value is $1/n$.
-For example, when throwing a dice,
-$a=1$, $b=6$ and $P(X=x)=1/6$ for each value $x$.
+\index{distribuição uniforme}
+Em uma \key{distribuição uniforme},
+a variável aleatória $X$ tem $n$ valores possíveis
+$a,a+1,\ldots,b$ e a probabilidade de cada valor é $1/n$.
+Por exemplo, ao lançar um dado,
+$a=1$, $b=6$ e $P(X=x)=1/6$ para cada valor $x$.
 
-The expected value of $X$ in a uniform distribution is
+O valor esperado de $X$ em uma distribuição uniforme é
 \[E[X] = \frac{a+b}{2}.\]
 
-\index{binomial distribution}
-In a \key{binomial distribution}, $n$ attempts
-are made
-and the probability that a single attempt succeeds
-is $p$.
-The random variable $X$ counts the number of
-successful attempts,
-and the probability of a value $x$ is
+\index{distribuição binomial}
+Em uma \key{distribuição binomial}, $n$ tentativas
+são feitas,
+e a probabilidade de uma única tentativa ser bem-sucedida
+é $p$.
+A variável aleatória $X$ conta o número de
+tentativas bem-sucedidas,
+e a probabilidade de um valor $x$ é
 \[P(X=x)=p^x (1-p)^{n-x} {n \choose x},\]
-where $p^x$ and $(1-p)^{n-x}$ correspond to
-successful and unsuccessful attemps,
-and ${n \choose x}$ is the number of ways
-we can choose the order of the attempts.
+onde $p^x$ e $(1-p)^{n-x}$ correspondem a
+tentativas bem-sucedidas e mal-sucedidas,
+e ${n \choose x}$ é o número de maneiras
+pelas quais podemos escolher a ordem das tentativas.
 
-For example, when throwing a dice ten times,
-the probability of throwing a six exactly
-three times is $(1/6)^3 (5/6)^7 {10 \choose 3}$.
+Por exemplo, ao lançar um dado dez vezes,
+a probabilidade de obter um seis exatamente
+três vezes é $(1/6)^3 (5/6)^7 {10 \choose 3}$.
 
-The expected value of $X$ in a binomial distribution is
+O valor esperado de $X$ em uma distribuição binomial é
 \[E[X] = pn.\]
 
-\index{geometric distribution}
-In a \key{geometric distribution},
-the probability that an attempt succeeds is $p$,
-and we continue until the first success happens.
-The random variable $X$ counts the number
-of attempts needed, and the probability of
-a value $x$ is
+\index{distribuição geométrica}
+Em uma \key{distribuição geométrica},
+a probabilidade de uma tentativa ser bem-sucedida é $p$,
+e continuamos até que o primeiro sucesso aconteça.
+A variável aleatória $X$ conta o número
+de tentativas necessárias, e a probabilidade de
+um valor $x$ é
 \[P(X=x)=(1-p)^{x-1} p,\]
-where $(1-p)^{x-1}$ corresponds to the unsuccessful attemps
-and $p$ corresponds to the first successful attempt.
+onde $(1-p)^{x-1}$ corresponde às tentativas malsucedidas
+e $p$ corresponde à primeira tentativa bem-sucedida.
 
-For example, if we throw a dice until we throw a six,
-the probability that the number of throws
-is exactly 4 is $(5/6)^3 1/6$.
+Por exemplo, se lançarmos um dado até obtermos um seis,
+a probabilidade de que o número de lançamentos
+seja exatamente 4 é $(5/6)^3 1/6$.
 
-The expected value of $X$ in a geometric distribution is
+O valor esperado de $X$ em uma distribuição geométrica é
 \[E[X]=\frac{1}{p}.\]
 
-\section{Markov chains}
+\section{Cadeias de Markov}
 
-\index{Markov chain}
+\index{cadeia de Markov}
 
-A \key{Markov chain}
+Uma \key{cadeia de Markov}
 % \footnote{A. A. Markov (1856--1922)
-% was a Russian mathematician.}
-is a random process
-that consists of states and transitions between them.
-For each state, we know the probabilities
-for moving to other states.
-A Markov chain can be represented as a graph
-whose nodes are states and edges are transitions.
+% foi um matemático russo.}
+é um processo aleatório
+que consiste em estados e transições entre eles.
+Para cada estado, sabemos as probabilidades
+de mover para outros estados.
+Uma cadeia de Markov pode ser representada como um grafo
+cujos nós são estados e arestas são transições.
 
-As an example, consider a problem
-where we are in floor 1 in an $n$ floor building.
-At each step, we randomly walk either one floor
-up or one floor down, except that we always
-walk one floor up from floor 1 and one floor down
-from floor $n$.
-What is the probability of being in floor $m$
-after $k$ steps?
+Como exemplo, considere um problema
+em que estamos no andar 1 em um prédio de $n$ andares.
+A cada passo, caminhamos aleatoriamente um andar
+para cima ou um andar para baixo, exceto que sempre
+subimos um andar do andar 1 e descemos um andar
+do andar $n$.
+Qual é a probabilidade de estar no andar $m$
+após $k$ passos?
 
-In this problem, each floor of the building
-corresponds to a state in a Markov chain.
-For example, if $n=5$, the graph is as follows:
+Neste problema, cada andar do prédio
+corresponde a um estado em uma cadeia de Markov.
+Por exemplo, se $n=5$, o grafo é o seguinte:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -403,32 +404,32 @@ For example, if $n=5$, the graph is as follows:
 \end{tikzpicture}
 \end{center}
 
-The probability distribution
-of a Markov chain is a vector
-$[p_1,p_2,\ldots,p_n]$, where $p_k$ is the
-probability that the current state is $k$.
-The formula $p_1+p_2+\cdots+p_n=1$ always holds.
+A distribuição de probabilidade
+de uma cadeia de Markov é um vetor
+$[p_1,p_2,\ldots,p_n]$, onde $p_k$ é a
+probabilidade de que o estado atual seja $k$.
+A fórmula $p_1+p_2+\cdots+p_n=1$ sempre é válida.
 
-In the above scenario, the initial distribution is
-$[1,0,0,0,0]$, because we always begin in floor 1.
-The next distribution is $[0,1,0,0,0]$,
-because we can only move from floor 1 to floor 2.
-After this, we can either move one floor up
-or one floor down, so the next distribution is
-$[1/2,0,1/2,0,0]$, and so on.
+No cenário acima, a distribuição inicial é
+$[1,0,0,0,0]$, porque sempre começamos no andar 1.
+A próxima distribuição é $[0,1,0,0,0]$,
+porque só podemos ir do andar 1 para o andar 2.
+Depois disso, podemos subir um andar
+ou descer um andar, então a próxima distribuição é
+$[1/2,0,1/2,0,0]$, e assim por diante.
 
-An efficient way to simulate the walk in
-a Markov chain is to use dynamic programming.
-The idea is to maintain the probability distribution,
-and at each step go through all possibilities
-how we can move.
-Using this method, we can simulate
-a walk of $m$ steps in $O(n^2 m)$ time.
+Uma maneira eficiente de simular a caminhada em
+uma cadeia de Markov é usar programação dinâmica.
+A ideia é manter a distribuição de probabilidade,
+e a cada passo, percorrer todas as possibilidades
+de como podemos nos mover.
+Usando este método, podemos simular
+uma caminhada de $m$ passos em tempo $O(n^2 m)$.
 
-The transitions of a Markov chain can also be
-represented as a matrix that updates the
-probability distribution.
-In the above scenario, the matrix is
+As transições de uma cadeia de Markov também podem ser
+representadas como uma matriz que atualiza a
+distribuição de probabilidade.
+No cenário acima, a matriz é
 
 \[ 
  \begin{bmatrix}
@@ -440,11 +441,11 @@ In the above scenario, the matrix is
  \end{bmatrix}.
 \]
 
-When we multiply a probability distribution by this matrix,
-we get the new distribution after moving one step.
-For example, we can move from the distribution
-$[1,0,0,0,0]$ to the distribution
-$[0,1,0,0,0]$ as follows:
+Quando multiplicamos uma distribuição de probabilidade por esta matriz,
+obtemos a nova distribuição após mover um passo.
+Por exemplo, podemos mover da distribuição
+$[1,0,0,0,0]$ para a distribuição
+$[0,1,0,0,0]$ da seguinte forma:
 
 \[ 
  \begin{bmatrix}
@@ -471,122 +472,122 @@ $[0,1,0,0,0]$ as follows:
  \end{bmatrix}.
 \]
 
-By calculating matrix powers efficiently,
-we can calculate the distribution after $m$ steps
-in $O(n^3 \log m)$ time.
+Calculando as potências da matriz de forma eficiente,
+podemos calcular a distribuição após $m$ passos
+em tempo $O(n^3 \log m)$.
 
-\section{Randomized algorithms}
+\section{Algoritmos aleatorizados}
 
-\index{randomized algorithm}
+\index{algoritmo aleatorizado}
 
-Sometimes we can use randomness for solving a problem,
-even if the problem is not related to probabilities.
-A \key{randomized algorithm} is an algorithm that
-is based on randomness.
+Às vezes, podemos usar a aleatoriedade para resolver um problema,
+mesmo que o problema não esteja relacionado a probabilidades.
+Um \key{algoritmo aleatorizado} é um algoritmo que
+é baseado em aleatoriedade.
 
-\index{Monte Carlo algorithm}
+\index{algoritmo de Monte Carlo}
 
-A \key{Monte Carlo algorithm} is a randomized algorithm
-that may sometimes give a wrong answer.
-For such an algorithm to be useful,
-the probability of a wrong answer should be small.
+Um \key{algoritmo de Monte Carlo} é um algoritmo aleatorizado
+que pode, às vezes, dar uma resposta errada.
+Para que tal algoritmo seja útil,
+a probabilidade de uma resposta errada deve ser pequena.
 
-\index{Las Vegas algorithm}
+\index{algoritmo de Las Vegas}
 
-A \key{Las Vegas algorithm} is a randomized algorithm
-that always gives the correct answer,
-but its running time varies randomly.
-The goal is to design an algorithm that is
-efficient with high probability.
+Um \key{algoritmo de Las Vegas} é um algoritmo aleatorizado
+que sempre dá a resposta correta,
+mas seu tempo de execução varia aleatoriamente.
+O objetivo é projetar um algoritmo que seja
+eficiente com alta probabilidade.
 
-Next we will go through three example problems that
-can be solved using randomness.
+A seguir, veremos três exemplos de problemas que
+podem ser resolvidos usando aleatoriedade.
 
-\subsubsection{Order statistics}
+\subsubsection{Estatísticas de ordem}
 
-\index{order statistic}
+\index{estatística de ordem}
 
-The $kth$ \key{order statistic} of an array
-is the element at position $k$ after sorting
-the array in increasing order.
-It is easy to calculate any order statistic
-in $O(n \log n)$ time by first sorting the array,
-but is it really needed to sort the entire array
-just to find one element?
+A $k$-ésima \key{estatística de ordem} de um array
+é o elemento na posição $k$ após a ordenação
+do array em ordem crescente.
+É fácil calcular qualquer estatística de ordem
+em tempo $O(n \log n)$ ordenando primeiro o array,
+mas é realmente necessário ordenar o array inteiro
+apenas para encontrar um elemento?
 
-It turns out that we can find order statistics
-using a randomized algorithm without sorting the array.
-The algorithm, called \key{quickselect}\footnote{In 1961,
-C. A. R. Hoare published two algorithms that
-are efficient on average: \index{quicksort} \index{quickselect}
-\key{quicksort} \cite{hoa61a} for sorting arrays and
-\key{quickselect} \cite{hoa61b} for finding order statistics.}, is a Las Vegas algorithm:
-its running time is usually $O(n)$
-but $O(n^2)$ in the worst case.
+Acontece que podemos encontrar estatísticas de ordem
+usando um algoritmo aleatorizado sem ordenar o array.
+O algoritmo, chamado \key{quickselect}\footnote{Em 1961,
+C. A. R. Hoare publicou dois algoritmos que
+são eficientes em média: \index{quicksort} \index{quickselect}
+\key{quicksort} \cite{hoa61a} para ordenar arrays e
+\key{quickselect} \cite{hoa61b} para encontrar estatísticas de ordem.}, é um algoritmo de Las Vegas:
+seu tempo de execução é normalmente $O(n)$,
+mas $O(n^2)$ no pior caso.
 
-The algorithm chooses a random element $x$
-of the array, and moves elements smaller than $x$
-to the left part of the array,
-and all other elements to the right part of the array.
-This takes $O(n)$ time when there are $n$ elements.
-Assume that the left part contains $a$ elements
-and the right part contains $b$ elements.
-If $a=k$, element $x$ is the $k$th order statistic.
-Otherwise, if $a>k$, we recursively find the $k$th order
-statistic for the left part,
-and if $a<k$, we recursively find the $r$th order
-statistic for the right part where $r=k-a$.
-The search continues in a similar way, until the element
-has been found.
+O algoritmo escolhe um elemento aleatório $x$
+do array e move os elementos menores que $x$
+para a parte esquerda do array,
+e todos os outros elementos para a parte direita do array.
+Isso leva tempo $O(n)$ quando há $n$ elementos.
+Suponha que a parte esquerda contenha $a$ elementos
+e a parte direita contenha $b$ elementos.
+Se $a=k$, o elemento $x$ é a $k$-ésima estatística de ordem.
+Caso contrário, se $a>k$, recursivamente encontramos a $k$-ésima estatística de ordem
+para a parte esquerda,
+e se $a<k$, recursivamente encontramos a $r$-ésima estatística de ordem
+para a parte direita, onde $r=k-a$.
+A busca continua de forma similar até que o elemento
+tenha sido encontrado.
 
-When each element $x$ is randomly chosen,
-the size of the array about halves at each step,
-so the time complexity for
-finding the $k$th order statistic is about
+Quando cada elemento $x$ é escolhido aleatoriamente,
+o tamanho do array é dividido pela metade a cada etapa,
+então a complexidade de tempo para
+encontrar a $k$-ésima estatística de ordem é aproximadamente
 \[n+n/2+n/4+n/8+\cdots < 2n = O(n).\]
 
-The worst case of the algorithm requires still $O(n^2)$ time,
-because it is possible that $x$ is always chosen
-in such a way that it is one of the smallest or largest
-elements in the array and $O(n)$ steps are needed.
-However, the probability for this is so small
-that this never happens in practice.
+O pior caso do algoritmo ainda requer tempo $O(n^2)$,
+porque é possível que $x$ seja sempre escolhido
+de forma que seja um dos menores ou maiores
+elementos no array, e $O(n)$ etapas sejam necessárias.
+No entanto, a probabilidade disso é tão pequena
+que isso nunca acontece na prática.
 
-\subsubsection{Verifying matrix multiplication}
+\subsubsection{Verificação da multiplicação de matrizes}
 
-\index{matrix multiplication}
+\index{multiplicação de matrizes}
 
-Our next problem is to \emph{verify}
-if $AB=C$ holds when $A$, $B$ and $C$
-are matrices of size $n \times n$.
-Of course, we can solve the problem
-by calculating the product $AB$ again
-(in $O(n^3)$ time using the basic algorithm),
-but one could hope that verifying the
-answer would by easier than to calculate it from scratch.
+Nosso próximo problema é \emph{verificar}
+se $AB=C$ é válido quando $A$, $B$ e $C$
+são matrizes de tamanho $n \times n$.
+Claro, podemos resolver o problema
+calculando o produto $AB$ novamente
+(em tempo $O(n^3)$ usando o algoritmo básico),
+mas poderíamos esperar que verificar a
+resposta seria mais fácil do que calculá-la do zero.
 
-It turns out that we can solve the problem
-using a Monte Carlo algorithm\footnote{R. M. Freivalds published
-this algorithm in 1977 \cite{fre77}, and it is sometimes
-called \index{Freivalds' algoritm} \key{Freivalds' algorithm}.} whose
-time complexity is only $O(n^2)$.
-The idea is simple: we choose a random vector
-$X$ of $n$ elements, and calculate the matrices
-$ABX$ and $CX$. If $ABX=CX$, we report that $AB=C$,
-and otherwise we report that $AB \neq C$.
+Acontece que podemos resolver o problema
+usando um algoritmo de Monte Carlo\footnote{R. M. Freivalds publicou
+este algoritmo em 1977 \cite{fre77}, e às vezes é chamado
+de \index{algoritmo de Freivalds} \key{algoritmo de Freivalds}.}, cuja
+complexidade de tempo é apenas $O(n^2)$.
+A ideia é simples: escolhemos um vetor aleatório
+$X$ de $n$ elementos e calculamos as matrizes
+$ABX$ e $CX$. Se $ABX=CX$, relatamos que $AB=C$,
+caso contrário, relatamos que $AB \neq C$.
 
-The time complexity of the algorithm is
-$O(n^2)$, because we can calculate the matrices
-$ABX$ and $CX$ in $O(n^2)$ time.
-We can calculate the matrix $ABX$ efficiently
-by using the representation $A(BX)$, so only two
-multiplications of $n \times n$ and $n \times 1$
-size matrices are needed.
+A complexidade de tempo do algoritmo é
+$O(n^2)$, pois podemos calcular as matrizes
+$ABX$ e $CX$ em tempo $O(n^2)$.
+Podemos calcular a matriz $ABX$ de forma eficiente
+usando a representação $A(BX)$, então apenas duas
+multiplicações de matrizes de tamanho $n \times n$ e $n \times 1$
+são necessárias.
 
-The drawback of the algorithm is
-that there is a small chance that the algorithm
-makes a mistake when it reports that $AB=C$.
-For example, 
+A desvantagem do algoritmo é
+que há uma pequena chance de o algoritmo
+cometer um erro ao relatar que $AB=C$.
+Por exemplo,
 \[
  \begin{bmatrix}
   6 & 8 \\
@@ -598,7 +599,7 @@ For example,
   3 & 2 \\
  \end{bmatrix},
 \]
-but
+mas
 \[
  \begin{bmatrix}
   6 & 8 \\
@@ -618,22 +619,22 @@ but
   6 \\
  \end{bmatrix}.
 \]
-However, in practice, the probability that the
-algorithm makes a mistake is small,
-and we can decrease the probability by
-verifying the result using multiple random vectors $X$
-before reporting that $AB=C$.
+No entanto, na prática, a probabilidade de o
+algoritmo cometer um erro é pequena,
+e podemos diminuir a probabilidade
+verificando o resultado usando vários vetores aleatórios $X$
+antes de relatar que $AB=C$.
 
-\subsubsection{Graph coloring}
+\subsubsection{Coloração de grafos}
 
-\index{coloring}
+\index{coloração}
 
-Given a graph that contains $n$ nodes and $m$ edges,
-our task is to find a way to color the nodes
-of the graph using two colors so that
-for at least $m/2$ edges, the endpoints 
-have different colors.
-For example, in the graph
+Dado um grafo que contém $n$ vértices e $m$ arestas,
+nossa tarefa é encontrar uma maneira de colorir os vértices
+do grafo usando duas cores, de modo que
+para pelo menos $m/2$ arestas, os vértices adjacentes
+tenham cores diferentes.
+Por exemplo, no grafo
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,3) {$1$};
@@ -651,7 +652,7 @@ For example, in the graph
 \path[draw,thick,-] (4) -- (5);
 \end{tikzpicture}
 \end{center}
-a valid coloring is as follows:
+uma coloração válida é a seguinte:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle, fill=blue!40] (1) at (1,3) {$1$};
@@ -669,21 +670,21 @@ a valid coloring is as follows:
 \path[draw,thick,-] (4) -- (5);
 \end{tikzpicture}
 \end{center}
-The above graph contains 7 edges, and for 5 of them,
-the endpoints have different colors,
-so the coloring is valid.
+O grafo acima contém 7 arestas e, para 5 delas,
+os vértices adjacentes têm cores diferentes,
+portanto a coloração é válida.
 
-The problem can be solved using a Las Vegas algorithm
-that generates random colorings until a valid coloring
-has been found.
-In a random coloring, the color of each node is
-independently chosen so that the probability of
-both colors is $1/2$.
+O problema pode ser resolvido usando um algoritmo de Las Vegas
+que gera colorações aleatórias até que uma coloração válida
+seja encontrada.
+Em uma coloração aleatória, a cor de cada vértice é
+escolhida independentemente de forma que a probabilidade de receber
+qualquer uma das duas cores seja $1/2$.
 
-In a random coloring, the probability that the endpoints
-of a single edge have different colors is $1/2$.
-Hence, the expected number of edges whose endpoints
-have different colors is $m/2$.
-Since it is expected that a random coloring is valid,
-we will quickly find a valid coloring in practice.
+Em uma coloração aleatória, a probabilidade de os vértices adjacentes
+de uma única aresta terem cores diferentes é $1/2$.
+Portanto, o número esperado de arestas cujos vértices adjacentes
+têm cores diferentes é $m/2$.
+Como espera-se que uma coloração aleatória seja válida,
+encontraremos rapidamente uma coloração válida na prática.
 
