@@ -1,32 +1,32 @@
-\chapter{Square root algorithms}
+\chapter{Algoritmos de raiz quadrada}
 
-\index{square root algorithm}
+\index{algoritmo de raiz quadrada}
 
-A \key{square root algorithm} is an algorithm
-that has a square root in its time complexity.
-A square root can be seen as a ''poor man's logarithm'':
-the complexity $O(\sqrt n)$ is better than $O(n)$
-but worse than $O(\log n)$.
-In any case, many square root algorithms are fast and usable in practice.
+Um \key{algoritmo de raiz quadrada} é um algoritmo
+que possui uma raiz quadrada em sua complexidade de tempo.
+Uma raiz quadrada pode ser vista como um "logaritmo do homem pobre":
+a complexidade $O(\sqrt n)$ é melhor que $O(n)$
+mas pior que $O(\log n)$.
+De qualquer forma, muitos algoritmos de raiz quadrada são rápidos e utilizáveis na prática.
 
-As an example, consider the problem of
-creating a data structure that supports
-two operations on an array:
-modifying an element at a given position
-and calculating the sum of elements in the given range.
-We have previously solved the problem using
-binary indexed and segment trees,
-that support both operations in $O(\log n)$ time.
-However, now we will solve the problem
-in another way using a square root structure
-that allows us to modify elements in $O(1)$ time
-and calculate sums in $O(\sqrt n)$ time.
+Como exemplo, considere o problema de
+criar uma estrutura de dados que suporte
+duas operações em um array:
+modificar um elemento em uma dada posição
+e calcular a soma dos elementos no intervalo dado.
+Já resolvemos o problema usando
+árvores binárias indexadas e árvores de segmentos,
+que suportam ambas as operações em tempo $O(\log n)$.
+No entanto, agora resolveremos o problema
+de outra forma usando uma estrutura de raiz quadrada
+que nos permite modificar elementos em tempo $O(1)$
+e calcular somas em tempo $O(\sqrt n)$.
 
-The idea is to divide the array into \emph{blocks}
-of size $\sqrt n$ so that each block contains
-the sum of elements inside the block.
-For example, an array of 16 elements will be
-divided into blocks of 4 elements as follows:
+A ideia é dividir o array em \emph{blocos}
+de tamanho $\sqrt n$ para que cada bloco contenha
+a soma dos elementos dentro do bloco.
+Por exemplo, um array de 16 elementos será
+dividido em blocos de 4 elementos como segue:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -62,15 +62,15 @@ divided into blocks of 4 elements as follows:
 \end{tikzpicture}
 \end{center}
 
-In this structure,
-it is easy to modify array elements,
-because it is only needed to update
-the sum of a single block
-after each modification,
-which can be done in $O(1)$ time.
-For example, the following picture shows
-how the value of an element and
-the sum of the corresponding block change:
+Nesta estrutura,
+é fácil modificar os elementos do array,
+pois basta atualizar
+a soma de um único bloco
+após cada modificação,
+o que pode ser feito em tempo $O(1)$.
+Por exemplo, a figura a seguir mostra
+como o valor de um elemento e
+a soma do bloco correspondente mudam:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -108,10 +108,10 @@ the sum of the corresponding block change:
 \end{tikzpicture}
 \end{center}
 
-Then, to calculate the sum of elements in a range,
-we divide the range into three parts such that 
-the sum consists of values of single elements
-and sums of blocks between them:
+Então, para calcular a soma dos elementos em um intervalo,
+dividimos o intervalo em três partes, de forma que
+a soma consista em valores de elementos individuais
+e somas de blocos entre eles:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -154,46 +154,45 @@ and sums of blocks between them:
 \end{tikzpicture}
 \end{center}
 
-Since the number of single elements is $O(\sqrt n)$
-and the number of blocks is also $O(\sqrt n)$,
-the sum query takes $O(\sqrt n)$ time.
-The purpose of the block size $\sqrt n$ is
-that it \emph{balances} two things:
-the array is divided into $\sqrt n$ blocks,
-each of which contains $\sqrt n$ elements.
+Como o número de elementos individuais é $O(\sqrt n)$
+e o número de blocos também é $O(\sqrt n)$,
+a consulta de soma leva tempo $O(\sqrt n)$.
+O propósito do tamanho do bloco $\sqrt n$ é
+que ele \emph{equilibra} duas coisas:
+o array é dividido em $\sqrt n$ blocos,
+cada um contendo $\sqrt n$ elementos.
 
-In practice, it is not necessary to use the
-exact value of $\sqrt n$ as a parameter,
-and instead we may use parameters $k$ and $n/k$ where $k$ is
-different from $\sqrt n$.
-The optimal parameter depends on the problem and input.
-For example, if an algorithm often goes
-through the blocks but rarely inspects
-single elements inside the blocks,
-it may be a good idea to divide the array into
-$k < \sqrt n$ blocks, each of which contains $n/k > \sqrt n$
-elements.
+Na prática, não é necessário usar o
+valor exato de $\sqrt n$ como parâmetro,
+e, em vez disso, podemos usar os parâmetros $k$ e $n/k$, onde $k$ é
+diferente de $\sqrt n$.
+O parâmetro ideal depende do problema e da entrada.
+Por exemplo, se um algoritmo frequentemente passa
+pelos blocos, mas raramente inspeciona
+elementos individuais dentro dos blocos,
+pode ser uma boa ideia dividir o array em
+$k < \sqrt n$ blocos, cada um contendo $n/k > \sqrt n$
+elementos.
 
-\section{Combining algorithms}
+\section{Combinando algoritmos}
 
-In this section we discuss two square root algorithms
-that are based on combining two algorithms into one algorithm.
-In both cases, we could use either of the algorithms
-without the other
-and solve the problem in $O(n^2)$ time.
-However, by combining the algorithms, the running
-time is only $O(n \sqrt n)$.
+Nesta seção, discutimos dois algoritmos de raiz quadrada
+que se baseiam na combinação de dois algoritmos em um único algoritmo.
+Em ambos os casos, poderíamos usar qualquer um dos algoritmos
+sem o outro
+e resolver o problema em tempo $O(n^2)$.
+No entanto, combinando os algoritmos, o tempo de execução é de apenas $O(n \sqrt n)$.
 
-\subsubsection{Case processing}
+\subsubsection{Processamento de casos}
 
-Suppose that we are given a two-dimensional
-grid that contains $n$ cells.
-Each cell is assigned a letter,
-and our task is to find two cells
-with the same letter whose distance is minimum,
-where the distance between cells
-$(x_1,y_1)$ and $(x_2,y_2)$ is $|x_1-x_2|+|y_1-y_2|$.
-For example, consider the following grid:
+Suponha que recebamos uma grade bidimensional
+que contém $n$ células.
+Cada célula recebe uma letra,
+e nossa tarefa é encontrar duas células
+com a mesma letra cuja distância seja mínima,
+onde a distância entre as células
+$(x_1,y_1)$ e $(x_2,y_2)$ é $|x_1-x_2|+|y_1-y_2|$.
+Por exemplo, considere a grade a seguir:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -216,59 +215,59 @@ For example, consider the following grid:
 \draw (0,0) grid (4,4);
 \end{tikzpicture}
 \end{center}
-In this case, the minimum distance is 2 between the two 'E' letters.
+Neste caso, a distância mínima é 2 entre as duas letras 'E'.
 
-We can solve the problem by considering each letter separately.
-Using this approach, the new problem is to calculate
-the minimum distance
-between two cells with a \emph{fixed} letter $c$.
-We focus on two algorithms for this:
+Podemos resolver o problema considerando cada letra separadamente.
+Usando essa abordagem, o novo problema é calcular
+a distância mínima
+entre duas células com uma letra \emph{fixa} $c$.
+Vamos nos concentrar em dois algoritmos para isso:
 
-\emph{Algorithm 1:} Go through all pairs of cells with letter $c$,
-and calculate the minimum distance between such cells.
-This will take $O(k^2)$ time where $k$ is the number of cells with letter $c$.
+\emph{Algoritmo 1:} Percorra todos os pares de células com a letra $c$,
+e calcule a distância mínima entre tais células.
+Isso levará tempo $O(k^2)$, onde $k$ é o número de células com a letra $c$.
 
-\emph{Algorithm 2:} Perform a breadth-first search that simultaneously
-starts at each cell with letter $c$. The minimum distance between
-two cells with letter $c$ will be calculated in $O(n)$ time.
+\emph{Algoritmo 2:} Execute uma busca em largura que simultaneamente
+começa em cada célula com a letra $c$. A distância mínima entre
+duas células com a letra $c$ será calculada em tempo $O(n)$.
 
-One way to solve the problem is to choose either of the
-algorithms and use it for all letters.
-If we use Algorithm 1, the running time is $O(n^2)$,
-because all cells may contain the same letter,
-and in this case $k=n$.
-Also if we use Algorithm 2, the running time is $O(n^2)$,
-because all cells may have different letters,
-and in this case $n$ searches are needed.
+Uma maneira de resolver o problema é escolher qualquer um dos
+algoritmos e usá-lo para todas as letras.
+Se usarmos o Algoritmo 1, o tempo de execução é $O(n^2)$,
+porque todas as células podem conter a mesma letra,
+e, neste caso, $k=n$.
+Também se usarmos o Algoritmo 2, o tempo de execução é $O(n^2)$,
+porque todas as células podem ter letras diferentes,
+e, neste caso, $n$ buscas são necessárias.
 
-However, we can \emph{combine} the two algorithms and
-use different algorithms for different letters
-depending on how many times each letter appears in the grid.
-Assume that a letter $c$ appears $k$ times.
-If $k \le \sqrt n$, we use Algorithm 1, and if $k > \sqrt n$,
-we use Algorithm 2.
-It turns out that by doing this, the total running time
-of the algorithm is only $O(n \sqrt n)$.
+No entanto, podemos \emph{combinar} os dois algoritmos e
+usar algoritmos diferentes para letras diferentes,
+dependendo de quantas vezes cada letra aparece na grade.
+Suponha que uma letra $c$ apareça $k$ vezes.
+Se $k \le \sqrt n$, usamos o Algoritmo 1 e, se $k > \sqrt n$,
+usamos o Algoritmo 2.
+Acontece que, ao fazer isso, o tempo de execução total
+do algoritmo é de apenas $O(n \sqrt n)$.
 
-First, suppose that we use Algorithm 1 for a letter $c$.
-Since $c$ appears at most $\sqrt n$ times in the grid,
-we compare each cell with letter $c$ $O(\sqrt n)$ times
-with other cells.
-Thus, the time used for processing all such cells is $O(n \sqrt n)$.
-Then, suppose that we use Algorithm 2 for a letter $c$.
-There are at most $\sqrt n$ such letters,
-so processing those letters also takes $O(n \sqrt n)$ time.
+Primeiro, suponha que usamos o Algoritmo 1 para uma letra $c$.
+Como $c$ aparece no máximo $\sqrt n$ vezes na grade,
+comparamos cada célula com a letra $c$ $O(\sqrt n)$ vezes
+com outras células.
+Assim, o tempo usado para processar todas essas células é $O(n \sqrt n)$.
+Então, suponha que usamos o Algoritmo 2 para uma letra $c$.
+Existem no máximo $\sqrt n$ letras assim,
+então, processar essas letras também leva tempo $O(n \sqrt n)$.
 
-\subsubsection{Batch processing}
+\subsubsection{Processamento em lote}
 
-Our next problem also deals with
-a two-dimensional grid that contains $n$ cells.
-Initially, each cell except one is white.
-We perform $n-1$ operations, each of which first
-calculates the minimum distance from a given white cell
-to a black cell, and then paints the white cell black.
+Nosso próximo problema também lida com
+uma grade bidimensional que contém $n$ células.
+Inicialmente, cada célula, exceto uma, é branca.
+Realizamos $n-1$ operações, cada uma das quais primeiro
+calcula a distância mínima de uma dada célula branca
+para uma célula preta e, em seguida, pinta a célula branca de preto.
 
-For example, consider the following operation:
+Por exemplo, considere a seguinte operação:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -280,11 +279,11 @@ For example, consider the following operation:
 \end{tikzpicture}
 \end{center}
 
-First, we calculate the minimum distance
-from the white cell marked with * to a black cell.
-The minimum distance is 2, because we can move
-two steps left to a black cell.
-Then, we paint the white cell black:
+Primeiro, calculamos a distância mínima
+da célula branca marcada com * para uma célula preta.
+A distância mínima é 2, pois podemos mover
+duas casas para a esquerda até uma célula preta.
+Então, pintamos a célula branca de preto:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -296,72 +295,72 @@ Then, we paint the white cell black:
 \end{tikzpicture}
 \end{center}
 
-Consider the following two algorithms:
+Considere os dois algoritmos a seguir:
 
-\emph{Algorithm 1:} Use breadth-first search
-to calculate
-for each white cell the distance to the nearest black cell.
-This takes $O(n)$ time, and after the search,
-we can find the minimum distance from any white cell
-to a black cell in $O(1)$ time.
+\emph{Algoritmo 1:} Use a busca em largura
+para calcular,
+para cada célula branca, a distância até a célula preta mais próxima.
+Isso leva tempo $O(n)$, e, após a busca,
+podemos encontrar a distância mínima de qualquer célula branca
+para uma célula preta em tempo $O(1)$.
 
-\emph{Algorithm 2:} Maintain a list of cells that have been
-painted black, go through this list at each operation
-and then add a new cell to the list.
-An operation takes $O(k)$ time where $k$ is the length of the list.
+\emph{Algoritmo 2:} Mantenha uma lista de células que foram
+pintadas de preto, percorra essa lista em cada operação
+e adicione uma nova célula à lista.
+Uma operação leva tempo $O(k)$, onde $k$ é o tamanho da lista.
 
-We combine the above algorithms by
-dividing the operations into
-$O(\sqrt n)$ \emph{batches}, each of which consists
-of $O(\sqrt n)$ operations.
-At the beginning of each batch,
-we perform Algorithm 1.
-Then, we use Algorithm 2 to process the operations
-in the batch.
-We clear the list of Algorithm 2 between
-the batches.
-At each operation,
-the minimum distance to a black cell
-is either the distance calculated by Algorithm 1
-or the distance calculated by Algorithm 2.
+Combinamos os algoritmos acima
+dividindo as operações em
+$O(\sqrt n)$ \emph{lotes}, cada um dos quais consiste
+em $O(\sqrt n)$ operações.
+No início de cada lote,
+executamos o Algoritmo 1.
+Então, usamos o Algoritmo 2 para processar as operações
+no lote.
+Limpamos a lista do Algoritmo 2 entre
+os lotes.
+Em cada operação,
+a distância mínima até uma célula preta
+é a distância calculada pelo Algoritmo 1
+ou a distância calculada pelo Algoritmo 2.
 
-The resulting algorithm works in
-$O(n \sqrt n)$ time.
-First, Algorithm 1 is performed $O(\sqrt n)$ times,
-and each search works in $O(n)$ time.
-Second, when using Algorithm 2 in a batch,
-the list contains $O(\sqrt n)$ cells
-(because we clear the list between the batches)
-and each operation takes $O(\sqrt n)$ time.
+O algoritmo resultante funciona em
+tempo $O(n \sqrt n)$.
+Primeiro, o Algoritmo 1 é executado $O(\sqrt n)$ vezes,
+e cada busca funciona em tempo $O(n)$.
+Segundo, ao usar o Algoritmo 2 em um lote,
+a lista contém $O(\sqrt n)$ células
+(porque limpamos a lista entre os lotes)
+e cada operação leva tempo $O(\sqrt n)$.
 
-\section{Integer partitions}
+\section{Partições de inteiros}
 
-Some square root algorithms are based on
-the following observation:
-if a positive integer $n$ is represented as
-a sum of positive integers,
-such a sum always contains at most
-$O(\sqrt n)$ \emph{distinct} numbers.
-The reason for this is that to construct
-a sum that contains a maximum number of distinct
-numbers, we should choose \emph{small} numbers.
-If we choose the numbers $1,2,\ldots,k$,
-the resulting sum is
+Alguns algoritmos de raiz quadrada são baseados na
+seguinte observação:
+se um inteiro positivo $n$ é representado como
+uma soma de inteiros positivos,
+tal soma sempre contém no máximo
+$O(\sqrt n)$ números \emph{distintos}.
+A razão para isso é que, para construir
+uma soma que contém um número máximo de elementos distintos,
+devemos escolher números \emph{pequenos}.
+Se escolhermos os números $1,2,\ldots,k$,
+a soma resultante é
 \[\frac{k(k+1)}{2}.\]
-Thus, the maximum amount of distinct numbers is $k = O(\sqrt n)$.
-Next we will discuss two problems that can be solved
-efficiently using this observation.
+Assim, a quantidade máxima de números distintos é $k = O(\sqrt n)$.
+A seguir, discutiremos dois problemas que podem ser resolvidos
+de forma eficiente usando essa observação.
 
-\subsubsection{Knapsack}
+\subsubsection{Mochila}
 
-Suppose that we are given a list of integer weights
-whose sum is $n$.
-Our task is to find out all sums that can be formed using
-a subset of the weights. For example, if the weights are
-$\{1,3,3\}$, the possible sums are as follows:
+Suponha que recebamos uma lista de pesos inteiros
+cuja soma é $n$.
+Nossa tarefa é descobrir todas as somas que podem ser formadas usando
+um subconjunto dos pesos. Por exemplo, se os pesos são
+$\{1,3,3\}$, as somas possíveis são as seguintes:
 
 \begin{itemize}[noitemsep]
-\item $0$ (empty set)
+\item $0$ (conjunto vazio)
 \item $1$
 \item $3$
 \item $1+3=4$
@@ -369,42 +368,42 @@ $\{1,3,3\}$, the possible sums are as follows:
 \item $1+3+3=7$
 \end{itemize}
 
-Using the standard knapsack approach (see Chapter 7.4),
-the problem can be solved as follows:
-we define a function $\texttt{possible}(x,k)$ whose value is 1
-if the sum $x$ can be formed using the first $k$ weights,
-and 0 otherwise.
-Since the sum of the weights is $n$,
-there are at most $n$ weights and
-all values of the function can be calculated
-in $O(n^2)$ time using dynamic programming.
+Usando a abordagem padrão da mochila (veja o Capítulo 7.4),
+o problema pode ser resolvido da seguinte forma:
+definimos uma função $\texttt{possível}(x,k)$ cujo valor é 1
+se a soma $x$ pode ser formada usando os primeiros $k$ pesos,
+e 0 caso contrário.
+Como a soma dos pesos é $n$,
+existem no máximo $n$ pesos e
+todos os valores da função podem ser calculados
+em tempo $O(n^2)$ usando programação dinâmica.
 
-However, we can make the algorithm more efficient
-by using the fact that there are at most $O(\sqrt n)$
-\emph{distinct} weights.
-Thus, we can process the weights in groups
-that consists of similar weights.
-We can process each group
-in $O(n)$ time, which yields an $O(n \sqrt n)$ time algorithm.
+No entanto, podemos tornar o algoritmo mais eficiente
+usando o fato de que existem no máximo $O(\sqrt n)$
+pesos \emph{distintos}.
+Assim, podemos processar os pesos em grupos
+que consistem em pesos semelhantes.
+Podemos processar cada grupo
+em tempo $O(n)$, o que resulta em um algoritmo de tempo $O(n \sqrt n)$.
 
-The idea is to use an array that records the sums of weights
-that can be formed using the groups processed so far.
-The array contains $n$ elements: element $k$ is 1 if the sum
-$k$ can be formed and 0 otherwise.
-To process a group of weights, we scan the array
-from left to right and record the new sums of weights that
-can be formed using this group and the previous groups.
+A ideia é usar um array que registre as somas de pesos
+que podem ser formadas usando os grupos processados até o momento.
+O array contém $n$ elementos: o elemento $k$ é 1 se a soma
+$k$ pode ser formada e 0 caso contrário.
+Para processar um grupo de pesos, examinamos o array
+da esquerda para a direita e registramos as novas somas de pesos que
+podem ser formadas usando este grupo e os grupos anteriores.
 
-\subsubsection{String construction}
+\subsubsection{Construção de string}
 
-Given a string \texttt{s} of length $n$
-and a set of strings $D$ whose total length is $m$,
-consider the problem of counting the number of ways
-\texttt{s} can be formed as a concatenation of strings in $D$.
-For example,
-if $\texttt{s}=\texttt{ABAB}$ and
-$D=\{\texttt{A},\texttt{B},\texttt{AB}\}$,
-there are 4 ways:
+Dada uma string \texttt{s} de tamanho $n$
+e um conjunto de strings $D$ cujo tamanho total é $m$,
+considere o problema de contar o número de maneiras
+pelas quais \texttt{s} pode ser formada como uma concatenação de strings em $D$.
+Por exemplo,
+se $\texttt{s}=\texttt{ABAB}$ e
+$D={\texttt{A},\texttt{B},\texttt{AB}}$,
+existem 4 maneiras:
 
 \begin{itemize}[noitemsep]
 \item $\texttt{A}+\texttt{B}+\texttt{A}+\texttt{B}$
@@ -413,99 +412,99 @@ there are 4 ways:
 \item $\texttt{AB}+\texttt{AB}$
 \end{itemize}
 
-We can solve the problem using dynamic programming:
-Let $\texttt{count}(k)$ denote the number of ways to construct the prefix
-$\texttt{s}[0 \ldots k]$ using the strings in $D$.
-Now $\texttt{count}(n-1)$ gives the answer to the problem,
-and we can solve the problem in $O(n^2)$ time
-using a trie structure.
+Podemos resolver o problema usando programação dinâmica:
+seja $\texttt{contagem}(k)$ o número de maneiras de construir o prefixo
+$\texttt{s}[0 \ldots k]$ usando as strings em $D$.
+Agora, $\texttt{contagem}(n-1)$ fornece a resposta ao problema,
+e podemos resolver o problema em tempo $O(n^2)$
+usando uma estrutura trie.
 
-However, we can solve the problem more efficiently
-by using string hashing and the fact that there
-are at most $O(\sqrt m)$ distinct string lengths in $D$.
-First, we construct a set $H$ that contains all
-hash values of the strings in $D$.
-Then, when calculating a value of $\texttt{count}(k)$,
-we go through all values of $p$
-such that there is a string of length $p$ in $D$,
-calculate the hash value of $\texttt{s}[k-p+1 \ldots k]$
-and check if it belongs to $H$.
-Since there are at most $O(\sqrt m)$ distinct string lengths,
-this results in an algorithm whose running time is $O(n \sqrt m)$.
+No entanto, podemos resolver o problema de forma mais eficiente
+usando hashing de strings e o fato de haver
+no máximo $O(\sqrt m)$ tamanhos de string distintos em $D$.
+Primeiro, construímos um conjunto $H$ que contém todos
+os valores de hash das strings em $D$.
+Então, ao calcular um valor de $\texttt{contagem}(k)$,
+percorremos todos os valores de $p$,
+de forma que haja uma string de tamanho $p$ em $D$,
+calculamos o valor de hash de $\texttt{s}[k-p+1 \ldots k]$
+e verificamos se ele pertence a $H$.
+Como existem no máximo $O(\sqrt m)$ tamanhos de string distintos,
+isso resulta em um algoritmo cujo tempo de execução é $O(n \sqrt m)$.
 
-\section{Mo's algorithm}
+\section{Algoritmo de Mo}
 
-\index{Mo's algorithm}
+\index{algoritmo de Mo}
 
-\key{Mo's algorithm}\footnote{According to \cite{cod15}, this algorithm
-is named after Mo Tao, a Chinese competitive programmer, but
-the technique has appeared earlier in the literature \cite{ken06}.}
-can be used in many problems
-that require processing range queries in 
-a \emph{static} array, i.e., the array values
-do not change between the queries.
-In each query, we are given a range $[a,b]$,
-and we should calculate a value based on the
-array elements between positions $a$ and $b$.
-Since the array is static,
-the queries can be processed in any order,
-and Mo's algorithm
-processes the queries in a special order which guarantees
-that the algorithm works efficiently.
+O \key{algoritmo de Mo}\footnote{De acordo com \cite{cod15}, este algoritmo
+tem o nome de Mo Tao, um programador competitivo chinês, mas
+a técnica já apareceu antes na literatura \cite{ken06}.}
+pode ser usado em muitos problemas
+que exigem o processamento de consultas de intervalo em
+um array \emph{estático}, ou seja, os valores do array
+não mudam entre as consultas.
+Em cada consulta, recebemos um intervalo $[a,b]$,
+e devemos calcular um valor com base nos
+elementos do array entre as posições $a$ e $b$.
+Como o array é estático,
+as consultas podem ser processadas em qualquer ordem,
+e o algoritmo de Mo
+processa as consultas em uma ordem especial que garante
+que o algoritmo funcione de forma eficiente.
 
-Mo's algorithm maintains an \emph{active range}
-of the array, and the answer to a query
-concerning the active range is known at each moment.
-The algorithm processes the queries one by one,
-and always moves the endpoints of the
-active range by inserting and removing elements.
-The time complexity of the algorithm is
-$O(n \sqrt n f(n))$ where the array contains
-$n$ elements, there are $n$ queries
-and each insertion and removal of an element
-takes $O(f(n))$ time.
+O algoritmo de Mo mantém um \emph{intervalo ativo}
+do array, e a resposta a uma consulta
+referente ao intervalo ativo é conhecida a cada momento.
+O algoritmo processa as consultas uma a uma,
+e sempre move as extremidades do
+intervalo ativo inserindo e removendo elementos.
+A complexidade de tempo do algoritmo é
+$O(n \sqrt n f(n))$, em que o array contém
+$n$ elementos, há $n$ consultas
+e cada inserção e remoção de um elemento
+leva tempo $O(f(n))$.
 
-The trick in Mo's algorithm is the order
-in which the queries are processed:
-The array is divided into blocks of $k=O(\sqrt n)$
-elements, and a query $[a_1,b_1]$
-is processed before a query $[a_2,b_2]$
-if either 
+O truque no algoritmo de Mo é a ordem
+em que as consultas são processadas:
+O array é dividido em blocos de $k=O(\sqrt n)$
+elementos, e uma consulta $[a_1,b_1]$
+é processada antes de uma consulta $[a_2,b_2]$,
+se
 \begin{itemize}
-\item $\lfloor a_1/k \rfloor < \lfloor a_2/k \rfloor$ or
-\item $\lfloor a_1/k \rfloor = \lfloor a_2/k \rfloor$ and $b_1 < b_2$.
+\item $\lfloor a_1/k \rfloor < \lfloor a_2/k \rfloor$ ou
+\item $\lfloor a_1/k \rfloor = \lfloor a_2/k \rfloor$ e $b_1 < b_2$.
 \end{itemize}
 
-Thus, all queries whose left endpoints are
-in a certain block are processed one after another
-sorted according to their right endpoints.
-Using this order, the algorithm
-only performs $O(n \sqrt n)$ operations,
-because the left endpoint moves
-$O(n)$ times $O(\sqrt n)$ steps,
-and the right endpoint moves
-$O(\sqrt n)$ times $O(n)$ steps. Thus, both
-endpoints move a total of $O(n \sqrt n)$ steps during the algorithm.
+Assim, todas as consultas cujas extremidades esquerdas estão
+em um determinado bloco são processadas uma após a outra,
+ordenadas de acordo com suas extremidades direitas.
+Usando essa ordem, o algoritmo
+só executa $O(n \sqrt n)$ operações,
+porque a extremidade esquerda se move
+$O(n)$ vezes $O(\sqrt n)$ etapas,
+e a extremidade direita se move
+$O(\sqrt n)$ vezes $O(n)$ etapas. Assim, ambas
+as extremidades se movem um total de $O(n \sqrt n)$ etapas durante o algoritmo.
 
-\subsubsection*{Example}
+\subsubsection*{Exemplo}
 
-As an example, consider a problem
-where we are given a set of queries,
-each of them corresponding to a range in an array,
-and our task is to calculate for each query
-the number of \emph{distinct} elements in the range.
+Como exemplo, considere um problema
+onde recebemos um conjunto de consultas,
+cada uma delas correspondendo a um intervalo em um array,
+e nossa tarefa é calcular, para cada consulta,
+o número de elementos \emph{distintos} no intervalo.
 
-In Mo's algorithm, the queries are always sorted
-in the same way, but it depends on the problem
-how the answer to the query is maintained.
-In this problem, we can maintain an array 
-\texttt{count} where $\texttt{count}[x]$
-indicates the number of times an element $x$
-occurs in the active range.
+No algoritmo de Mo, as consultas são sempre classificadas
+da mesma maneira, mas depende do problema
+como a resposta à consulta é mantida.
+Neste problema, podemos manter um array
+\texttt{contagem}, em que $\texttt{contagem}[x]$
+indica o número de vezes que um elemento $x$
+ocorre no intervalo ativo.
 
-When we move from one query to another query,
-the active range changes.
-For example, if the current range is
+Quando passamos de uma consulta para outra,
+o intervalo ativo muda.
+Por exemplo, se o intervalo atual for
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (1,0) rectangle (5,1);
@@ -521,7 +520,7 @@ For example, if the current range is
 \node at (8.5, 0.5) {4};
 \end{tikzpicture}
 \end{center}
-and the next range is
+e o próximo intervalo for
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (2,0) rectangle (7,1);
@@ -537,23 +536,23 @@ and the next range is
 \node at (8.5, 0.5) {4};
 \end{tikzpicture}
 \end{center}
-there will be three steps:
-the left endpoint moves one step to the right,
-and the right endpoint moves two steps to the right.
+haverá três etapas:
+a extremidade esquerda se move uma etapa para a direita,
+e a extremidade direita se move duas etapas para a direita.
 
-After each step, the array \texttt{count}
-needs to be updated.
-After adding an element $x$,
-we increase the value of 
-$\texttt{count}[x]$ by 1,
-and if $\texttt{count}[x]=1$ after this,
-we also increase the answer to the query by 1.
-Similarly, after removing an element $x$,
-we decrease the value of 
-$\texttt{count}[x]$ by 1,
-and if $\texttt{count}[x]=0$ after this,
-we also decrease the answer to the query by 1.
+Após cada etapa, o array \texttt{contagem}
+precisa ser atualizado.
+Após adicionar um elemento $x$,
+aumentamos o valor de
+$\texttt{contagem}[x]$ em 1,
+e, se $\texttt{contagem}[x]=1$ depois disso,
+também aumentamos a resposta à consulta em 1.
+Da mesma forma, após remover um elemento $x$,
+diminuímos o valor de
+$\texttt{contagem}[x]$ em 1,
+e, se $\texttt{contagem}[x]=0$ depois disso,
+também diminuímos a resposta à consulta em 1.
 
-In this problem, the time needed to perform
-each step is $O(1)$, so the total time complexity
-of the algorithm is $O(n \sqrt n)$.
+Neste problema, o tempo necessário para executar
+cada etapa é $O(1)$, então a complexidade de tempo total
+do algoritmo é $O(n \sqrt n)$.
