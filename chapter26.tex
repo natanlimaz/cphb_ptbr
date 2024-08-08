@@ -1,132 +1,57 @@
-\chapter{String algorithms}
+\chapter{Algoritmos de string}
 
-This chapter deals with efficient algorithms
-for string processing.
-Many string problems can be easily solved
-in $O(n^2)$ time, but the challenge is to
-find algorithms that work in $O(n)$ or $O(n \log n)$
-time.
+Este capítulo aborda algoritmos eficientes para processamento de strings. Muitos problemas de string podem ser facilmente resolvidos em tempo $O(n^2)$, mas o desafio é encontrar algoritmos que funcionem em tempo $O(n)$ ou $O(n \log n)$.
 
 \index{pattern matching}
 
-For example, a fundamental string processing
-problem is the \key{pattern matching} problem:
-given a string of length $n$ and a pattern of length $m$,
-our task is to find the occurrences of the pattern
-in the string.
-For example, the pattern \texttt{ABC} occurs two
-times in the string \texttt{ABABCBABC}.
+Por exemplo, um problema fundamental de processamento de strings é o problema de \key{casamento de padrão}: dada uma string de comprimento $n$ e um padrão de comprimento $m$, nossa tarefa é encontrar as ocorrências do padrão na string. Por exemplo, o padrão \texttt{ABC} ocorre duas vezes na string \texttt{ABABCBABC}.
 
-The pattern matching problem can be easily solved
-in $O(nm)$ time by a brute force algorithm that
-tests all positions where the pattern may
-occur in the string.
-However, in this chapter, we will see that there
-are more efficient algorithms that require only
-$O(n+m)$ time.
+O problema de casamento de padrão pode ser facilmente resolvido em tempo $O(nm)$ por um algoritmo de força bruta que testa todas as posições onde o padrão pode ocorrer na string. No entanto, neste capítulo, veremos que existem algoritmos mais eficientes que requerem apenas tempo $O(n+m)$.
 
 \index{string}
 
-\section{String terminology}
+\section{Terminologia de string}
 
 \index{alphabet}
 
-Throughout the chapter, we assume that
-zero-based indexing is used in strings.
-Thus, a string \texttt{s} of length $n$
-consists of characters
-$\texttt{s}[0],\texttt{s}[1],\ldots,\texttt{s}[n-1]$.
-The set of characters that may appear
-in strings is called an \key{alphabet}.
-For example, the alphabet
-$\{\texttt{A},\texttt{B},\ldots,\texttt{Z}\}$
-consists of the capital letters of English.
+Ao longo do capítulo, assumimos que a indexação baseada em zero é usada em strings. Assim, uma string \texttt{s} de comprimento $n$ consiste nos caracteres $\texttt{s}[0],\texttt{s}[1],\ldots,\texttt{s}[n-1]$. O conjunto de caracteres que podem aparecer em strings é chamado de \key{alfabeto}. Por exemplo, o alfabeto $\{\texttt{A},\texttt{B},\ldots,\texttt{Z}\}$ consiste nas letras maiúsculas do inglês.
 
 \index{substring}
 
-A \key{substring} is a sequence of consecutive
-characters in a string.
-We use the notation $\texttt{s}[a \ldots b]$
-to refer to a substring of \texttt{s}
-that begins at position $a$ and ends at position $b$.
-A string of length $n$ has $n(n+1)/2$ substrings.
-For example, the substrings of
-\texttt{ABCD} are
-\texttt{A}, \texttt{B}, \texttt{C}, \texttt{D},
-\texttt{AB}, \texttt{BC}, \texttt{CD},
-\texttt{ABC}, \texttt{BCD} and \texttt{ABCD}.
+Uma \key{substring} é uma sequência de caracteres consecutivos em uma string. Usamos a notação $\texttt{s}[a \ldots b]$ para nos referir a uma substring de \texttt{s} que começa na posição $a$ e termina na posição $b$. Uma string de comprimento $n$ possui $n(n+1)/2$ substrings. Por exemplo, as substrings de \texttt{ABCD} são \texttt{A}, \texttt{B}, \texttt{C}, \texttt{D}, \texttt{AB}, \texttt{BC}, \texttt{CD}, \texttt{ABC}, \texttt{BCD} e \texttt{ABCD}.
 
 \index{subsequence}
 
-A \key{subsequence} is a sequence of
-(not necessarily consecutive) characters
-in a string in their original order.
-A string of length $n$ has $2^n-1$ subsequences.
-For example, the subsequences of
-\texttt{ABCD} are
-\texttt{A}, \texttt{B}, \texttt{C}, \texttt{D},
-\texttt{AB}, \texttt{AC}, \texttt{AD},
-\texttt{BC}, \texttt{BD}, \texttt{CD},
-\texttt{ABC}, \texttt{ABD}, \texttt{ACD},
-\texttt{BCD} and \texttt{ABCD}.
+Uma \key{subsequência} é uma sequência de caracteres (não necessariamente consecutivos) em uma string em sua ordem original. Uma string de comprimento $n$ possui $2^n-1$ subsequências. Por exemplo, as subsequências de \texttt{ABCD} são \texttt{A}, \texttt{B}, \texttt{C}, \texttt{D}, \texttt{AB}, \texttt{AC}, \texttt{AD}, \texttt{BC}, \texttt{BD}, \texttt{CD}, \texttt{ABC}, \texttt{ABD}, \texttt{ACD}, \texttt{BCD} e \texttt{ABCD}.
 
 \index{prefix}
 \index{suffix}
 
-A \key{prefix} is a substring that starts at the beginning
-of a string,
-and a \key{suffix} is a substring that ends at the end
-of a string.
-For example,
-the prefixes of \texttt{ABCD} are
-\texttt{A}, \texttt{AB}, \texttt{ABC} and \texttt{ABCD},
-and the suffixes of \texttt{ABCD} are
-\texttt{D}, \texttt{CD}, \texttt{BCD} and \texttt{ABCD}.
+Um \key{prefixo} é uma substring que começa no início de uma string, e um \key{sufixo} é uma substring que termina no final de uma string. Por exemplo, os prefixos de \texttt{ABCD} são \texttt{A}, \texttt{AB}, \texttt{ABC} e \texttt{ABCD}, e os sufixos de \texttt{ABCD} são \texttt{D}, \texttt{CD}, \texttt{BCD} e \texttt{ABCD}.
 
 \index{rotation}
 
-A \key{rotation} can be generated by moving
-the characters of a string one by one from the beginning
-to the end (or vice versa).
-For example, the rotations of \texttt{ABCD} are
-\texttt{ABCD}, \texttt{BCDA}, \texttt{CDAB} and \texttt{DABC}.
+Uma \key{rotação} pode ser gerada movendo os caracteres de uma string um por um do início para o final (ou vice-versa). Por exemplo, as rotações de \texttt{ABCD} são \texttt{ABCD}, \texttt{BCDA}, \texttt{CDAB} e \texttt{DABC}.
 
 \index{period}
 
-A \key{period} is a prefix of a string such that
-the string can be constructed by repeating the period.
-The last repetition may be partial and contain
-only a prefix of the period.
-For example, the shortest period of
-\texttt{ABCABCA} is \texttt{ABC}.
+Um \key{período} é um prefixo de uma string tal que a string pode ser construída repetindo o período. A última repetição pode ser parcial e conter apenas um prefixo do período. Por exemplo, o menor período de \texttt{ABCABCA} é \texttt{ABC}.
 
 \index{border}
 
-A \key{border} is a string that is both
-a prefix and a suffix of a string.
-For example, the borders of \texttt{ABACABA}
-are \texttt{A}, \texttt{ABA} and \texttt{ABACABA}.
+Uma \key{borda} é uma string que é tanto um prefixo quanto um sufixo de uma string. Por exemplo, as bordas de \texttt{ABACABA} são \texttt{A}, \texttt{ABA} e \texttt{ABACABA}.
 
 \index{lexicographical order}
 
-Strings are compared using the \key{lexicographical order}
-(which corresponds to the alphabetical order).
-It means that $x<y$ if either $x \neq y$ and $x$ is a prefix of $y$,
-or there is a position $k$ such that
-$x[i]=y[i]$ when $i<k$ and $x[k]<y[k]$.
+As strings são comparadas usando a \key{ordem lexicográfica} (que corresponde à ordem alfabética). Isso significa que $x<y$ se $x \neq y$ e $x$ é um prefixo de $y$, ou existe uma posição $k$ tal que $x[i]=y[i]$ quando $i<k$ e $x[k]<y[k]$.
 
-\section{Trie structure}
+\section{Estrutura Trie}
 
 \index{trie}
 
-A \key{trie} is a rooted tree that
-maintains a set of strings.
-Each string in the set is stored as
-a chain of characters that starts at the root.
-If two strings have a common prefix,
-they also have a common chain in the tree.
+Uma \key{trie} é uma árvore enraizada que mantém um conjunto de strings. Cada string no conjunto é armazenada como uma cadeia de caracteres que começa na raiz. Se duas strings tiverem um prefixo comum, elas também terão uma cadeia comum na árvore.
 
-For example, consider the following trie:
+Por exemplo, considere a seguinte trie:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -159,80 +84,37 @@ For example, consider the following trie:
 \end{tikzpicture}
 \end{center}
 
-This trie corresponds to the set
-$\{\texttt{CANAL},\texttt{CANDY},\texttt{THE},\texttt{THERE}\}$.
-The character * in a node means that
-a string in the set ends at the node.
-Such a character is needed, because a string
-may be a prefix of another string.
-For example, in the above trie, \texttt{THE}
-is a prefix of \texttt{THERE}.
+Esta trie corresponde ao conjunto $\{\texttt{CANAL},\texttt{CANDY},\texttt{THE},\texttt{THERE}\}$. O caractere * em um nó significa que uma string no conjunto termina naquele nó. Esse caractere é necessário porque uma string pode ser um prefixo de outra string. Por exemplo, na trie acima, \texttt{THE} é um prefixo de \texttt{THERE}.
 
-We can check in $O(n)$ time whether a trie
-contains a string of length $n$,
-because we can follow the chain that starts at the root node.
-We can also add a string of length $n$ to the trie
-in $O(n)$ time by first following the chain
-and then adding new nodes to the trie if necessary.
+Podemos verificar em tempo $O(n)$ se uma trie contém uma string de comprimento $n$, porque podemos seguir a cadeia que começa no nó raiz. Também podemos adicionar uma string de comprimento $n$ à trie em tempo $O(n)$ seguindo primeiro a cadeia e depois adicionando novos nós à trie, se necessário.
 
-Using a trie, we can find
-the longest prefix of a given string
-such that the prefix belongs to the set.
-Moreover, by storing additional information
-in each node,
-we can calculate the number of
-strings that belong to the set and have a
-given string as a prefix.
+Usando uma trie, podemos encontrar o prefixo mais longo de uma determinada string tal que o prefixo pertence ao conjunto. Além disso, armazenando informações adicionais em cada nó, podemos calcular o número de strings que pertencem ao conjunto e têm uma determinada string como prefixo.
 
-A trie can be stored in an array
+Uma trie pode ser armazenada em um array
 \begin{lstlisting}
 int trie[N][A];
 \end{lstlisting}
-where $N$ is the maximum number of nodes
-(the maximum total length of the strings in the set)
-and $A$ is the size of the alphabet.
-The nodes of a trie are numbered
-$0,1,2,\ldots$ so that the number of the root is 0,
-and $\texttt{trie}[s][c]$ is the next node in the chain
-when we move from node $s$ using character $c$.
+onde $N$ é o número máximo de nós (o comprimento total máximo das strings no conjunto) e $A$ é o tamanho do alfabeto. Os nós de uma trie são numerados $0,1,2,\ldots$ de forma que o número da raiz seja 0, e $\texttt{trie}[s][c]$ é o próximo nó na cadeia quando nos movemos do nó $s$ usando o caractere $c$.
 
-\section{String hashing}
+\section{Hashing de string}
 
 \index{hashing}
 \index{string hashing}
 
-\key{String hashing} is a technique that
-allows us to efficiently check whether two
-strings are equal\footnote{The technique
-was popularized by the Karp–Rabin pattern matching
-algorithm \cite{kar87}.}.
-The idea in string hashing is to compare hash values of
-strings instead of their individual characters.
+\key{Hashing de string} é uma técnica que nos permite verificar eficientemente se duas strings são iguais\footnote{A técnica foi popularizada pelo algoritmo de casamento de padrão Karp–Rabin \cite{kar87}.}. A ideia no hashing de string é comparar valores de hash de strings em vez de seus caracteres individuais.
 
-\subsubsection*{Calculating hash values}
+\subsubsection*{Calculando valores de hash}
 
 \index{hash value}
 \index{polynomial hashing}
 
-A \key{hash value} of a string is
-a number that is calculated from the characters
-of the string.
-If two strings are the same,
-their hash values are also the same,
-which makes it possible to compare strings
-based on their hash values.
+Um \key{valor de hash} de uma string é um número que é calculado a partir dos caracteres da string. Se duas strings são iguais, seus valores de hash também são iguais, o que torna possível comparar strings com base em seus valores de hash.
 
-A usual way to implement string hashing
-is \key{polynomial hashing}, which means
-that the hash value of a string \texttt{s}
-of length $n$ is
+Uma maneira usual de implementar hashing de string é o \key{hashing polinomial}, o que significa que o valor de hash de uma string \texttt{s} de comprimento $n$ é 
 \[(\texttt{s}[0] A^{n-1} + \texttt{s}[1] A^{n-2} + \cdots + \texttt{s}[n-1] A^0) \bmod B  ,\]
-where $s[0],s[1],\ldots,s[n-1]$
-are interpreted as the codes of the characters of \texttt{s},
-and $A$ and $B$ are pre-chosen constants.
+onde $s[0],s[1],\ldots,s[n-1]$ são interpretados como os códigos dos caracteres de \texttt{s}, e $A$ e $B$ são constantes pré-escolhidas.
 
-For example, the codes of the characters
-of \texttt{ALLEY} are:
+Por exemplo, os códigos dos caracteres de \texttt{ALLEY} são:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (5,2);
@@ -252,95 +134,46 @@ of \texttt{ALLEY} are:
 \end{tikzpicture}
 \end{center}
 
-Thus, if $A=3$ and $B=97$, the hash value
-of \texttt{ALLEY} is
+Assim, se $A=3$ e $B=97$, o valor de hash de \texttt{ALLEY} é
 \[(65 \cdot 3^4 + 76 \cdot 3^3 + 76 \cdot 3^2 + 69 \cdot 3^1 + 89 \cdot 3^0) \bmod 97 = 52.\]
 
-\subsubsection*{Preprocessing}
+\subsubsection*{Pré-processamento}
 
-Using polynomial hashing, we can calculate the hash value of any substring
-of a string \texttt{s} in $O(1)$ time after an $O(n)$ time preprocessing.
-The idea is to construct an array \texttt{h} such that
-$\texttt{h}[k]$ contains the hash value of the prefix $\texttt{s}[0 \ldots k]$.
-The array values can be recursively calculated as follows:
+Usando hashing polinomial, podemos calcular o valor de hash de qualquer substring de uma string \texttt{s} em tempo $O(1)$ após um pré-processamento de tempo $O(n)$. A ideia é construir um array \texttt{h} tal que $\texttt{h}[k]$ contenha o valor de hash do prefixo $\texttt{s}[0 \ldots k]$. Os valores do array podem ser calculados recursivamente da seguinte forma:
 \[
 \begin{array}{lcl}
 \texttt{h}[0] & = & \texttt{s}[0] \\
 \texttt{h}[k] & = & (\texttt{h}[k-1] A + \texttt{s}[k]) \bmod B \\
 \end{array}
 \]
-In addition, we construct an array $\texttt{p}$
-where $\texttt{p}[k]=A^k \bmod B$:
+Além disso, construímos um array $\texttt{p}$ onde $\texttt{p}[k]=A^k \bmod B$:
 \[
 \begin{array}{lcl}
 \texttt{p}[0] & = & 1 \\
 \texttt{p}[k] & = & (\texttt{p}[k-1] A) \bmod B. \\
 \end{array}
 \]
-Constructing these arrays takes $O(n)$ time.
-After this, the hash value of any substring
-$\texttt{s}[a \ldots b]$
-can be calculated in $O(1)$ time using the formula
+Construir esses arrays leva tempo $O(n)$. Depois disso, o valor de hash de qualquer substring $\texttt{s}[a \ldots b]$ pode ser calculado em tempo $O(1)$ usando a fórmula
 \[(\texttt{h}[b]-\texttt{h}[a-1] \texttt{p}[b-a+1]) \bmod B\]
-assuming that $a>0$.
-If $a=0$, the hash value is simply $\texttt{h}[b]$.
+assumindo que $a>0$. Se $a=0$, o valor de hash é simplesmente $\texttt{h}[b]$.
 
-\subsubsection*{Using hash values}
+\subsubsection*{Usando valores de hash}
 
-We can efficiently compare strings using hash values.
-Instead of comparing the individual characters of the strings,
-the idea is to compare their hash values.
-If the hash values are equal,
-the strings are \emph{probably} equal,
-and if the hash values are different,
-the strings are \emph{certainly} different.
+Podemos comparar strings de forma eficiente usando valores de hash. Em vez de comparar os caracteres individuais das strings, a ideia é comparar seus valores de hash. Se os valores de hash forem iguais, as strings são \emph{provavelmente} iguais, e se os valores de hash forem diferentes, as strings são \emph{certamente} diferentes.
 
-Using hashing, we can often make a brute force
-algorithm efficient.
-As an example, consider the pattern matching problem:
-given a string $s$ and a pattern $p$,
-find the positions where $p$ occurs in $s$.
-A brute force algorithm goes through all positions
-where $p$ may occur and compares the strings
-character by character.
-The time complexity of such an algorithm is $O(n^2)$.
+Usando hashing, podemos frequentemente tornar um algoritmo de força bruta eficiente. Como exemplo, considere o problema de casamento de padrão: dada uma string $s$ e um padrão $p$, encontre as posições onde $p$ ocorre em $s$. Um algoritmo de força bruta percorre todas as posições onde $p$ pode ocorrer e compara as strings caractere por caractere. A complexidade de tempo de tal algoritmo é $O(n^2)$.
 
-We can make the brute force algorithm more efficient
-by using hashing, because the algorithm compares
-substrings of strings.
-Using hashing, each comparison only takes $O(1)$ time,
-because only hash values of substrings are compared.
-This results in an algorithm with time complexity $O(n)$,
-which is the best possible time complexity for this problem.
+Podemos tornar o algoritmo de força bruta mais eficiente usando hashing, porque o algoritmo compara substrings de strings. Usando hashing, cada comparação leva apenas tempo $O(1)$, porque apenas valores de hash de substrings são comparados. Isso resulta em um algoritmo com complexidade de tempo $O(n)$, que é a melhor complexidade de tempo possível para este problema.
 
-By combining hashing and \emph{binary search},
-it is also possible to find out the lexicographic order of
-two strings in logarithmic time.
-This can be done by calculating the length
-of the common prefix of the strings using binary search.
-Once we know the length of the common prefix,
-we can just check the next character after the prefix,
-because this determines the order of the strings.
+Combinando hashing e \emph{busca binária}, também é possível descobrir a ordem lexicográfica de duas strings em tempo logarítmico. Isso pode ser feito calculando o comprimento do prefixo comum das strings usando busca binária. Uma vez que sabemos o comprimento do prefixo comum, podemos apenas verificar o próximo caractere após o prefixo, porque isso determina a ordem das strings.
 
-\subsubsection*{Collisions and parameters}
+\subsubsection*{Colisões e parâmetros}
 
 \index{collision}
 
-An evident risk when comparing hash values is
-a \key{collision}, which means that two strings have
-different contents but equal hash values.
-In this case, an algorithm that relies on
-the hash values concludes that the strings are equal,
-but in reality they are not,
-and the algorithm may give incorrect results.
+Um risco evidente ao comparar valores de hash é uma \key{colisão}, o que significa que duas strings têm conteúdo diferente, mas valores de hash iguais. Nesse caso, um algoritmo que se baseia nos valores de hash conclui que as strings são iguais, mas na realidade não são, e o algoritmo pode fornecer resultados incorretos.
 
-Collisions are always possible,
-because the number of different strings is larger
-than the number of different hash values.
-However, the probability of a collision is small
-if the constants $A$ and $B$ are carefully chosen.
-A usual way is to choose random constants
-near $10^9$, for example as follows:
+Colisões são sempre possíveis, porque o número de strings diferentes é maior que o número de valores de hash diferentes. No entanto, a probabilidade de uma colisão é pequena se as constantes $A$ e $B$ forem cuidadosamente escolhidas. Uma maneira usual é escolher constantes aleatórias próximas a $10^9$, por exemplo, da seguinte forma:
 \[
 \begin{array}{lcl}
 A & = & 911382323 \\
@@ -348,36 +181,24 @@ B & = & 972663749 \\
 \end{array}
 \]
 
-Using such constants,
-the \texttt{long long} type can be used
-when calculating hash values,
-because the products $AB$ and $BB$ will fit in \texttt{long long}.
-But is it enough to have about $10^9$ different hash values?
+Usando tais constantes, o tipo \texttt{long long} pode ser usado ao calcular valores de hash, porque os produtos $AB$ e $BB$ caberão em \texttt{long long}. Mas é suficiente ter cerca de $10^9$ valores de hash diferentes?
 
-Let us consider three scenarios where hashing can be used:
+Vamos considerar três cenários onde o hashing pode ser usado:
 
-\textit{Scenario 1:} Strings $x$ and $y$ are compared with
-each other.
-The probability of a collision is $1/B$ assuming that
-all hash values are equally probable.
+\textit{Cenário 1:} As strings $x$ e $y$ são comparadas entre si. A probabilidade de uma colisão é $1/B$, assumindo que todos os valores de hash são igualmente prováveis.
 
-\textit{Scenario 2:} A string $x$ is compared with strings
-$y_1,y_2,\ldots,y_n$.
-The probability of one or more collisions is
+\textit{Cenário 2:} Uma string $x$ é comparada com as strings $y_1,y_2,\ldots,y_n$. A probabilidade de uma ou mais colisões é
 
 \[1-(1-\frac{1}{B})^n.\]
 
-\textit{Scenario 3:} All pairs of strings $x_1,x_2,\ldots,x_n$
-are compared with each other.
-The probability of one or more collisions is
+\textit{Cenário 3:} Todos os pares de strings $x_1,x_2,\ldots,x_n$ são comparados entre si. A probabilidade de uma ou mais colisões é
 \[ 1 - \frac{B \cdot (B-1) \cdot (B-2) \cdots (B-n+1)}{B^n}.\]
 
-The following table shows the collision probabilities
-when $n=10^6$ and the value of $B$ varies:
+A tabela a seguir mostra as probabilidades de colisão quando $n=10^6$ e o valor de $B$ varia:
 
 \begin{center}
 \begin{tabular}{rrrr}
-constant $B$ & scenario 1 & scenario 2 & scenario 3 \\
+constante $B$ & cenário 1 & cenário 2 & cenário 3 \\
 \hline
 $10^3$ & $0.001000$ & $1.000000$ & $1.000000$ \\
 $10^6$ & $0.000001$ & $0.632121$ & $1.000000$ \\
@@ -388,58 +209,24 @@ $10^{18}$ & $0.000000$ & $0.000000$ & $0.000001$ \\
 \end{tabular}
 \end{center}
 
-The table shows that in scenario 1,
-the probability of a collision is negligible
-when $B \approx 10^9$.
-In scenario 2, a collision is possible but the
-probability is still quite small.
-However, in scenario 3 the situation is very different:
-a collision will almost always happen when
-$B \approx 10^9$.
+A tabela mostra que, no cenário 1, a probabilidade de uma colisão é desprezível quando $B \approx 10^9$. No cenário 2, uma colisão é possível, mas a probabilidade ainda é muito pequena. No entanto, no cenário 3, a situação é muito diferente: uma colisão quase sempre acontecerá quando $B \approx 10^9$.
 
 \index{birthday paradox}
 
-The phenomenon in scenario 3 is known as the
-\key{birthday paradox}: if there are $n$ people
-in a room, the probability that \emph{some} two people
-have the same birthday is large even if $n$ is quite small.
-In hashing, correspondingly, when all hash values are compared
-with each other, the probability that some two
-hash values are equal is large.
+O fenômeno no cenário 3 é conhecido como o \key{paradoxo do aniversário}: se houver $n$ pessoas em uma sala, a probabilidade de \emph{algumas} duas pessoas fazerem aniversário no mesmo dia é grande mesmo que $n$ seja muito pequeno. No hashing, da mesma forma, quando todos os valores de hash são comparados entre si, a probabilidade de que dois valores de hash sejam iguais é grande.
 
-We can make the probability of a collision
-smaller by calculating \emph{multiple} hash values
-using different parameters.
-It is unlikely that a collision would occur
-in all hash values at the same time.
-For example, two hash values with parameter
-$B \approx 10^9$ correspond to one hash
-value with parameter $B \approx 10^{18}$,
-which makes the probability of a collision very small.
+Podemos diminuir a probabilidade de uma colisão calculando \emph{múltiplos} valores de hash usando parâmetros diferentes. É improvável que uma colisão ocorra em todos os valores de hash ao mesmo tempo. Por exemplo, dois valores de hash com parâmetro $B \approx 10^9$ correspondem a um valor de hash com parâmetro $B \approx 10^{18}$, o que torna a probabilidade de uma colisão muito pequena.
 
-Some people use constants $B=2^{32}$ and $B=2^{64}$,
-which is convenient, because operations with 32 and 64
-bit integers are calculated modulo $2^{32}$ and $2^{64}$.
-However, this is \emph{not} a good choice, because it is possible
-to construct inputs that always generate collisions when
-constants of the form $2^x$ are used \cite{pac13}.
+Algumas pessoas usam constantes $B=2^{32}$ e $B=2^{64}$, o que é conveniente, porque as operações com inteiros de 32 e 64 bits são calculadas módulo $2^{32}$ e $2^{64}$. No entanto, esta \emph{não} é uma boa escolha, porque é possível construir entradas que sempre geram colisões quando constantes da forma $2^x$ são usadas \cite{pac13}.
 
-\section{Z-algorithm}
+\section{Algoritmo Z}
 
 \index{Z-algorithm}
 \index{Z-array}
 
-The \key{Z-array} \texttt{z} of a string \texttt{s}
-of length $n$ contains for each $k=0,1,\ldots,n-1$
-the length of the longest substring of \texttt{s}
-that begins at position $k$ and is a prefix of \texttt{s}.
-Thus, $\texttt{z}[k]=p$ tells us that
-$\texttt{s}[0 \ldots p-1]$ equals $\texttt{s}[k \ldots k+p-1]$.
-Many string processing problems can be efficiently solved
-using the Z-array.
+O \key{array Z} \texttt{z} de uma string \texttt{s} de comprimento $n$ contém para cada $k=0,1,\ldots,n-1$ o comprimento da substring mais longa de \texttt{s} que começa na posição $k$ e é um prefixo de \texttt{s}. Assim, $\texttt{z}[k]=p$ nos diz que $\texttt{s}[0 \ldots p-1]$ é igual a $\texttt{s}[k \ldots k+p-1]$. Muitos problemas de processamento de strings podem ser resolvidos de forma eficiente usando o array Z.
 
-For example, the Z-array of
-\texttt{ACBACDACBACBACDA} is as follows:
+Por exemplo, o array Z de \texttt{ACBACDACBACBACDA} é o seguinte:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -500,47 +287,17 @@ For example, the Z-array of
 \end{tikzpicture}
 \end{center}
 
-In this case, for example, $\texttt{z}[6]=5$,
-because the substring \texttt{ACBAC} of length 5
-is a prefix of \texttt{s},
-but the substring \texttt{ACBACB} of length 6
-is not a prefix of \texttt{s}.
+Neste caso, por exemplo, $\texttt{z}[6]=5$, porque a substring \texttt{ACBAC} de comprimento 5 é um prefixo de \texttt{s}, mas a substring \texttt{ACBACB} de comprimento 6 não é um prefixo de \texttt{s}.
 
-\subsubsection*{Algorithm description}
+\subsubsection*{Descrição do algoritmo}
 
-Next we describe an algorithm,
-called the \key{Z-algorithm}\footnote{The Z-algorithm
-was presented in \cite{gus97} as the simplest known
-method for linear-time pattern matching, and the original idea
-was attributed to \cite{mai84}.},
-that efficiently constructs the Z-array in $O(n)$ time.
-The algorithm calculates the Z-array values
-from left to right by both using information
-already stored in the Z-array and comparing substrings
-character by character.
+A seguir, descrevemos um algoritmo, chamado de \key{algoritmo Z}\footnote{O algoritmo Z foi apresentado em \cite{gus97} como o método mais simples conhecido para casamento de padrão em tempo linear, e a ideia original foi atribuída a \cite{mai84}.}, que constrói eficientemente o array Z em tempo $O(n)$. O algoritmo calcula os valores do array Z da esquerda para a direita, usando informações já armazenadas no array Z e comparando substrings caractere por caractere.
 
-To efficiently calculate the Z-array values,
-the algorithm maintains a range $[x,y]$ such that
-$\texttt{s}[x \ldots y]$ is a prefix of \texttt{s}
-and $y$ is as large as possible.
-Since we know that $\texttt{s}[0 \ldots y-x]$
-and $\texttt{s}[x \ldots y]$ are equal,
-we can use this information when calculating
-Z-values for positions $x+1,x+2,\ldots,y$.
+Para calcular os valores do array Z de forma eficiente, o algoritmo mantém um intervalo $[x,y]$ tal que $\texttt{s}[x \ldots y]$ é um prefixo de \texttt{s} e $y$ é o maior possível. Como sabemos que $\texttt{s}[0 \ldots y-x]$ e $\texttt{s}[x \ldots y]$ são iguais, podemos usar essa informação ao calcular os valores Z para as posições $x+1,x+2,\ldots,y$.
 
-At each position $k$, we first
-check the value of $\texttt{z}[k-x]$.
-If $k+\texttt{z}[k-x]<y$, we know that $\texttt{z}[k]=\texttt{z}[k-x]$.
-However, if $k+\texttt{z}[k-x] \ge y$,
-$\texttt{s}[0 \ldots y-k]$ equals
-$\texttt{s}[k \ldots y]$, and to determine the
-value of $\texttt{z}[k]$ we need to compare
-the substrings character by character.
-Still, the algorithm works in $O(n)$ time,
-because we start comparing at positions
-$y-k+1$ and $y+1$.
+Em cada posição $k$, primeiro verificamos o valor de $\texttt{z}[k-x]$. Se $k+\texttt{z}[k-x]<y$, sabemos que $\texttt{z}[k]=\texttt{z}[k-x]$. No entanto, se $k+\texttt{z}[k-x] \ge y$, $\texttt{s}[0 \ldots y-k]$ é igual a $\texttt{s}[k \ldots y]$, e para determinar o valor de $\texttt{z}[k]$ precisamos comparar as substrings caractere por caractere. Ainda assim, o algoritmo funciona em tempo $O(n)$, porque começamos a comparar nas posições $y-k+1$ e $y+1$.
 
-For example, let us construct the following Z-array:
+Por exemplo, vamos construir o seguinte array Z:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -601,8 +358,7 @@ For example, let us construct the following Z-array:
 \end{tikzpicture}
 \end{center}
 
-After calculating the value $\texttt{z}[6]=5$,
-the current $[x,y]$ range is $[6,10]$:
+Após calcular o valor $\texttt{z}[6]=5$, o intervalo $[x,y]$ atual é $[6,10]$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -670,15 +426,7 @@ the current $[x,y]$ range is $[6,10]$:
 \end{tikzpicture}
 \end{center}
 
-Now we can calculate
-subsequent Z-array values
-efficiently,
-because we know that
-$\texttt{s}[0 \ldots 4]$ and
-$\texttt{s}[6 \ldots 10]$ are equal.
-First, since $\texttt{z}[1] = \texttt{z}[2] = 0$,
-we immediately know that also
-$\texttt{z}[7] = \texttt{z}[8] = 0$:
+Agora podemos calcular os valores subsequentes do array Z de forma eficiente, porque sabemos que $\texttt{s}[0 \ldots 4]$ e $\texttt{s}[6 \ldots 10]$ são iguais. Primeiro, como $\texttt{z}[1] = \texttt{z}[2] = 0$, sabemos imediatamente que também $\texttt{z}[7] = \texttt{z}[8] = 0$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -750,7 +498,7 @@ $\texttt{z}[7] = \texttt{z}[8] = 0$:
 \end{tikzpicture}
 \end{center}
 
-Then, since $\texttt{z}[3]=2$, we know that $\texttt{z}[9] \ge 2$:
+Então, como $\texttt{z}[3]=2$, sabemos que $\texttt{z}[9] \ge 2$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -819,9 +567,7 @@ Then, since $\texttt{z}[3]=2$, we know that $\texttt{z}[9] \ge 2$:
 \end{tikzpicture}
 \end{center}
 
-However, we have no information about the string
-after position 10, so we need to compare the substrings
-character by character:
+No entanto, não temos informações sobre a string após a posição 10, então precisamos comparar as substrings caractere por caractere:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -894,8 +640,7 @@ character by character:
 \end{tikzpicture}
 \end{center}
 
-It turns out that $\texttt{z}[9]=7$,
-so the new $[x,y]$ range is $[9,15]$:
+Acontece que $\texttt{z}[9]=7$, então o novo intervalo $[x,y]$ é $[9,15]$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -964,9 +709,7 @@ so the new $[x,y]$ range is $[9,15]$:
 \end{tikzpicture}
 \end{center}
 
-After this, all the remaining Z-array values
-can be determined by using the information
-already stored in the Z-array:
+Após isso, todos os valores restantes do array Z podem ser determinados usando as informações já armazenadas no array Z:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -1033,38 +776,15 @@ already stored in the Z-array:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Using the Z-array}
+\subsubsection{Usando o array Z}
 
-It is often a matter of taste whether to use
-string hashing or the Z-algorithm.
-Unlike hashing, the Z-algorithm always works
-and there is no risk for collisions.
-On the other hand, the Z-algorithm is more difficult
-to implement and some problems can only be solved
-using hashing.
+Muitas vezes, é uma questão de preferência usar hashing de string ou o algoritmo Z. Ao contrário do hashing, o algoritmo Z sempre funciona e não há risco de colisões. Por outro lado, o algoritmo Z é mais difícil de implementar e alguns problemas só podem ser resolvidos usando hashing.
 
-As an example, consider again
-the pattern matching problem,
-where our task is to find the occurrences
-of a pattern $p$ in a string $s$.
-We already solved this problem efficiently
-using string hashing, but the Z-algorithm
-provides another way to solve the problem.
+Como exemplo, considere novamente o problema de casamento de padrão, onde nossa tarefa é encontrar as ocorrências de um padrão $p$ em uma string $s$. Já resolvemos este problema de forma eficiente usando hashing de string, mas o algoritmo Z fornece outra maneira de resolver o problema.
 
-A usual idea in string processing is to
-construct a string that consists of
-multiple strings separated by special characters.
-In this problem, we can construct a string
-$p$\texttt{\#}$s$,
-where $p$ and $s$ are separated by a special
-character \texttt{\#} that does not occur
-in the strings.
-The Z-array of $p$\texttt{\#}$s$ tells us the positions
-where $p$ occurs in $s$,
-because such positions contain the length of $p$.
+Uma ideia usual no processamento de strings é construir uma string que consiste em múltiplas strings separadas por caracteres especiais. Neste problema, podemos construir uma string $p$\texttt{\#}$s$, onde $p$ e $s$ são separados por um caractere especial \texttt{\#} que não ocorre nas strings. O array Z de $p$\texttt{\#}$s$ nos diz as posições onde $p$ ocorre em $s$, porque tais posições contêm o comprimento de $p$.
 
-For example, if $s=$\texttt{HATTIVATTI} and $p=$\texttt{ATT},
-the Z-array is as follows:
+Por exemplo, se $s=$\texttt{HATTIVATTI} e $p=$\texttt{ATT}, o array Z é o seguinte:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -1118,19 +838,13 @@ the Z-array is as follows:
 \end{tikzpicture}
 \end{center}
 
-The positions 5 and 10 contain the value 3,
-which means that the pattern \texttt{ATT}
-occurs in the corresponding positions
-of \texttt{HATTIVATTI}.
+As posições 5 e 10 contêm o valor 3, o que significa que o padrão \texttt{ATT} ocorre nas posições correspondentes de \texttt{HATTIVATTI}.
 
-The time complexity of the resulting algorithm
-is linear, because it suffices to construct
-the Z-array and go through its values.
+A complexidade de tempo do algoritmo resultante é linear, pois é suficiente construir o array Z e percorrer seus valores.
 
-\subsubsection{Implementation}
+\subsubsection{Implementação}
 
-Here is a short implementation of the Z-algorithm
-that returns a vector that corresponds to the Z-array.
+Aqui está uma implementação curta do algoritmo Z que retorna um vetor que corresponde ao array Z.
 
 \begin{lstlisting}
 vector<int> z(string s) {
