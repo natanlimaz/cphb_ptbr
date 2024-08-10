@@ -1,17 +1,10 @@
-\chapter{Geometry}
+\chapter{Geometria}
 
 \index{geometry}
 
-In geometric problems, it is often challenging
-to find a way to approach the problem so that
-the solution to the problem can be conveniently implemented
-and the number of special cases is small.
+Em problemas geométricos, geralmente é desafiador encontrar uma maneira de abordar o problema de forma que a solução possa ser implementada convenientemente e o número de casos especiais seja pequeno.
 
-As an example, consider a problem where
-we are given the vertices of a quadrilateral
-(a polygon that has four vertices),
-and our task is to calculate its area.
-For example, a possible input for the problem is as follows:
+Como exemplo, considere um problema em que são dados os vértices de um quadrilátero (um polígono que possui quatro vértices) e nossa tarefa é calcular sua área. Por exemplo, uma entrada possível para o problema é a seguinte:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.45]
@@ -23,9 +16,7 @@ For example, a possible input for the problem is as follows:
 \draw[thick] (6,2) -- (5,6) -- (2,5) -- (1,1) -- (6,2);
 \end{tikzpicture}
 \end{center}
-One way to approach the problem is to divide
-the quadrilateral into two triangles by a straight
-line between two opposite vertices:
+Uma maneira de abordar o problema é dividir o quadrilátero em dois triângulos por uma linha reta entre dois vértices opostos:
 \begin{center}
 \begin{tikzpicture}[scale=0.45]
 
@@ -38,24 +29,14 @@ line between two opposite vertices:
 \draw[dashed,thick] (2,5) -- (6,2);
 \end{tikzpicture}
 \end{center}
-After this, it suffices to sum the areas
-of the triangles.
-The area of a triangle can be calculated,
-for example, using \key{Heron's formula}
+Após isso, basta somar as áreas dos triângulos. A área de um triângulo pode ser calculada, por exemplo, usando a \key{fórmula de Heron}
 %\footnote{Heron of Alexandria (c. 10--70) was a Greek mathematician.}
 \[ \sqrt{s (s-a) (s-b) (s-c)},\]
-where $a$, $b$ and $c$ are the lengths
-of the triangle's sides and
+onde $a$, $b$ e $c$ são os comprimentos dos lados do triângulo e
 $s=(a+b+c)/2$.
 \index{Heron's formula}
 
-This is a possible way to solve the problem,
-but there is one pitfall:
-how to divide the quadrilateral into triangles?
-It turns out that sometimes we cannot just pick
-two arbitrary opposite vertices.
-For example, in the following situation,
-the division line is \emph{outside} the quadrilateral:
+Esta é uma maneira possível de resolver o problema, mas há uma armadilha: como dividir o quadrilátero em triângulos? Acontece que às vezes não podemos simplesmente escolher dois vértices opostos arbitrários. Por exemplo, na seguinte situação, a linha de divisão está \emph{fora} do quadrilátero:
 \begin{center}
 \begin{tikzpicture}[scale=0.45]
 
@@ -68,7 +49,7 @@ the division line is \emph{outside} the quadrilateral:
 \draw[dashed,thick] (2,5) -- (6,2);
 \end{tikzpicture}
 \end{center}
-However, another way to draw the line works:
+No entanto, outra maneira de desenhar a linha funciona:
 \begin{center}
 \begin{tikzpicture}[scale=0.45]
 
@@ -81,37 +62,31 @@ However, another way to draw the line works:
 \draw[dashed,thick] (3,2) -- (1,1);
 \end{tikzpicture}
 \end{center}
-It is clear for a human which of the lines is the correct
-choice, but the situation is difficult for a computer.
-                           
-However, it turns out that we can solve the problem using
-another method that is more convenient to a programmer.
-Namely, there is a general formula
+É claro para um humano qual das linhas é a escolha correta, mas a situação é difícil para um computador.
+
+No entanto, verifica-se que podemos resolver o problema usando outro método que é mais conveniente para um programador. Ou seja, existe uma fórmula geral
 \[x_1y_2-x_2y_1+x_2y_3-x_3y_2+x_3y_4-x_4y_3+x_4y_1-x_1y_4,\]
-that calculates the area of a quadrilateral
-whose vertices are
+que calcula a área de um quadrilátero cujos vértices são
 $(x_1,y_1)$,
 $(x_2,y_2)$,
-$(x_3,y_3)$ and
+$(x_3,y_3)$ e
 $(x_4,y_4)$.
-This formula is easy to implement, there are no special
-cases, and we can even generalize the formula
-to \emph{all} polygons.
+Esta fórmula é fácil de implementar, não há casos especiais e podemos até generalizar a fórmula para \emph{todos} os polígonos.
 
-\section{Complex numbers}
+\section{Números Complexos}
 
 \index{complex number}
 \index{point}
 \index{vector}
 
-A \key{complex number} is a number of the form $x+y i$,
-where $i = \sqrt{-1}$ is the \key{imaginary unit}.
-A geometric interpretation of a complex number is
-that it represents a two-dimensional point $(x,y)$
-or a vector from the origin to a point $(x,y)$.
+Um \key{número complexo} é um número da forma $x+y i$,
+onde $i = \sqrt{-1}$ é a \key{unidade imaginária}.
+Uma interpretação geométrica de um número complexo é
+que ele representa um ponto bidimensional $(x,y)$
+ou um vetor da origem para um ponto $(x,y)$.
 
-For example, $4+2i$ corresponds to the
-following point and vector:
+Por exemplo, $4+2i$ corresponde ao
+seguinte ponto e vetor:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.45]
@@ -128,16 +103,16 @@ following point and vector:
 
 \index{complex@\texttt{complex}}
 
-The C++ complex number class \texttt{complex} is
-useful when solving geometric problems.
-Using the class we can represent points and vectors
-as complex numbers, and the class contains tools
-that are useful in geometry.
+A classe de número complexo \texttt{complex} do C++ é
+útil ao resolver problemas geométricos.
+Usando a classe, podemos representar pontos e vetores
+como números complexos, e a classe contém ferramentas
+que são úteis em geometria.
 
-In the following code, \texttt{C} is the type of
-a coordinate and \texttt{P} is the type of a point or a vector.
-In addition, the code defines macros \texttt{X} and \texttt{Y}
-that can be used to refer to x and y coordinates.
+No código a seguir, \texttt{C} é o tipo de
+uma coordenada e \texttt{P} é o tipo de um ponto ou um vetor.
+Além disso, o código define as macros \texttt{X} e \texttt{Y}
+que podem ser usadas para se referir às coordenadas x e y.
 
 \begin{lstlisting}
 typedef long long C;
@@ -146,16 +121,16 @@ typedef complex<C> P;
 #define Y imag()
 \end{lstlisting}
 
-For example, the following code defines a point $p=(4,2)$
-and prints its x and y coordinates:
+Por exemplo, o código a seguir define um ponto $p=(4,2)$
+e imprime suas coordenadas x e y:
 
 \begin{lstlisting}
 P p = {4,2};
 cout << p.X << " " << p.Y << "\n"; // 4 2
 \end{lstlisting}
 
-The following code defines vectors $v=(3,1)$ and $u=(2,2)$,
-and after that calculates the sum $s=v+u$.
+O código a seguir define os vetores $v=(3,1)$ e $u=(2,2)$,
+e depois calcula a soma $s=v+u$.
 
 \begin{lstlisting}
 P v = {3,1};
@@ -164,57 +139,57 @@ P s = v+u;
 cout << s.X << " " << s.Y << "\n"; // 5 3
 \end{lstlisting}
 
-In practice,
-an appropriate coordinate type is usually
-\texttt{long long} (integer) or \texttt{long double}
-(real number).
-It is a good idea to use integer whenever possible,
-because calculations with integers are exact.
-If real numbers are needed,
-precision errors should be taken into account
-when comparing numbers.
-A safe way to check if real numbers $a$ and $b$ are equal
-is to compare them using $|a-b|<\epsilon$,
-where $\epsilon$ is a small number (for example, $\epsilon=10^{-9}$).
+Na prática,
+um tipo de coordenada apropriado é geralmente
+\texttt{long long} (inteiro) ou \texttt{long double}
+(número real).
+É uma boa ideia usar inteiro sempre que possível,
+porque os cálculos com inteiros são exatos.
+Se números reais forem necessários,
+os erros de precisão devem ser levados em consideração
+ao comparar números.
+Uma maneira segura de verificar se os números reais $a$ e $b$ são iguais
+é compará-los usando $|a-b|<\epsilon$,
+onde $\epsilon$ é um número pequeno (por exemplo, $\epsilon=10^{-9}$).
 
-\subsubsection*{Functions}
+\subsubsection*{Funções}
 
-In the following examples, the coordinate type is
+Nos exemplos a seguir, o tipo de coordenada é
 \texttt{long double}.
 
-The function $\texttt{abs}(v)$ calculates the length
-$|v|$ of a vector $v=(x,y)$
-using the formula $\sqrt{x^2+y^2}$.
-The function can also be used for
-calculating the distance between points
-$(x_1,y_1)$ and $(x_2,y_2)$,
-because that distance equals the length
-of the vector $(x_2-x_1,y_2-y_1)$.
+A função $\texttt{abs}(v)$ calcula o comprimento
+$|v|$ de um vetor $v=(x,y)$
+usando a fórmula $\sqrt{x^2+y^2}$.
+A função também pode ser usada para
+calcular a distância entre os pontos
+$(x_1,y_1)$ e $(x_2,y_2)$,
+porque essa distância é igual ao comprimento
+do vetor $(x_2-x_1,y_2-y_1)$.
 
-The following code calculates the distance
-between points $(4,2)$ and $(3,-1)$:
+O código a seguir calcula a distância
+entre os pontos $(4,2)$ e $(3,-1)$:
 \begin{lstlisting}
 P a = {4,2};
 P b = {3,-1};
 cout << abs(b-a) << "\n"; // 3.16228
 \end{lstlisting}
 
-The function $\texttt{arg}(v)$ calculates the
-angle of a vector $v=(x,y)$ with respect to the x axis.
-The function gives the angle in radians,
-where $r$ radians equals $180 r/\pi$ degrees.
-The angle of a vector that points to the right is 0,
-and angles decrease clockwise and increase
-counterclockwise.
+A função $\texttt{arg}(v)$ calcula o
+ângulo de um vetor $v=(x,y)$ em relação ao eixo x.
+A função fornece o ângulo em radianos,
+onde $r$ radianos é igual a $180 r/\pi$ graus.
+O ângulo de um vetor que aponta para a direita é 0,
+e os ângulos diminuem no sentido horário e aumentam
+no sentido anti-horário.
 
-The function $\texttt{polar}(s,a)$ constructs a vector
-whose length is $s$ and that points to an angle $a$.
-A vector can be rotated by an angle $a$
-by multiplying it by a vector with length 1 and angle $a$.
+A função $\texttt{polar}(s,a)$ constrói um vetor
+cujo comprimento é $s$ e que aponta para um ângulo $a$.
+Um vetor pode ser girado por um ângulo $a$
+multiplicando-o por um vetor com comprimento 1 e ângulo $a$.
 
-The following code calculates the angle of
-the vector $(4,2)$, rotates it $1/2$ radians
-counterclockwise, and then calculates the angle again:
+O código a seguir calcula o ângulo de
+o vetor $(4,2)$, gira-o $1/2$ radianos
+no sentido anti-horário e, em seguida, calcula o ângulo novamente:
 
 \begin{lstlisting}
 P v = {4,2};
@@ -223,19 +198,19 @@ v *= polar(1.0,0.5);
 cout << arg(v) << "\n"; // 0.963648
 \end{lstlisting}
 
-\section{Points and lines}
+\section{Pontos e Linhas}
 
 \index{cross product}
 
-The \key{cross product} $a \times b$ of vectors
-$a=(x_1,y_1)$ and $b=(x_2,y_2)$ is calculated
-using the formula $x_1 y_2 - x_2 y_1$.
-The cross product tells us whether $b$
-turns left (positive value), does not turn (zero)
-or turns right (negative value)
-when it is placed directly after $a$.
+O \key{produto vetorial} $a \times b$ de vetores
+$a=(x_1,y_1)$ e $b=(x_2,y_2)$ é calculado
+usando a fórmula $x_1 y_2 - x_2 y_1$.
+O produto vetorial nos diz se $b$
+gira para a esquerda (valor positivo), não gira (zero)
+ou gira para a direita (valor negativo)
+quando é colocado diretamente após $a$.
 
-The following picture illustrates the above cases:
+A figura a seguir ilustra os casos acima:
 \begin{center}
 \begin{tikzpicture}[scale=0.45]
 
@@ -266,10 +241,10 @@ The following picture illustrates the above cases:
 \end{center}
 
 \noindent
-For example, in the first case
-$a=(4,2)$ and $b=(1,2)$.
-The following code calculates the cross product
-using the class \texttt{complex}:
+Por exemplo, no primeiro caso
+$a=(4,2)$ e $b=(1,2)$.
+O código a seguir calcula o produto vetorial
+usando a classe \texttt{complex}:
 
 \begin{lstlisting}
 P a = {4,2};
@@ -277,24 +252,24 @@ P b = {1,2};
 C p = (conj(a)*b).Y; // 6
 \end{lstlisting}
 
-The above code works, because
-the function \texttt{conj} negates the y coordinate
-of a vector,
-and when the vectors $(x_1,-y_1)$ and $(x_2,y_2)$
-are multiplied together, the y coordinate
-of the result is $x_1 y_2 - x_2 y_1$.
+O código acima funciona porque
+a função \texttt{conj} inverte o sinal da coordenada y
+de um vetor,
+e quando os vetores $(x_1,-y_1)$ e $(x_2,y_2)$
+são multiplicados, a coordenada y
+do resultado é $x_1 y_2 - x_2 y_1$.
 
-\subsubsection{Point location}
+\subsubsection{Localização do Ponto}
 
-Cross products can be used to test
-whether a point is located on the left or right
-side of a line.
-Assume that the line goes through points
-$s_1$ and $s_2$, we are looking from $s_1$
-to $s_2$ and the point is $p$.
+Produtos vetoriais podem ser usados para testar
+se um ponto está localizado à esquerda ou à direita
+de uma linha.
+Assuma que a linha passa pelos pontos
+$s_1$ e $s_2$, estamos olhando de $s_1$
+para $s_2$ e o ponto é $p$.
 
-For example, in the following picture,
-$p$ is on the left side of the line:
+Por exemplo, na figura a seguir,
+$p$ está no lado esquerdo da linha:
 \begin{center}
 \begin{tikzpicture}[scale=0.45]
 \draw[dashed,thick,->] (0,-3)--(12,6);
@@ -307,31 +282,31 @@ $p$ is on the left side of the line:
 \end{tikzpicture}
 \end{center}
 
-The cross product $(p-s_1) \times (p-s_2)$
-tells us the location of the point $p$.
-If the cross product is positive,
-$p$ is located on the left side,
-and if the cross product is negative,
-$p$ is located on the right side.
-Finally, if the cross product is zero,
-points $s_1$, $s_2$ and $p$ are on the same line.
+O produto vetorial $(p-s_1) \times (p-s_2)$
+nos diz a localização do ponto $p$.
+Se o produto vetorial for positivo,
+$p$ está localizado no lado esquerdo,
+e se o produto vetorial for negativo,
+$p$ está localizado no lado direito.
+Finalmente, se o produto vetorial for zero,
+os pontos $s_1$, $s_2$ e $p$ estão na mesma linha.
 
-\subsubsection{Line segment intersection}
+\subsubsection{Interseção de Segmentos de Linha}
 
 \index{line segment intersection}
 
-Next we consider the problem of testing
-whether two line segments
-$ab$ and $cd$ intersect. The possible cases are:
+A seguir, consideramos o problema de testar
+se dois segmentos de linha
+$ab$ e $cd$ se cruzam. Os casos possíveis são:
 
-\textit{Case 1:}
-The line segments are on the same line
-and they overlap each other.
-In this case, there is an infinite number of
-intersection points.
-For example, in the following picture,
-all points between $c$ and $b$ are
-intersection points:
+\textit{Caso 1:}
+Os segmentos de linha estão na mesma linha
+e eles se sobrepõem.
+Nesse caso, há um número infinito de
+pontos de interseção.
+Por exemplo, na figura a seguir,
+todos os pontos entre $c$ e $b$ são
+pontos de interseção:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \draw (1.5,1.5)--(6,3);
@@ -347,16 +322,16 @@ intersection points:
 \end{tikzpicture}
 \end{center}
 
-In this case, we can use cross products to
-check if all points are on the same line.
-After this, we can sort the points and check
-whether the line segments overlap each other.
+Neste caso, podemos usar produtos vetoriais para
+verificar se todos os pontos estão na mesma linha.
+Depois disso, podemos classificar os pontos e verificar
+se os segmentos de linha se sobrepõem.
 
-\textit{Case 2:}
-The line segments have a common vertex
-that is the only intersection point.
-For example, in the following picture the
-intersection point is $b=c$:
+\textit{Caso 2:}
+Os segmentos de linha têm um vértice comum
+que é o único ponto de interseção.
+Por exemplo, na figura a seguir o
+ponto de interseção é $b=c$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -372,16 +347,16 @@ intersection point is $b=c$:
 \end{tikzpicture}
 \end{center}
 
-This case is easy to check, because
-there are only four possibilities
-for the intersection point:
-$a=c$, $a=d$, $b=c$ and $b=d$.
+Este caso é fácil de verificar, porque
+existem apenas quatro possibilidades
+para o ponto de interseção:
+$a=c$, $a=d$, $b=c$ e $b=d$.
 
-\textit{Case 3:}
-There is exactly one intersection point
-that is not a vertex of any line segment.
-In the following picture, the point $p$
-is the intersection point:
+\textit{Caso 3:}
+Existe exatamente um ponto de interseção
+que não é um vértice de nenhum segmento de linha.
+Na figura a seguir, o ponto $p$
+é o ponto de interseção:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \draw (0,1)--(6,3);
@@ -399,25 +374,25 @@ is the intersection point:
 \end{tikzpicture}
 \end{center}
 
-In this case, the line segments intersect
-exactly when both points $c$ and $d$ are
-on different sides of a line through $a$ and $b$,
-and points $a$ and $b$ are on different
-sides of a line through $c$ and $d$.
-We can use cross products to check this.
+Neste caso, os segmentos de linha se cruzam
+exatamente quando ambos os pontos $c$ e $d$ estão
+em lados diferentes de uma linha que passa por $a$ e $b$,
+e os pontos $a$ e $b$ estão em diferentes
+lados de uma linha que passa por $c$ e $d$.
+Podemos usar produtos vetoriais para verificar isso.
 
-\subsubsection{Point distance from a line}
+\subsubsection{Distância de um Ponto a uma Linha}
 
-Another feature of cross products is that
-the area of a triangle can be calculated
-using the formula
+Outra característica dos produtos vetoriais é que
+a área de um triângulo pode ser calculada
+usando a fórmula
 \[\frac{| (a-c) \times (b-c) |}{2},\]
-where $a$, $b$ and $c$ are the vertices of the triangle.
-Using this fact, we can derive a formula
-for calculating the shortest distance between a point and a line.
-For example, in the following picture $d$ is the
-shortest distance between the point $p$ and the line
-that is defined by the points $s_1$ and $s_2$:
+onde $a$, $b$ e $c$ são os vértices do triângulo.
+Usando esse fato, podemos derivar uma fórmula
+para calcular a distância mais curta entre um ponto e uma linha.
+Por exemplo, na figura a seguir $d$ é a
+distância mais curta entre o ponto $p$ e a linha
+que é definida pelos pontos $s_1$ e $s_2$:
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
 \draw (-2,-1)--(6,3);
@@ -432,22 +407,22 @@ that is defined by the points $s_1$ and $s_2$:
 \end{tikzpicture}
 \end{center}
 
-The area of the triangle whose vertices are
-$s_1$, $s_2$ and $p$ can be calculated in two ways:
-it is both
-$\frac{1}{2} |s_2-s_1| d$ and
+A área do triângulo cujos vértices são
+$s_1$, $s_2$ e $p$ podem ser calculados de duas maneiras:
+é ambos
+$\frac{1}{2} |s_2-s_1| d$ e
 $\frac{1}{2} ((s_1-p) \times (s_2-p))$.
-Thus, the shortest distance is
+Assim, a distância mais curta é
 \[ d = \frac{(s_1-p) \times (s_2-p)}{|s_2-s_1|} .\]
 
-\subsubsection{Point inside a polygon}
+\subsubsection{Ponto Dentro de um Polígono}
 
-Let us now consider the problem of
-testing whether a point is located inside or outside
-a polygon.
-For example, in the following picture point $a$
-is inside the polygon and point $b$ is outside
-the polygon.
+Vamos agora considerar o problema de
+testar se um ponto está localizado dentro ou fora
+de um polígono.
+Por exemplo, na figura a seguir, o ponto $a$
+está dentro do polígono e o ponto $b$ está fora
+do polígono.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
@@ -461,17 +436,17 @@ the polygon.
 \end{tikzpicture}
 \end{center}
 
-A convenient way to solve the problem is to
-send a \emph{ray} from the point to an arbitrary direction
-and calculate the number of times it touches
-the boundary of the polygon.
-If the number is odd,
-the point is inside the polygon,
-and if the number is even,
-the point is outside the polygon.
+Uma maneira conveniente de resolver o problema é
+enviar um \emph{raio} do ponto para uma direção arbitrária
+e calcular o número de vezes que ele toca
+a fronteira do polígono.
+Se o número for ímpar,
+o ponto está dentro do polígono,
+e se o número for par,
+o ponto está fora do polígono.
 
 \begin{samepage}
-For example, we could send the following rays:
+Por exemplo, podemos enviar os seguintes raios:
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
 \draw (0,0)--(2,2)--(5,1)--(2,3)--(1,2)--(-1,2)--(1,4)--(-2,4)--(-2,1)--(-3,3)--(-4,0)--(0,0);
@@ -490,28 +465,28 @@ For example, we could send the following rays:
 \end{center}
 \end{samepage}
 
-The rays from $a$ touch 1 and 3 times
-the boundary of the polygon,
-so $a$ is inside the polygon.
-Correspondingly, the rays from $b$
-touch 0 and 2 times the boundary of the polygon,
-so $b$ is outside the polygon.
+Os raios de $a$ tocam 1 e 3 vezes
+a fronteira do polígono,
+então $a$ está dentro do polígono.
+Correspondentemente, os raios de $b$
+tocam 0 e 2 vezes a fronteira do polígono,
+então $b$ está fora do polígono.
 
-\section{Polygon area}
+\section{Área do Polígono}
 
-A general formula for calculating the area
-of a polygon, sometimes called the \key{shoelace formula},
-is as follows: \index{shoelace formula}
+Uma fórmula geral para calcular a área
+de um polígono, às vezes chamada de \key{fórmula do cadarço},
+é como se segue: \index{shoelace formula}
 \[\frac{1}{2} |\sum_{i=1}^{n-1} (p_i \times p_{i+1})| =
 \frac{1}{2} |\sum_{i=1}^{n-1} (x_i y_{i+1} - x_{i+1} y_i)|, \]
-Here the vertices are
+Aqui, os vértices são
 $p_1=(x_1,y_1)$, $p_2=(x_2,y_2)$, $\ldots$, $p_n=(x_n,y_n)$
-in such an order that
-$p_i$ and $p_{i+1}$ are adjacent vertices on the boundary
-of the polygon,
-and the first and last vertex is the same, i.e., $p_1=p_n$.
+em uma ordem tal que
+$p_i$ e $p_{i+1}$ são vértices adjacentes na fronteira
+do polígono,
+e o primeiro e o último vértice são iguais, ou seja, $p_1=p_n$.
 
-For example, the area of the polygon
+Por exemplo, a área do polígono
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \filldraw (4,1.4) circle (2pt);
@@ -527,13 +502,13 @@ For example, the area of the polygon
 \path[draw] (4,1.4) -- (7,3.4) -- (5,5.4) -- (2,4.4) -- (4,3.4) -- (4,1.4);
 \end{tikzpicture}
 \end{center}
-is
+é
 \[\frac{|(2\cdot5-5\cdot4)+(5\cdot3-7\cdot5)+(7\cdot1-4\cdot3)+(4\cdot3-4\cdot1)+(4\cdot4-2\cdot3)|}{2} = 17/2.\]
 
-The idea of the formula is to go through trapezoids
-whose one side is a side of the polygon,
-and another side lies on the horizontal line $y=0$.
-For example:
+A ideia da fórmula é passar por trapézios
+cujo um lado é um lado do polígono,
+e o outro lado fica na linha horizontal $y=0$.
+Por exemplo:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \path[draw,fill=lightgray] (5,5.4) -- (7,3.4) -- (7,0) -- (5,0) -- (5,5.4);
@@ -551,35 +526,35 @@ For example:
 \draw (0,0) -- (10,0);
 \end{tikzpicture}
 \end{center}
-The area of such a trapezoid is
+A área de tal trapézio é
 \[(x_{i+1}-x_{i}) \frac{y_i+y_{i+1}}{2},\]
-where the vertices of the polygon are $p_i$ and $p_{i+1}$.
-If $x_{i+1}>x_{i}$, the area is positive,
-and if $x_{i+1}<x_{i}$, the area is negative.
+onde os vértices do polígono são $p_i$ e $p_{i+1}$.
+Se $x_{i+1}>x_{i}$, a área é positiva,
+e se $x_{i+1}<x_{i}$, a área é negativa.
 
-The area of the polygon is the sum of areas of
-all such trapezoids, which yields the formula
+A área do polígono é a soma das áreas de
+todos esses trapézios, o que produz a fórmula
 \[|\sum_{i=1}^{n-1} (x_{i+1}-x_{i}) \frac{y_i+y_{i+1}}{2}| =
 \frac{1}{2} |\sum_{i=1}^{n-1} (x_i y_{i+1} - x_{i+1} y_i)|.\]
 
-Note that the absolute value of the sum is taken,
-because the value of the sum may be positive or negative,
-depending on whether we walk clockwise or counterclockwise
-along the boundary of the polygon.
+Observe que o valor absoluto da soma é considerado,
+porque o valor da soma pode ser positivo ou negativo,
+dependendo se caminhamos no sentido horário ou anti-horário
+ao longo da fronteira do polígono.
 
-\subsubsection{Pick's theorem}
+\subsubsection{Teorema de Pick}
 
 \index{Pick's theorem}
 
-\key{Pick's theorem} provides another way to calculate
-the area of a polygon provided that all vertices 
-of the polygon have integer coordinates.
-According to Pick's theorem, the area of the polygon is
+O \key{Teorema de Pick} fornece outra maneira de calcular
+a área de um polígono, desde que todos os vértices
+do polígono tenham coordenadas inteiras.
+De acordo com o Teorema de Pick, a área do polígono é
 \[ a + b/2 -1,\]
-where $a$ is the number of integer points inside the polygon
-and $b$ is the number of integer points on the boundary of the polygon.
+onde $a$ é o número de pontos inteiros dentro do polígono
+e $b$ é o número de pontos inteiros na fronteira do polígono.
 
-For example, the area of the polygon
+Por exemplo, a área do polígono
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \filldraw (4,1.4) circle (2pt);
@@ -609,27 +584,27 @@ For example, the area of the polygon
 \filldraw (5,2.4) circle (2pt);
 \end{tikzpicture}
 \end{center}
-is $6+7/2-1=17/2$.
+é $6+7/2-1=17/2$.
 
-\section{Distance functions}
+\section{Funções de Distância}
 
 \index{distance function}
 \index{Euclidean distance}
 \index{Manhattan distance}
 
-A \key{distance function} defines the distance between
-two points.
-The usual distance function is the
-\key{Euclidean distance} where the distance between
-points $(x_1,y_1)$ and $(x_2,y_2)$ is
+Uma \key{função de distância} define a distância entre
+dois pontos.
+A função de distância usual é a
+\key{distância euclidiana} onde a distância entre
+os pontos $(x_1,y_1)$ e $(x_2,y_2)$ é
 \[\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}.\]
-An alternative distance function is the
-\key{Manhattan distance}
-where the distance between points
-$(x_1,y_1)$ and $(x_2,y_2)$ is
+Uma função de distância alternativa é a
+\key{distância de Manhattan},
+onde a distância entre os pontos
+$(x_1,y_1)$ e $(x_2,y_2)$ é
 \[|x_1-x_2|+|y_1-y_2|.\]
 \begin{samepage}
-For example, consider the following picture:
+Por exemplo, considere a seguinte imagem:
 \begin{center}
 \begin{tikzpicture}
 
@@ -650,41 +625,41 @@ For example, consider the following picture:
 \draw[dashed] (5+2,1) -- (5+2,2);
 \draw[dashed] (5+2,2) -- (5+5,2);
 
-\node at (3.5,-0.5) {Euclidean distance};
-\node at (5+3.5,-0.5) {Manhattan distance};
+\node at (3.5,-0.5) {Distância Euclidiana};
+\node at (5+3.5,-0.5) {Distância de Manhattan};
 \end{tikzpicture}
 \end{center}
 \end{samepage}
-The Euclidean distance between the points is
+A distância euclidiana entre os pontos é
 \[\sqrt{(5-2)^2+(2-1)^2}=\sqrt{10}\]
-and the Manhattan distance is
+e a distância de Manhattan é
 \[|5-2|+|2-1|=4.\]
-The following picture shows regions that are within a distance of 1
-from the center point, using the Euclidean and Manhattan distances:
+A figura a seguir mostra as regiões que estão a uma distância de 1
+do ponto central, usando as distâncias euclidiana e de Manhattan:
 \begin{center}
 \begin{tikzpicture}
 
 \draw[fill=gray!20] (0,0) circle [radius=1];
 \draw[fill] (0,0) circle [radius=0.05];
 
-\node at (0,-1.5) {Euclidean distance};
+\node at (0,-1.5) {Distância Euclidiana};
 
 \draw[fill=gray!20] (5+0,1) -- (5-1,0) -- (5+0,-1) -- (5+1,0) -- (5+0,1);
 \draw[fill] (5,0) circle [radius=0.05];
-\node at (5,-1.5) {Manhattan distance};
+\node at (5,-1.5) {Distância de Manhattan};
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Rotating coordinates}
+\subsubsection{Rotação de Coordenadas}
 
-Some problems are easier to solve if
-Manhattan distances are used instead of Euclidean distances.
-As an example, consider a problem where we are given
-$n$ points in the two-dimensional plane
-and our task is to calculate the maximum Manhattan
-distance between any two points.
+Alguns problemas são mais fáceis de resolver se
+as distâncias de Manhattan forem usadas em vez das distâncias euclidianas.
+Como exemplo, considere um problema em que recebemos
+$n$ pontos no plano bidimensional
+e nossa tarefa é calcular a distância máxima de Manhattan
+entre quaisquer dois pontos.
 
-For example, consider the following set of points:
+Por exemplo, considere o seguinte conjunto de pontos:
 \begin{center}
 \begin{tikzpicture}[scale=0.65]
 \draw[color=gray] (-1,-1) grid (4,4);
@@ -700,8 +675,8 @@ For example, consider the following set of points:
 \node at (3,0.5) {$D$};
 \end{tikzpicture}
 \end{center}
-The maximum Manhattan distance is 5
-between points $B$ and $C$:
+A distância máxima de Manhattan é 5
+entre os pontos $B$ e $C$:
 \begin{center}
 \begin{tikzpicture}[scale=0.65]
 \draw[color=gray] (-1,-1) grid (4,4);
@@ -720,11 +695,11 @@ between points $B$ and $C$:
 \end{tikzpicture}
 \end{center}
 
-A useful technique related to Manhattan distances
-is to rotate all coordinates 45 degrees so that
-a point $(x,y)$ becomes $(x+y,y-x)$.
-For example, after rotating the above points,
-the result is:
+Uma técnica útil relacionada às distâncias de Manhattan
+é girar todas as coordenadas 45 graus para que
+um ponto $(x,y)$ se torne $(x+y,y-x)$.
+Por exemplo, após girar os pontos acima,
+o resultado é:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.6]
@@ -741,7 +716,7 @@ the result is:
 \node at (4,-2.5) {$D$};
 \end{tikzpicture}
 \end{center}
-And the maximum distance is as follows:
+E a distância máxima é a seguinte:
 \begin{center}
 \begin{tikzpicture}[scale=0.6]
 \draw[color=gray] (0,-3) grid (7,3);
@@ -760,23 +735,23 @@ And the maximum distance is as follows:
 \end{tikzpicture}
 \end{center}
 
-Consider two points $p_1=(x_1,y_1)$ and $p_2=(x_2,y_2)$ whose rotated
-coordinates are $p'_1=(x'_1,y'_1)$ and $p'_2=(x'_2,y'_2)$.
-Now there are two ways to express the Manhattan distance
-between $p_1$ and $p_2$:
+Considere dois pontos $p_1=(x_1,y_1)$ e $p_2=(x_2,y_2)$ cujas coordenadas
+giradas são $p'_1=(x'_1,y'_1)$ e $p'_2=(x'_2,y'_2)$.
+Agora, existem duas maneiras de expressar a distância de Manhattan
+entre $p_1$ e $p_2$:
 \[|x_1-x_2|+|y_1-y_2| = \max(|x'_1-x'_2|,|y'_1-y'_2|)\]
 
-For example, if $p_1=(1,0)$ and $p_2=(3,3)$,
-the rotated coordinates are $p'_1=(1,-1)$ and $p'_2=(6,0)$
-and the Manhattan distance is
+Por exemplo, se $p_1=(1,0)$ e $p_2=(3,3)$,
+as coordenadas giradas são $p'_1=(1,-1)$ e $p'_2=(6,0)$
+e a distância de Manhattan é
 \[|1-3|+|0-3| = \max(|1-6|,|-1-0|) = 5.\]
 
-The rotated coordinates provide a simple way
-to operate with Manhattan distances, because we can
-consider x and y coordinates separately.
-To maximize the Manhattan distance between two points,
-we should find two points whose
-rotated coordinates maximize the value of
+As coordenadas giradas fornecem uma maneira simples
+de operar com distâncias de Manhattan, porque podemos
+considerar as coordenadas x e y separadamente.
+Para maximizar a distância de Manhattan entre dois pontos,
+devemos encontrar dois pontos cujas
+coordenadas giradas maximizem o valor de
 \[\max(|x'_1-x'_2|,|y'_1-y'_2|).\]
-This is easy, because either the horizontal or vertical
-difference of the rotated coordinates has to be maximum.
+Isso é fácil, porque a diferença horizontal ou vertical
+das coordenadas giradas deve ser máxima.
