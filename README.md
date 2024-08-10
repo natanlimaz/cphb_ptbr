@@ -1,8 +1,17 @@
-# Manual do Programador Competitivo (Tradução em Andamento)
+# Manual do Programador Competitivo (Tradução Completa)
 
-Este é um projeto de tradução do livro "Competitive Programmer's Handbook" para o português. A tradução é um trabalho em andamento e esperamos que ela seja útil para a comunidade de programação competitiva de língua portuguesa. O objetivo deste projeto é fornecer um recurso acessível e compreensível para a comunidade de programação competitiva, especialmente para aqueles que só podem, ou preferem, ler em português.
+Este é o projeto de tradução do livro "Competitive Programmer's Handbook" para o português. A tradução inicial foi concluída e está disponível para a comunidade. O objetivo deste projeto é fornecer um recurso acessível e compreensível para a comunidade de programação competitiva de língua portuguesa, especialmente para aqueles que só podem, ou preferem, ler em português.
+ 
+#### 💾 Você pode baixar a versão mais recente do PDF na seção de [**releases**](https://github.com/natanlimaz/cphb_ptbr/releases) 💾
+  
 
-Você pode acompanhar o progresso da tradução e baixar a versão mais recente do PDF na seção de [**releases**](https://github.com/natanlimaz/cphb_ptbr/releases).
+## Importante: Revisão Contínua
+
+A tradução de um livro técnico é um processo complexo e trabalhoso. Apesar do empenho e da boa intenção dos colaboradores, é natural que alguns erros ou imprecisões possam ter passado despercebidos durante o processo inicial de tradução.
+
+Por isso, enfatizamos a importância da revisão contínua por parte da comunidade. Seu feedback e contribuições são essenciais para aprimorar e refinar esta tradução ao longo do tempo. Encorajamos todos os leitores a reportarem quaisquer erros encontrados, sugerirem melhorias na clareza ou precisão do texto, e participarem ativamente no processo de revisão.
+
+Juntos, podemos garantir que esta tradução se torne um recurso cada vez mais valioso e confiável para a comunidade de programação competitiva de língua portuguesa.
 
 ## Sobre o Livro
 
@@ -28,7 +37,7 @@ https://cses.fi/book/
 
 ## Contribuição
 
-Este é um projeto de tradução em andamento e sua contribuição é bem-vinda! O livro é escrito em LaTeX, e boa notícia é que, para contribuir com a tradução, você sequer precisa ter conhecimento das keywords do LaTeX. O foco é traduzir o texto, mantendo as estruturas LaTeX intactas.
+Apesar da tradução inicial estar completa, sempre há espaço para melhorias, seja na correção de erros, revisão de termos técnicos ou aprimoramento da fluidez do texto. Sua contribuição é bem-vinda!
 
 ### Como Contribuir
 
@@ -59,6 +68,3 @@ Este é um projeto de tradução em andamento e sua contribuição é bem-vinda!
 - Para iniciantes: No arquivo `book.tex`, há a inclusão dos capítulos. Para incluir um capítulo específico no PDF compilado, remova o comentário da linha correspondente. Por exemplo:
   - Para incluir o Capítulo 1, mude `%\include{chapter01}` para `\include{chapter01}`
   - Isso permite que você trabalhe e visualize capítulos específicos sem precisar compilar o livro inteiro.
-
-
-Toda contribuição é valiosa, agradecemos qualquer ajuda para tornar este recurso disponível em português!
