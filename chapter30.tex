@@ -1,39 +1,39 @@
-\chapter{Sweep line algorithms}
+\chapter{Algoritmos de linha de varredura}
 
-\index{sweep line}
+\index{linha de varredura}
 
-Many geometric problems can be solved using
-\key{sweep line} algorithms.
-The idea in such algorithms is to represent
-an instance of the problem as a set of events that correspond
-to points in the plane.
-The events are processed in increasing order
-according to their x or y coordinates.
+Muitos problemas geométricos podem ser resolvidos usando
+algoritmos de \key{linha de varredura}.
+A ideia em tais algoritmos é representar
+uma instância do problema como um conjunto de eventos que correspondem
+a pontos no plano.
+Os eventos são processados em ordem crescente
+de acordo com suas coordenadas x ou y.
 
-As an example, consider the following problem:
-There is a company that has $n$ employees,
-and we know for each employee their arrival and
-leaving times on a certain day.
-Our task is to calculate the maximum number of
-employees that were in the office at the same time.
+Como exemplo, considere o seguinte problema:
+Há uma empresa que tem $n$ funcionários,
+e sabemos para cada funcionário seus horários de chegada e
+saída em um determinado dia.
+Nossa tarefa é calcular o número máximo de
+funcionários que estavam no escritório ao mesmo tempo.
 
-The problem can be solved by modeling the situation
-so that each employee is assigned two events that
-correspond to their arrival and leaving times.
-After sorting the events, we go through them
-and keep track of the number of people in the office.
-For example, the table
+O problema pode ser resolvido modelando a situação
+de forma que cada funcionário receba dois eventos que
+correspondem aos seus horários de chegada e saída.
+Após ordenar os eventos, nós os percorremos
+e mantemos o controle do número de pessoas no escritório.
+Por exemplo, a tabela
 \begin{center}
 \begin{tabular}{ccc}
-person & arrival time & leaving time \\
+pessoa & horário de chegada & horário de saída \\
 \hline
-John & 10 & 15 \\
+João & 10 & 15 \\
 Maria & 6 & 12 \\
-Peter & 14 & 16 \\
+Pedro & 14 & 16 \\
 Lisa & 5 & 13 \\
 \end{tabular}
 \end{center}
-corresponds to the following events:
+corresponde aos seguintes eventos:
 \begin{center}
 \begin{tikzpicture}[scale=0.6]
 \draw (0,0) rectangle (17,-6.5);
@@ -51,22 +51,22 @@ corresponds to the following events:
 \draw[fill] (5,-5.5) circle [radius=0.05];
 \draw[fill] (13,-5.5) circle [radius=0.05];
 
-\node at (2,-1) {John};
+\node at (2,-1) {João};
 \node at (2,-2.5) {Maria};
-\node at (2,-4) {Peter};
+\node at (2,-4) {Pedro};
 \node at (2,-5.5) {Lisa};
 \end{tikzpicture}
 \end{center}
-We go through the events from left to right
-and maintain a counter.
-Always when a person arrives, we increase
-the value of the counter by one,
-and when a person leaves,
-we decrease the value of the counter by one.
-The answer to the problem is the maximum
-value of the counter during the algorithm.
+Percorremos os eventos da esquerda para a direita
+e mantemos um contador.
+Sempre que uma pessoa chega, aumentamos
+o valor do contador em um,
+e quando uma pessoa sai,
+diminuímos o valor do contador em um.
+A resposta para o problema é o valor máximo
+do contador durante o algoritmo.
 
-In the example, the events are processed as follows:
+No exemplo, os eventos são processados da seguinte forma:
 \begin{center}
 \begin{tikzpicture}[scale=0.6]
 \path[draw,thick,->] (0.5,0.5) -- (16.5,0.5);
@@ -85,9 +85,9 @@ In the example, the events are processed as follows:
 \draw[fill] (5,-5.5) circle [radius=0.05];
 \draw[fill] (13,-5.5) circle [radius=0.05];
 
-\node at (2,-1) {John};
+\node at (2,-1) {João};
 \node at (2,-2.5) {Maria};
-\node at (2,-4) {Peter};
+\node at (2,-4) {Pedro};
 \node at (2,-5.5) {Lisa};
 
 \path[draw,dashed] (10,0)--(10,-6.5);
@@ -118,24 +118,24 @@ In the example, the events are processed as follows:
 \node at (13,-8) {$1$};
 \end{tikzpicture}
 \end{center}
-The symbols $+$ and $-$ indicate whether the
-value of the counter increases or decreases,
-and the value of the counter is shown below.
-The maximum value of the counter is 3
-between John's arrival and Maria's leaving.
+Os símbolos $+$ e $-$ indicam se o
+valor do contador aumenta ou diminui,
+e o valor do contador é mostrado abaixo.
+O valor máximo do contador é 3
+entre a chegada de João e a saída de Maria.
 
-The running time of the algorithm is $O(n \log n)$,
-because sorting the events takes $O(n \log n)$ time
-and the rest of the algorithm takes $O(n)$ time.
+O tempo de execução do algoritmo é $O(n \log n)$,
+porque ordenar os eventos leva tempo $O(n \log n)$
+e o restante do algoritmo leva tempo $O(n)$.
 
-\section{Intersection points}
+\section{Pontos de interseção}
 
-\index{intersection point}
+\index{ponto de interseção}
 
-Given a set of $n$ line segments, each of them being either
-horizontal or vertical, consider the problem of
-counting the total number of intersection points.
-For example, when the line segments are
+Dado um conjunto de $n$ segmentos de linha, cada um deles sendo
+horizontal ou vertical, considere o problema de
+contar o número total de pontos de interseção.
+Por exemplo, quando os segmentos de linha são
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \path[draw,thick,-] (0,2) -- (5,2);
@@ -145,7 +145,7 @@ For example, when the line segments are
 \path[draw,thick,-] (8,2) -- (8,5);
 \end{tikzpicture}
 \end{center}
-there are three intersection points:
+existem três pontos de interseção:
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \path[draw,thick,-] (0,2) -- (5,2);
@@ -161,23 +161,23 @@ there are three intersection points:
 \end{tikzpicture}
 \end{center}
 
-It is easy to solve the problem in $O(n^2)$ time,
-because we can go through all possible pairs of line segments
-and check if they intersect.
-However, we can solve the problem more efficiently
-in $O(n \log n)$ time using a sweep line algorithm
-and a range query data structure.
+É fácil resolver o problema em tempo $O(n^2)$,
+porque podemos percorrer todos os pares possíveis de segmentos de linha
+e verificar se eles se cruzam.
+No entanto, podemos resolver o problema de forma mais eficiente
+em tempo $O(n \log n)$ usando um algoritmo de linha de varredura
+e uma estrutura de dados de consulta de intervalo.
 
-The idea is to process the endpoints of the line
-segments from left to right and 
-focus on three types of events:
+A ideia é processar os pontos finais dos segmentos de linha
+da esquerda para a direita e
+focar em três tipos de eventos:
 \begin{enumerate}[noitemsep]
-\item[(1)] horizontal segment begins
-\item[(2)] horizontal segment ends
-\item[(3)] vertical segment
+\item[(1)] segmento horizontal começa
+\item[(2)] segmento horizontal termina
+\item[(3)] segmento vertical
 \end{enumerate}
 
-The following events correspond to the example:
+Os seguintes eventos correspondem ao exemplo:
 \begin{center}
 \begin{tikzpicture}[scale=0.6]
 \path[draw,dashed] (0,2) -- (5,2);
@@ -198,34 +198,33 @@ The following events correspond to the example:
 \end{tikzpicture}
 \end{center}
 
-We go through the events from left to right
-and use a data structure that maintains a set of
-y coordinates where there is an active horizontal segment.
-At event 1, we add the y coordinate of the segment
-to the set, and at event 2, we remove the
-y coordinate from the set.
+Percorremos os eventos da esquerda para a direita
+e usamos uma estrutura de dados que mantém um conjunto de
+coordenadas y onde há um segmento horizontal ativo.
+No evento 1, adicionamos a coordenada y do segmento
+ao conjunto e, no evento 2, removemos a
+coordenada y do conjunto.
 
-Intersection points are calculated at event 3.
-When there is a vertical segment between points
-$y_1$ and $y_2$, we count the number of active
-horizontal segments whose y coordinate is between
-$y_1$ and $y_2$, and add this number to the total
-number of intersection points.
+Os pontos de interseção são calculados no evento 3.
+Quando há um segmento vertical entre os pontos
+$y_1$ e $y_2$, contamos o número de segmentos horizontais ativos cuja coordenada y está entre
+$y_1$ e $y_2$, e adicionamos esse número ao total
+de pontos de interseção.
 
-To store y coordinates of horizontal segments,
-we can use a binary indexed or segment tree,
-possibly with index compression.
-When such structures are used, processing each event
-takes $O(\log n)$ time, so the total running
-time of the algorithm is $O(n \log n)$.
+Para armazenar as coordenadas y dos segmentos horizontais,
+podemos usar uma árvore de índice binário ou árvore de segmentos,
+possivelmente com compactação de índice.
+Quando tais estruturas são usadas, o processamento de cada evento
+leva $O(\log n)$, então o tempo total de execução
+do algoritmo é $O(n \log n)$.
 
-\section{Closest pair problem}
+\section{Problema do par mais próximo}
 
-\index{closest pair}
+\index{par mais próximo}
 
-Given a set of $n$ points, our next problem is
-to find two points whose Euclidean distance is minimum.
-For example, if the points are
+Dado um conjunto de $n$ pontos, nosso próximo problema é
+encontrar dois pontos cuja distância euclidiana seja mínima.
+Por exemplo, se os pontos são
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0)--(12,0)--(12,4)--(0,4)--(0,0);
@@ -247,7 +246,7 @@ For example, if the points are
 \end{tikzpicture}
 \end{center}
 \begin{samepage}
-we should find the following points:
+devemos encontrar os seguintes pontos:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0)--(12,0)--(12,4)--(0,4)--(0,0);
@@ -270,35 +269,35 @@ we should find the following points:
 \end{center}
 \end{samepage}
 
-This is another example of a problem
-that can be solved in $O(n \log n)$ time
-using a sweep line algorithm\footnote{Besides this approach,
-there is also an
-$O(n \log n)$ time divide-and-conquer algorithm \cite{sha75}
-that divides the points into two sets and recursively
-solves the problem for both sets.}.
-We go through the points from left to right
-and maintain a value $d$: the minimum distance
-between two points seen so far.
-At each point, we find the nearest point to the left.
-If the distance is less than $d$, it is the
-new minimum distance and we update
-the value of $d$.
+Este é outro exemplo de um problema
+que pode ser resolvido em tempo $O(n \log n)$
+usando um algoritmo de linha de varredura\footnote{Além desta abordagem,
+também existe um
+algoritmo de divisão e conquista de tempo $O(n \log n)$ \cite{sha75}
+que divide os pontos em dois conjuntos e resolve recursivamente
+o problema para ambos os conjuntos.}.
+Percorremos os pontos da esquerda para a direita
+e mantemos um valor $d$: a distância mínima
+entre dois pontos vistos até agora.
+Em cada ponto, encontramos o ponto mais próximo à esquerda.
+Se a distância for menor que $d$, é a
+nova distância mínima e atualizamos
+o valor de $d$.
 
-If the current point is $(x,y)$
-and there is a point to the left
-within a distance of less than $d$,
-the x coordinate of such a point must
-be between $[x-d,x]$ and the y coordinate
-must be between $[y-d,y+d]$.
-Thus, it suffices to only consider points
-that are located in those ranges,
-which makes the algorithm efficient.
+Se o ponto atual é $(x,y)$
+e há um ponto à esquerda
+a uma distância menor que $d$,
+a coordenada x de tal ponto deve
+estar entre $[x-d,x]$ e a coordenada y
+deve estar entre $[y-d,y+d]$.
+Assim, basta considerar apenas os pontos
+que estão localizados nesses intervalos,
+o que torna o algoritmo eficiente.
 
-For example, in the following picture, the
-region marked with dashed lines contains
-the points that can be within a distance of $d$
-from the active point:
+Por exemplo, na imagem a seguir, a
+região marcada com linhas tracejadas contém
+os pontos que podem estar a uma distância de $d$
+do ponto ativo:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -331,29 +330,29 @@ from the active point:
 \end{tikzpicture}
 \end{center}
 
-The efficiency of the algorithm is based on the fact
-that the region always contains
-only $O(1)$ points.
-We can go through those points in $O(\log n)$ time
-by maintaining a set of points whose x coordinate
-is between $[x-d,x]$, in increasing order according
-to their y coordinates.
+A eficiência do algoritmo é baseada no fato
+de que a região sempre contém
+apenas $O(1)$ pontos.
+Podemos percorrer esses pontos em tempo $O(\log n)$
+mantendo um conjunto de pontos cuja coordenada x
+está entre $[x-d,x]$, em ordem crescente de acordo
+com suas coordenadas y.
 
-The time complexity of the algorithm is $O(n \log n)$,
-because we go through $n$ points and
-find for each point the nearest point to the left
-in $O(\log n)$ time.
+A complexidade de tempo do algoritmo é $O(n \log n)$,
+porque percorremos $n$ pontos e
+encontramos para cada ponto o ponto mais próximo à esquerda
+em tempo $O(\log n)$.
 
-\section{Convex hull problem}
+\section{Problema do fecho convexo}
 
-A \key{convex hull} is the smallest convex polygon
-that contains all points of a given set.
-Convexity means that a line segment between
-any two vertices of the polygon is completely
-inside the polygon.
+Um \key{fecho convexo} é o menor polígono convexo
+que contém todos os pontos de um determinado conjunto.
+Convexidade significa que um segmento de linha entre
+quaisquer dois vértices do polígono está completamente
+dentro do polígono.
 
 \begin{samepage}
-For example, for the points
+Por exemplo, para os pontos
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) circle [radius=0.1];
@@ -373,7 +372,7 @@ For example, for the points
 \end{tikzpicture}
 \end{center}
 \end{samepage}
-the convex hull is as follows:
+o fecho convexo é o seguinte:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0)--(4,-1)--(7,1)--(6,3)--(2,4)--(0,2)--(0,0);
@@ -395,31 +394,31 @@ the convex hull is as follows:
 \end{tikzpicture}
 \end{center}
 
-\index{Andrew's algorithm}
+\index{algoritmo de Andrew}
 
-\key{Andrew's algorithm} \cite{and79} provides
-an easy way to
-construct the convex hull for a set of points
-in $O(n \log n)$ time.
-The algorithm first locates the leftmost
-and rightmost points, and then
-constructs the convex hull in two parts:
-first the upper hull and then the lower hull.
-Both parts are similar, so we can focus on
-constructing the upper hull.
+O \key{algoritmo de Andrew} \cite{and79} fornece
+uma maneira fácil de
+construir o fecho convexo para um conjunto de pontos
+em tempo $O(n \log n)$.
+O algoritmo primeiro localiza os pontos mais à esquerda
+e mais à direita, e então
+constrói o fecho convexo em duas partes:
+primeiro o casco superior e depois o casco inferior.
+Ambas as partes são semelhantes, então podemos nos concentrar em
+construir o casco superior.
 
-First, we sort the points primarily according to
-x coordinates and secondarily according to y coordinates.
-After this, we go through the points and
-add each point to the hull.
-Always after adding a point to the hull,
-we make sure that the last line segment
-in the hull does not turn left.
-As long as it turns left, we repeatedly remove the
-second last point from the hull.
+Primeiro, ordenamos os pontos primeiramente de acordo
+com as coordenadas x e secundariamente de acordo com as coordenadas y.
+Depois disso, percorremos os pontos e
+adicionamos cada ponto ao casco.
+Sempre depois de adicionar um ponto ao casco,
+certificamo-nos de que o último segmento de linha
+no casco não vire à esquerda.
+Enquanto ele virar à esquerda, removemos repetidamente o
+penúltimo ponto do casco.
 
-The following pictures show how
-Andrew's algorithm works:
+As figuras a seguir mostram como
+o algoritmo de Andrew funciona:
 \\
 \begin{tabular}{ccccccc}
 \\
