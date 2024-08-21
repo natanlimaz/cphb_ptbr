@@ -39,6 +39,10 @@ https://cses.fi/book/
 
 Apesar da tradução inicial estar completa, sempre há espaço para melhorias, seja na correção de erros, revisão de termos técnicos ou aprimoramento da fluidez do texto. Sua contribuição é bem-vinda!
 
+<div align="center">
+  <img src="https://repobeats.axiom.co/api/embed/f42673821399e77cfd56ee742c2587fbd5a575fd.svg" alt="Repobeats analytics image" title="Repobeats analytics image"/>
+</div>
+
 ### Como Contribuir
 
 1. **Fork do Repositório**: Faça um fork deste repositório para sua conta do GitHub.
