@@ -69,6 +69,7 @@ Apesar da tradução inicial estar completa, sempre há espaço para melhorias, 
 - Mantenha a formatação e estrutura originais do LaTeX.
 - Preste atenção especial à tradução de termos técnicos.
 - Se tiver dúvidas sobre algum termo ou trecho, deixe um comentário no PR para discussão.
-- Para iniciantes: No arquivo `book.tex`, há a inclusão dos capítulos. Para incluir um capítulo específico no PDF compilado, remova o comentário da linha correspondente. Por exemplo:
-  - Para incluir o Capítulo 1, mude `%\include{chapter01}` para `\include{chapter01}`
-  - Isso permite que você trabalhe e visualize capítulos específicos sem precisar compilar o livro inteiro.
+- Por padrão, o arquivo `book.tex` inclui todos os capítulos e compila o livro inteiro.
+- Para compilar apenas um capítulo, mantenha a inclusão desejada ativa e comente as demais. Por exemplo:
+  - Para incluir apenas o Capítulo 1, mantenha `\include{chapter01}` e comente as outras inclusões.
+- Para gerar o livro completo no GitHub, abra a aba **Actions**, selecione **Compilar livro** e clique em **Run workflow**. O PDF ficará disponível como artefato da execução.
