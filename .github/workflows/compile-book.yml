@@ -1,0 +1,30 @@
+name: Compilar livro
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v6
+
+      - name: Compilar PDF
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: book.tex
+          texlive_version: 2026
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+          pre_compile: tlmgr update --self && tlmgr install skak
+
+      - name: Publicar PDF
+        uses: actions/upload-artifact@v7
+        with:
+          name: manual-do-programador-competitivo
+          path: book.pdf
+          if-no-files-found: error
